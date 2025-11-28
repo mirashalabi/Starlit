@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starlit – Home</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script defer src="assets/js/main.js"></script>
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <a href="index.html" class="logo">Starlit</a>
+        <ul class="nav-links">
+            <li><a href="events.html">Events</a></li>
+            <li><a href="photography.html">Photography</a></li>
+            <li><a href="rentals.html">Rentals</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+
+    <!-- HERO -->
+    <section class="hero hero-home">
+        <div class="hero-home-inner">
+            <p class="hero-kicker">Starlit Events & Photography</p>
+            <h1>Creating Moments<br>That Sparkle</h1>
+            <p class="hero-subtitle">
+                Elegant event planning, curated rentals, and timeless photography
+                across Ottawa, Montreal, Toronto & beyond.
+            </p>
+            <a href="#services" class="btn-primary">Explore Our Services</a>
+        </div>
+    </section>
+
+    <!-- SHORT ABOUT -->
+    <section class="home-section intro">
+        <h2 class="section-title">Grow Your Vision</h2>
+        <p class="section-text">
+            Starlit brings unforgettable events to life through thoughtful planning,
+            curated décor, and storytelling photography. From intimate celebrations
+            to full-scale events, we handle the details so you can be fully present.
+        </p>
+    </section>
+
+    <!-- WHAT WE DO -->
+    <section id="services" class="home-section what-we-do">
+        <h2 class="section-title">What We Do</h2>
+        <div class="service-grid">
+            <a href="events.html" class="service-card service-link">
+                <h3>Event Planning</h3>
+                <p>From concept to day-of coordination, we design events that feel effortless and personal.</p>
+            </a>
+
+            <a href="photography.html" class="service-card service-link">
+                <h3>Photography</h3>
+                <p>Warm, candid imagery that captures the feeling of your day, not just the details.</p>
+            </a>
+
+            <a href="rentals.html" class="service-card service-link">
+                <h3>Rentals</h3>
+                <p>Backdrops, décor, tableware and more to transform any space into something magical.</p>
+            </a>
+        </div>
+        
+    </section>
+
+    <!-- REVIEWS CAROUSEL -->
+    <section class="reviews fullwidth-reviews">
+        <h2 class="section-title" style="text-align:center; margin-top:90px; color:white; position:relative; z-index:5;">
+            Kind Words
+        </h2>
+        <div class="review-carousel">
+            <button class="review-arrow review-arrow-left" aria-label="Previous review">&#10094;</button>
+
+            <div class="review-track">
+                <!-- Review 1 -->
+                <article class="review-slide active" data-bg="Reviews_1.JPG">
+                    <p class="review-text">
+                        “Everything we rented was of the highest quality, from the vases to the elegant furniture.
+                        It made all the difference!”
+                    </p>
+                    <p class="review-name">— Yasmin, Ottawa ON</p>
+                </article>
+
+                <!-- Review 2 -->
+                <article class="review-slide" data-bg="Reviews_2.JPG">
+                    <p class="review-text">
+                        “Starlit turned our vision into reality. The setup, the flow, the tiny details—everything
+                        felt intentional and so us.”
+                    </p>
+                    <p class="review-name">— Sarah & Omar, Montreal QC</p>
+                </article>
+
+                <!-- Review 3 -->
+                <article class="review-slide" data-bg="Reviews_3.JPG">
+                    <p class="review-text">
+                        “Seamless, stress-free and stunning. Guests are still talking about how beautiful the space looked.”
+                    </p>
+                    <p class="review-name">— Lina, Toronto ON</p>
+                </article>
+            </div>
+
+            <button class="review-arrow review-arrow-right" aria-label="Next review">&#10095;</button>
+
+            <div class="review-dots">
+                <button class="dot active" data-index="0"></button>
+                <button class="dot" data-index="1"></button>
+                <button class="dot" data-index="2"></button>
+            </div>
+        </div>
+        <!-- Replace the review text above with your real Google review quotes -->
+    </section>
+
+    <!-- NEWSLETTER / EMAIL SIGN-UP (Netlify form) -->
+    <section class="home-section newsletter">
+        <div class="newsletter-inner">
+            <h2 class="section-title">Stay in the Know</h2>
+            <p class="section-text">
+                Be the first to hear about new setups, seasonal packages, and behind-the-scenes moments.
+            </p>
+            <form name="newsletter" method="POST" data-netlify="true" class="newsletter-form">
+                <input type="hidden" name="form-name" value="newsletter">
+                <input type="email" name="email" placeholder="Enter your email *" required>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </section>
+
+</main>
+
+<!-- FOOTER -->
+<div data-include="footer.html"></div>
+<script src="assets/js/include.js"></script>
+
+
+</body>
+</html>

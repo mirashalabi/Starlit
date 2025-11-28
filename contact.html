@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact – Starlit Events</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script defer src="assets/js/contact.js"></script>
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar">
+        <a href="index.html" class="logo">Starlit</a>
+        <ul class="nav-links">
+            <li><a href="events.html">Events</a></li>
+            <li><a href="photography.html">Photography</a></li>
+            <li><a href="rentals.html">Rentals</a></li>
+            <li><a href="contact.html" class="active">Contact Us</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- MAIN WRAPPER -->
+<div class="contact-wrapper-with-cart">
+
+    <!-- LEFT COLUMN -->
+    <div class="left-column">
+        <div class="contact-left">
+            <h1 class="contact-heading">GET IN<br>TOUCH</h1>
+            <p class="contact-subtext">
+                Planning a memorable event?<br>
+                Reach out to us for a unique experience.
+            </p>
+        </div>
+
+        <!-- Inquiry Cart -->
+        <div id="inquiryCartSection">
+            <h2 class="inquiry-cart-title">Items in Your Inquiry</h2>
+
+            <p id="emptyInquiryMessage" class="inquiry-empty">
+                No items have been added to your inquiry yet.
+            </p>
+
+            <div id="inquiryItemsList" class="inquiry-items-list"></div>
+        </div>
+    </div>
+
+    <!-- RIGHT COLUMN (FORM) -->
+    <form name="contact" method="POST" data-netlify="true"
+          id="contactForm" novalidate class="contact-form">
+
+        <input type="hidden" name="form-name" value="contact">
+        <input type="hidden" name="inquiry_items" id="inquiry_items_field">
+
+        <div class="form-row">
+            <div class="field-group">
+                <label>First Name *</label>
+                <input type="text" name="name" id="name" required>
+            </div>
+
+            <div class="field-group">
+                <label>Last Name *</label>
+                <input type="text" name="lastname" id="lastname" required>
+            </div>
+        </div>
+
+        <label>Email Address *</label>
+        <input type="email" name="email" id="email" required>
+
+        <label>Phone Number *</label>
+        <input type="tel" name="phone" id="phone" required>
+
+        <label>Inquiry Type *</label>
+        <div class="select-wrapper">
+            <select name="inquiry_type" id="inquiry_type" required>
+                <option value="">Select one...</option>
+                <option>Event</option>
+                <option>Rental</option>
+                <option>Photography</option>
+                <option>General</option>
+            </select>
+        </div>
+
+        <label>Event Date (optional)</label>
+        <input type="date" name="event_date" id="event_date">
+
+        <label>Message *</label>
+        <textarea name="message" id="message" rows="5" required></textarea>
+
+        <button type="submit" class="contact-send-btn">Send</button>
+
+        <p id="contactSuccess" class="contact-success" hidden>
+            🎉 Your message has been sent! We’ll get back to you soon.
+        </p>
+
+    </form>
+
+</div>
+
+<!-- OPERATING HOURS SECTION WITH VIDEO BANNER -->
+<div class="contact-hours-banner-wrapper">
+
+    <!-- Full-width thin banner video -->
+    <video class="contact-hours-banner" autoplay muted loop playsinline>
+        <source src="assets/images/Contact_Us_Banner.MP4" type="video/mp4">
+    </video>
+
+    <!-- Operating Hours content -->
+    <div class="contact-hours-section">
+        <img src="assets/images/Contact_Us_Operating_Hours.JPG" 
+             alt="Operating Hours Image" class="contact-hours-image">
+
+        <div class="contact-hours-text">
+            <h2>OPERATING HOURS</h2>
+            <p>Monday to Friday: 8am–8pm</p>
+            <p>Saturday & Sunday: 8am–4pm</p>
+        </div>
+    </div>
+</div>
+
+
+<div data-include="footer.html"></div>
+<script src="assets/js/include.js"></script>
+
+
+</body>
+</html>
