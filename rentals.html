@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starlit – Rentals</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script defer src="assets/js/main.js"></script>
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <a href="index.html" class="logo">Starlit</a>
+        <ul class="nav-links">
+            <li><a href="events.html">Events</a></li>
+            <li><a href="photography.html">Photography</a></li>
+            <li><a href="rentals.html">Rentals</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </nav>
+</header>
+
+<h1 class="page-title">Rentals</h1>
+
+
+<div class="rentals-layout">
+    <aside class="rentals-sidebar">
+        <h2>Filter by Category</h2>
+
+        <ul id="categoryFilters" class="category-list">
+            <!-- Populated by JS -->
+        </ul>
+
+        <p class="rentals-sidebar-note">
+            Add items to your inquiry using the “Add to Inquiry” button.  
+            You can review and submit your inquiry on the Contact Us page.
+        </p>
+    </aside>
+
+
+    <main class="rentals-main">
+        <div class="filter-bar">
+            <input id="searchBox" type="text" placeholder="Search item name...">
+            <div class="sort-wrapper">
+            <select id="sortSelect">
+                <option value="none">Sort by…</option>
+                <option value="low">Price: Low → High</option>
+                <option value="high">Price: High → Low</option>
+                <option value="name">Name: A → Z</option>
+            </select>
+            <button id="sortIconButton" class="sort-icon" aria-label="Sort items">
+                &#x2630;  <!-- simple icon, can be changed -->
+            </button>
+        </div>
+
+        </div>
+
+        <div id="rentalGrid" class="rental-grid"></div>
+        <div class="pagination">
+            <button id="prevPage" disabled>Previous</button>
+            <span id="pageInfo"></span>
+            <button id="nextPage" disabled>Next</button>
+        </div>
+
+        <p id="rentalEmptyState" class="rental-empty" hidden>
+            No items match your filters yet.
+        </p>
+    </main>
+</div>
+
+<!-- RENTAL ITEM POPUP MODAL -->
+<div id="rentalModal" class="modal-overlay" hidden>
+    <div class="modal-content">
+
+        <button class="modal-close">&times;</button>
+
+        <div class="modal-left">
+            <img id="modalMainImage" src="" alt="">
+            <div id="modalThumbs" class="modal-thumbs"></div>
+        </div>
+
+        <div class="modal-right">
+            <h2 id="modalTitle"></h2>
+            <p id="modalPrice" class="modal-price"></p>
+            <p id="modalDescription" class="modal-description"></p>
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+
+<div id="toast" class="toast" hidden>Added to inquiry</div>
+
+<div data-include="footer.html"></div>
+<script src="assets/js/include.js"></script>
+
+
+</body>
+</html>

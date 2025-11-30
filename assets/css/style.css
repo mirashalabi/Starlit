@@ -1,0 +1,2438 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+
+:root{
+    --max-width:1100px;
+    --accent:#b98b5a; /* warm gold */
+    --muted:#888;
+    --bg:#ffffff;
+    --card:#fafafa;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+    margin:0;
+    font-family: "Arial Rounded MT", "Poppins", Arial, sans-serif;
+    color:#222;
+    background:var(--bg);
+    -webkit-font-smoothing:antialiased;
+}
+/* ---------- Navbar ---------- */
+.navbar{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid #eee}
+.logo{font-size:20px;font-weight:700;color:var(--accent);text-decoration:none}
+.nav-links{list-style:none;display:flex;gap:18px;margin:0;padding:0}
+.nav-links a{color:#222;text-decoration:none;font-weight:600}
+
+/* Mobile nav fallback */
+@media (max-width:700px){
+    .nav-links{display:none}
+    .navbar{padding:12px}
+}
+
+/* ---------- Hero ---------- */
+.hero{padding:80px 20px;text-align:center;background:linear-gradient(180deg, rgba(250,246,243,1), rgba(255,255,255,1));}
+.hero h1{margin:0;font-size:36px;letter-spacing:0.5px}
+.hero p{margin-top:10px;color:var(--muted)}
+
+/* ---------- Home Hero ---------- */
+
+.hero-home{
+    position:relative;
+    min-height:70vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:#fff;
+    padding:140px 20px 120px;
+    background:
+        linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.4)),
+        url("../images/Header.JPG") center/cover no-repeat;
+}
+
+.hero-home-inner{
+    max-width:700px;
+}
+
+.hero-kicker{
+    text-transform:uppercase;
+    letter-spacing:2px;
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+.hero-home h1{
+    margin:0 0 10px;
+    font-size:50px;
+    letter-spacing:1px;
+    font-family: "Times New Roman", serif;
+}
+
+.hero-subtitle{
+    margin-top:8px;
+    color:#f4f4f4;
+    font-size:16px;
+    max-width:520px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.btn-primary{
+    display:inline-block;
+    margin-top:24px;
+    padding:10px 26px;
+    border-radius:999px;
+    border:1px solid #fff;
+    background:transparent;
+    color:#fff;
+    text-decoration:none;
+    font-size:14px;
+    letter-spacing:0.5px;
+    cursor:pointer;
+    transition:background 0.2s, color 0.2s;
+}
+.btn-primary:hover{
+    background:#fff;
+    color:#333;
+}
+
+/* ---------- Generic Home Sections ---------- */
+
+.home-section{
+    max-width:var(--max-width);
+    margin:70px auto;
+    padding:0 20px;
+    text-align:center;
+}
+
+.section-title{
+    font-family:"Times New Roman", serif;
+    font-size:34px;
+    margin-bottom:12px;
+}
+
+.section-text{
+    max-width:700px;
+    margin:0 auto;
+    color:var(--muted);
+    line-height:1.6;
+}
+
+/* ---------- What We Do ---------- */
+
+.what-we-do{
+    margin-top:80px;
+}
+
+.service-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+    margin-top:40px;
+}
+
+.service-card{
+    border:1px solid #ddd;
+    padding:26px 24px;
+    text-align:left;
+    background:#fff;
+}
+.service-card h3{
+    margin-top:0;
+    font-size:20px;
+}
+.service-card p{
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.6;
+}
+.text-link{
+    display:inline-block;
+    margin-top:18px;
+    font-size:14px;
+    text-decoration:none;
+    border-bottom:1px solid #000;
+    padding-bottom:2px;
+}
+
+/* ---------- Reviews Carousel ---------- */
+
+.reviews{
+    margin-top:80px;
+}
+
+/*.review-carousel{
+    position:relative;
+    max-width:750px;
+    margin:30px auto 0;
+    padding:30px 40px;
+    border:1px solid #eee;
+    background:#fff;
+}*/
+
+.review-track{
+    min-height:140px;
+}
+
+.review-slide{
+    display:none;
+}
+.review-slide.active{
+    display:block;
+}
+
+.review-text{
+    font-size:16px;
+    line-height:1.7;
+    margin-bottom:16px;
+}
+.review-name{
+    font-size:14px;
+    color:var(--muted);
+}
+
+.review-arrow{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    border:none;
+    background:transparent;
+    font-size:26px;
+    cursor:pointer;
+    padding:0 10px;
+}
+.review-arrow-left{left:10px;}
+.review-arrow-right{right:10px;}
+
+.review-dots{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin-top:18px;
+}
+.review-dots .dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    border:1px solid #555;
+    background:transparent;
+    cursor:pointer;
+}
+.review-dots .dot.active{
+    background:#555;
+}
+
+/* ---------- Newsletter ---------- */
+
+.newsletter{
+    margin-top:90px;
+}
+.newsletter-inner{
+    max-width:800px;
+    margin:0 auto;
+    padding:32px 26px 36px;
+    background:#f8f8f8;
+}
+.newsletter-form{
+    margin-top:24px;
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+.newsletter-form input[type="email"]{
+    flex:1;
+    min-width:220px;
+    padding:10px 12px;
+    border-radius:0;
+    border:none;
+    border-bottom:2px solid #333;
+    font-size:14px;
+}
+.newsletter-form button{
+    padding:10px 26px;
+    border:none;
+    background:#333;
+    color:#fff;
+    font-size:14px;
+    cursor:pointer;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer{
+    margin-top:80px;
+    padding:40px 20px 30px;
+    border-top:1px solid #eee;
+    text-align:center;
+}
+
+.footer-top{
+    max-width:var(--max-width);
+    margin:0 auto 20px;
+    display:flex;
+    justify-content:space-between;
+    gap:40px;
+    flex-wrap:wrap;
+}
+
+.footer-column{
+    flex:1;
+    min-width:200px;
+    text-align:center;
+}
+
+.footer-heading{
+    font-weight:600;
+    margin-bottom:6px;
+}
+
+.footer-logo{
+    width:180px;
+    margin-bottom:6px;
+}
+
+.footer-locations{
+    font-size:14px;
+    color:var(--muted);
+}
+
+/* Footer social icons */
+.footer-socials {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 6px;
+}
+
+.social-icon {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    background: transparent;
+    border: none;
+}
+
+.social-icon img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    filter: none !important;      /* 🔥 force-remove old filters */
+    opacity: 1 !important;        /* 🔥 remove fade effects */
+}
+
+/* Optional hover */
+.social-icon:hover img {
+    transform: scale(1.08);
+}
+
+
+.footer-bottom{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:10px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width:900px){
+    .hero-home{
+        padding:110px 20px 80px;
+    }
+    .hero-home h1{
+        font-size:38px;
+    }
+    .service-grid{
+        grid-template-columns:1fr;
+    }
+    .review-carousel{
+        padding:24px 24px 28px;
+    }
+}
+
+
+.page-title{max-width:var(--max-width);margin:40px auto 20px;padding:0 20px;font-size:28px}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+
+/* ---------- Event rows + carousel ---------- */
+.event-row{display:flex;gap:30px;align-items:center;justify-content:center;max-width:var(--max-width);margin:30px auto;padding:20px;border-bottom:1px solid #f0f0f0}
+.event-text{flex:1;min-width:260px}
+.event-text h2{margin:0 0 12px;font-family:Georgia, 'Times New Roman', serif;font-weight:500}
+.event-text p{color:var(--muted);line-height:1.6}
+.carousel{width:420px;height:320px;position:relative;border-radius:8px;overflow:hidden;flex-shrink:0;background:#eee}
+.carousel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.8s ease}
+.carousel img.show{opacity:1}
+
+@media (max-width:980px){
+    .event-row{flex-direction:column}
+    .carousel{width:100%;height:260px}
+    .event-text{width:100%}
+}
+
+/* ---------- Photography grid ---------- */
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:var(--max-width);margin:20px auto;padding:0 20px}
+.photo-card{background:var(--card);border:1px solid #eee;padding:14px;border-radius:8px;text-align:left}
+.photo-card img{width:100%;height:260px;object-fit:cover;border-radius:6px}
+.photo-card h3{margin:12px 0 6px;font-size:18px}
+.photo-card p{color:var(--muted);margin:0}
+
+@media (max-width:980px){
+    .photo-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:600px){
+    .photo-grid{grid-template-columns:1fr}
+}
+
+/* ---------- Rentals ---------- */
+
+.rentals-layout{
+    max-width:var(--max-width);
+    margin:0 auto 40px;
+    padding:0 20px 40px;
+    display:flex;
+    gap:24px;
+    align-items:flex-start;
+}
+
+.rentals-sidebar{
+    width:230px;
+    padding:0;
+    background:none;
+    border:none;
+    border-radius:0;
+    position:sticky;
+    top:80px;
+}
+
+.rentals-sidebar h2{
+    margin:0 0 12px;
+    font-size:18px;
+    font-family: "Arial Rounded MT", Arial, sans-serif;
+    font-weight:600;
+}
+
+.category-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.category-chip{
+    background:none;
+    border:none;
+    padding:4px 0;
+    font-size:16px;
+    text-align:left;
+    cursor:pointer;
+    color:#444;
+    font-weight:500;
+    font-family: "Arial Rounded MT", Arial, sans-serif;
+    transition:color 0.2s ease;
+}
+
+.category-chip:hover{
+    color:var(--accent);
+}
+
+.category-chip.active{
+    color:var(--accent);
+    font-weight:700;
+    text-decoration:underline;
+}
+
+.rentals-main{
+    flex:1;
+    min-width:0;
+}
+
+.sort-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+#sortSelect {
+    opacity: 0;         /* hide the original dropdown */
+    position: absolute;
+    left: 0;
+    width: 40px;        /* small clickable area */
+    height: 40px;
+    cursor: pointer;
+}
+
+.sort-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: "Arial Rounded MT", Arial, sans-serif;
+}
+
+.sort-icon:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+}
+
+/* Search + sort */
+.filter-bar{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    margin-bottom:16px;
+}
+
+.filter-bar input{
+    flex:1;
+    padding:8px 10px;
+    border-radius:20px;
+    border:1px solid #ddd;
+    font-size:14px;
+}
+
+.filter-bar select{
+    padding:8px 10px;
+    border-radius:20px;
+    border:1px solid #ddd;
+    font-size:14px;
+}
+
+/* Grid of cards */
+.rental-grid{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:20px;
+}
+
+.rental-card{
+    background:var(--card);
+    border:1px solid #eee;
+    border-radius:12px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    cursor:pointer;
+    transition:box-shadow 0.18s ease,transform 0.18s ease;
+    text-align:center;
+}
+
+.rental-card:hover{
+    box-shadow:0 8px 18px rgba(0,0,0,0.06);
+    transform:translateY(-2px);
+}
+
+.rental-image{
+    position:relative;
+    width:100%;
+    padding-top:100%; /* perfect square */
+    overflow:hidden;
+    background:#f3f3f3;
+}
+
+.rental-image img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.rental-body{
+    padding:12px 14px 14px;
+    text-align:center;
+}
+
+.rental-category{
+    display:block;
+    font-size:11px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:6px;
+}
+
+.rental-name{
+    margin:0 0 6px;
+    font-size:16px;
+}
+
+.rental-price{
+    margin:0;
+    font-size:14px;
+    color:var(--accent);
+    font-weight:600;
+}
+
+.rental-empty{
+    margin-top:20px;
+    color:var(--muted);
+    font-size:14px;
+}
+
+/* Responsive layout */
+@media (max-width:980px){
+    .rentals-layout{
+        flex-direction:column;
+    }
+    .rentals-sidebar{
+        position:static;
+        width:100%;
+        display:flex;
+        flex-direction:column;
+        gap:8px;
+    }
+    .category-list{
+        flex-direction:row;
+        flex-wrap:wrap;
+    }
+    .category-chip{
+        width:auto;
+    }
+    .rental-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+}
+
+@media (max-width:600px){
+    .rental-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+.rentals-sidebar-note {
+    margin-top: 20px;
+    padding: 12px 14px;
+    background: #fafafa;
+    border-left: 4px solid var(--accent);  /* gold accent bar */
+    font-size: 13px;
+    line-height: 1.5;
+    color: #555;
+    border-radius: 6px;
+}
+
+
+/* UNIFIED CARD STYLE (matches rentals) */
+.unified-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.unified-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.unified-image {
+    width: 100%;
+    overflow: hidden;
+}
+
+.unified-image img {
+    width: 100%;
+    height: auto;            /* ← keeps your tall photography ratio */
+    object-fit: cover;
+}
+
+.unified-body {
+    padding: 16px 14px;
+    text-align: center;
+}
+
+.unified-body h3 {
+    margin-bottom: 6px;
+    font-size: 1.05rem;
+}
+
+.unified-body p {
+    margin: 4px 0;
+    font-size: 0.9rem;
+}
+
+/* Photography cards: force 3:4 aspect ratio */
+.photo-image {
+    width: 100%;
+    aspect-ratio: 4/3;     /* PERFECT 4:3 ratio */
+    overflow: hidden;
+    border-radius: 10px;     /* optional, matches rentals style better */
+}
+
+.photo-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;        /* fills the 3:4 frame perfectly */
+    object-position: center;  /* keeps subject centered */
+}
+
+
+/* Photography tagline: small subtle text like rentals */
+.photo-tagline {
+    font-size: 12px !important; 
+    color: var(--muted) !important;
+    margin: 4px 0;
+    font-weight: 500;
+}
+
+/* Photography price should match Rentals price styling */
+.photo-price {
+    color: var(--accent) !important;   /* #b98b5a */
+    font-weight: 600;
+    font-size: 14px;                   /* same as rentals */
+    margin-top: 6px;
+}
+
+
+
+
+/* --- CONTACT PAGE NEW DESIGN (Matches Starlit Screenshot) --- */
+
+.contact-wrapper {
+    max-width: 1300px;
+    margin: 60px auto;
+    padding: 0 40px;
+    display: flex;
+    gap: 80px;
+}
+
+.contact-left {
+    flex: 1;
+    padding-top: 40px;
+}
+
+.contact-heading {
+    font-family: "Times New Roman", serif;
+    font-size: 70px;
+    line-height: 1.1;
+    margin: 0 0 20px;
+}
+
+.contact-subtext {
+    font-size: 18px;
+    margin: 20px 0 40px;
+}
+
+.contact-hours {
+    margin-top: 30px;
+}
+
+.contact-hours h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+}
+
+.contact-logo {
+    width: 260px;
+    margin-top: 80px;
+    opacity: 0.9;
+}
+
+/* FORM SIDE */
+.contact-form {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.field-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-form label {
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    border: none;
+    border-bottom: 2px solid black;
+    padding: 8px 4px;
+    font-size: 15px;
+    background: transparent;
+    outline: none;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: var(--accent);
+}
+
+.contact-send-btn {
+    width: 150px;
+    padding: 12px;
+    border: 1px solid black;
+    background: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.2s;
+}
+
+.contact-send-btn:hover {
+    background: #f2f2f2;
+}
+
+.field-error {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/* SUCCESS MESSAGE */
+.contact-success {
+    margin-top: 20px;
+    padding: 12px;
+    background: #e8ffe8;
+    border: 1px solid #77cc77;
+    color: #0a640a;
+    font-weight: 600;
+    border-radius: 6px;
+}
+
+/* Fix spacing consistency */
+.contact-form select,
+.contact-form input,
+.contact-form textarea,
+.select-wrapper {
+    margin-bottom: 0;
+}
+
+.field-error {
+    margin-top: 4px;
+    margin-bottom: -4px; /* Pulls elements closer consistently */
+}
+
+/* Add equal spacing before the Message label */
+label[for="message"],
+label:has(+ #message) {
+    margin-top: 20px; /* Adjust to 16–24px if needed */
+    display: block;
+}
+
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .contact-wrapper {
+        flex-direction: column;
+        padding: 0 20px;
+    }
+    .contact-logo {
+        margin-bottom: 40px;
+    }
+}
+
+/* Sleek Dropdown Styling */
+.select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.select-wrapper select {
+    width: 100%;
+    padding: 8px 4px;
+    border: none;
+    border-bottom: 2px solid black;
+    background: transparent;
+    font-size: 15px;
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+}
+
+/* Custom dropdown arrow */
+.select-wrapper::after {
+    content: "▾";
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: black;
+    pointer-events: none;
+}
+
+/* Hover style */
+.select-wrapper select:hover {
+    border-bottom-color: var(--accent);
+}
+
+/* Focus style */
+.select-wrapper select:focus {
+    border-bottom-color: var(--accent);
+}
+
+/* Date input placeholder formatting */
+input[type="date"]:not(.has-value)::before {
+    content: attr(placeholder);
+    color: #999;
+    position: absolute;
+    left: 0;
+}
+
+/* Hide default date text when selected */
+input[type="date"].has-value::before {
+    content: "";
+}
+
+/* Smooth fade-out placeholder text */
+textarea::placeholder {
+    color: #999;
+    opacity: 1;
+    transition: opacity 0.25s ease;
+}
+
+textarea:focus::placeholder {
+    opacity: 0;
+}
+
+/* DESKTOP LAYOUT: two columns */
+.contact-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 80px;
+    max-width: 1300px;
+    margin: 60px auto;
+    padding: 0 40px;
+}
+
+.contact-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-form {
+    flex: 1.2;
+}
+
+/* MOBILE LAYOUT */
+@media (max-width: 900px) {
+
+    .contact-wrapper {
+        flex-direction: column;
+    }
+
+    /* 1. Title + Subtext */
+    .contact-left {
+        order: 1;
+        text-align: left;
+    }
+
+    /* 2. Form */
+    .contact-form {
+        order: 2;
+    }
+
+    /* 3. Move HOURS + LOGO under form */
+    .contact-hours,
+    .contact-logo {
+        order: 3;
+        align-self: center;
+        text-align: center;
+    }
+
+    .contact-logo {
+        width: 200px;
+        margin-top: 20px;
+    }
+}
+
+.service-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid #ddd;
+    padding: 26px 24px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.service-link:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* -------------------- EVENTS HERO -------------------- */
+
+.events-hero {
+    max-width: var(--max-width);
+    margin: 60px auto 40px;
+    padding: 0 20px;
+}
+
+.events-hero h1 {
+    font-family: "Times New Roman", serif;
+    font-size: 50px;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.events-hero p {
+    font-size: 18px;
+    color: var(--accent);
+    max-width: 600px;
+    line-height: 1.5;
+}
+
+/* -------------------- EVENTS PAGE FONT FIXES -------------------- */
+
+/* Page title in GOLD */
+.events-hero h1 {
+    font-family: "Arial Rounded MT", "Poppins", sans-serif; /* match rentals */
+    font-weight: 700;
+    font-size: 42px;
+    color: var(--accent) !important;   /* gold */
+    margin-bottom: 6px;
+}
+
+/* Subtext under title in NORMAL BLACK */
+.events-hero p {
+    color: #222 !important;
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 600px;
+}
+
+/* Event titles in GOLD + same font as rentals/photography */
+.event-text h2 {
+    font-family: "Arial Rounded MT", "Poppins", sans-serif !important;
+    font-size: 24px !important;
+    font-weight: 600;
+    color: var(--accent) !important;  /* gold */
+}
+
+/* Event description SMALL + MUTED GREY */
+.event-text p {
+    font-family: "Arial Rounded MT", "Poppins", sans-serif;
+    font-size: 14px !important;       /* smaller */
+    color: var(--muted) !important;   /* soft grey */
+    line-height: 1.55;
+}
+
+
+/* -------------------- EVENT ROWS -------------------- */
+
+#eventsContainer {
+    max-width: var(--max-width);
+    margin: auto;
+    padding: 0 20px;
+}
+
+.event-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 70px 0;
+    gap: 40px;
+}
+
+.event-text {
+    flex: 1;
+}
+
+.event-text h2 {
+    font-family: "Times New Roman", serif;
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+.event-text p {
+    line-height: 1.6;
+    color: var(--muted);
+}
+
+/* -------------------- CAROUSEL -------------------- */
+
+.event-carousel {
+    width: 500px;
+    height: 340px;
+    overflow: hidden;
+    border-radius: 10px;
+    position: relative;
+}
+
+.event-carousel img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity .8s ease;
+}
+
+.event-carousel img {
+    object-position: center;
+}
+
+
+.event-carousel img.show {
+    opacity: 1;
+}
+
+.event-text h2 {
+    color: var(--accent); /* gold */
+}
+
+.event-row {
+    padding: 10px 0;
+}
+
+
+/* -------------------- RESPONSIVE -------------------- */
+
+/* Keep event rows side-by-side on all screen sizes */
+@media (max-width: 900px) {
+    .event-row {
+        flex-direction: row !important;
+        text-align: left;
+    }
+
+    .event-carousel {
+        width: 50% !important;
+        height: auto !important;
+    }
+
+    .event-text {
+        width: 50% !important;
+    }
+}
+
+
+/* ---------------------------
+   EVENTS PAGE HERO — NEW LAYOUT
+---------------------------- */
+
+.events-hero {
+    width: 100%;
+    padding: 60px 5vw;
+}
+
+.events-hero-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-items: flex-start;
+    gap: 60px;
+}
+
+/* LEFT SIDE */
+.events-hero-left h1 {
+    font-family: "Arial Rounded MT", serif;
+    white-space: nowrap;
+    font-size: 48px;
+    font-weight: 600;
+    color: var(--accent); /* gold */
+    margin-bottom: 12px;
+}
+
+.events-hero-left .events-subtext {
+    font-family: "Arial Rounded MT", sans-serif;
+    color: #000 !important;        /* softer grey */
+    font-size: 18px;
+    /*color: #000;*/
+}
+
+/* RIGHT SIDE */
+.events-hero-right {
+    max-width: 450px;
+    font-family: "Arial Rounded MT", sans-serif;
+    font-size: 10px;
+    color: #666;
+    line-height: 1.6;
+    text-align: right;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .events-hero-inner {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .events-hero-right {
+        text-align: left;
+        max-width: 100%;
+    }
+
+    .events-hero-left h1 {
+        font-size: 40px;
+    }
+}
+
+/* ---------------------------
+   EVENTS HERO SPACING FIX
+---------------------------- */
+
+/* Reduce the big top margin & expand width */
+.events-hero {
+    max-width: 1400px;   /* wider title block */
+    margin: 30px auto 40px !important; /* less empty space above */
+    padding-top: 10px !important;
+}
+
+/* Slightly smaller subtitle & grey */
+.events-hero p,
+.events-subtext {
+    color: #555 !important;
+    font-size: 16px !important;
+}
+
+/* Responsive fix for event carousel shrinking */
+.event-carousel {
+    width: 45% !important;      /* shrink with screen size */
+    min-width: 260px !important; /* never collapse */
+    height: auto !important;
+    aspect-ratio: 3/2 !important; /* maintain shape */
+}
+
+/* Images inside stay responsive */
+.event-carousel img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+/* -------- FULL-WIDTH REVIEW BACKGROUND IMAGES -------- */
+
+.review-slide {
+    position: relative;
+    display: none;
+    padding: 120px 40px;
+    color: white;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 260px;
+}
+
+.review-slide.active {
+    display: block;
+}
+
+.review-slide::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+}
+
+.review-slide * {
+    position: relative;
+    z-index: 2;
+}
+
+/* FORCE REVIEWS TO FULL WIDTH */
+.reviews {
+    width: 100%;
+    margin-top: 80px;
+    padding: 0;
+}
+
+/* Remove the white box */
+.review-carousel {
+    width: 100%;
+    max-width: 100% !important;
+    margin: 0;
+    padding: 0;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Container holds slides stacked */
+.review-track {
+    position: relative;
+    width: 100%;
+    min-height: 360px; /* adjustable */
+}
+
+/* FULL-WIDTH SLIDES WITH BACKGROUND IMAGES */
+.review-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    min-height: 360px; /* height of banner */
+    padding: 80px 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+
+    text-align: center;
+
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.review-slide.active {
+    opacity: 1;
+}
+
+/* Dark overlay for readability */
+.review-slide::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 1;
+}
+
+/* Ensure text is above overlay */
+.review-slide * {
+    position: relative;
+    z-index: 2;
+}
+
+/* Review text styles */
+.review-text {
+    font-size: 22px;
+    max-width: 800px;
+    color: #fff;
+    font-weight: 500;
+    line-height: 1.5;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.55);
+    margin-bottom: 15px;
+}
+
+/* Reviewer name */
+.review-name {
+    font-size: 18px;
+    color: #f7f7f7;
+    font-weight: 600;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.55);
+}
+
+/* Keep arrows visible */
+.review-arrow {
+    z-index: 5;
+    color: white !important;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+/* Dots below banner */
+.review-dots {
+    position: relative;
+    z-index: 5;
+    margin-top: 20px;
+}
+
+.review-dots .dot {
+    border-color: #fff !important;
+}
+
+.review-dots .dot.active {
+    background: #fff !important;
+}
+
+/* ------------------------------
+   FULL-WIDTH REVIEWS SECTION
+-------------------------------- */
+
+.fullwidth-reviews {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+/* Review carousel container must ALSO be full width */
+.fullwidth-reviews .review-carousel,
+.fullwidth-reviews .review-track {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    border: none !important;
+    background: none !important;
+}
+
+/* Slides become full banner sections */
+.review-slide {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-height: 380px;
+    padding: 140px 20px;
+
+    display: none;
+
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+
+    color: white;
+    text-align: center;
+    position: relative;
+}
+
+.review-slide.active {
+    display: block;
+}
+
+/* Dark overlay for readability */
+.review-slide::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 1;
+}
+
+.review-slide * {
+    position: relative;
+    z-index: 2;
+}
+
+/* Ensure full-width review section ignores home-section sizing */
+.fullwidth-reviews {
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
+
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+/* FORCE REVIEWS SECTION TO TRUE FULL WIDTH */
+/*.reviews.fullwidth-reviews {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    padding: 0 !important;
+}*/
+
+
+.fullwidth-reviews .review-carousel,
+.fullwidth-reviews .review-track,
+.fullwidth-reviews .review-slide {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.fullwidth-reviews .review-slide {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    padding: 140px 20px;  /* adjust banner height */
+    text-align: center;
+}
+
+/* =========================================================
+   FORCE REVIEWS TO TRUE FULL WIDTH — FINAL FIX
+   ========================================================= */
+
+/*.reviews.fullwidth-reviews {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    padding: 0 !important;
+}*/
+
+/* The carousel itself must also be full width */
+/*.reviews.fullwidth-reviews .review-carousel {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    background: none !important;
+}*/
+
+/* Track must stretch fully */
+/*.reviews.fullwidth-reviews .review-track {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative;
+}*/
+
+/* Slides: full-width background banners */
+.reviews.fullwidth-reviews .review-slide {
+    position: absolute;
+    inset: 0;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-height: 380px;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+
+    padding: 140px 20px;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    text-align: center;
+}
+
+.reviews.fullwidth-reviews .review-slide.active {
+    opacity: 1;
+}
+
+/* Keep arrows & dots aligned and visible */
+.reviews.fullwidth-reviews .review-arrow {
+    z-index: 10;
+    color: white !important;
+    font-size: 40px;
+}
+
+.reviews.fullwidth-reviews .review-dots {
+    margin-top: 20px;
+    position: relative;
+    z-index: 10;
+}
+
+/* --- FINAL OVERRIDE FOR FULL-WIDTH REVIEWS --- */
+.reviews.fullwidth-reviews {
+    position: relative;
+    width: 100vw !important;
+    max-width: 100vw !important;
+
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
+
+    padding: 0 !important;
+}
+
+/* Keep service cards horizontal on all screen sizes */
+.service-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+}
+
+.what-we-do .service-card {
+    text-align: center !important;
+}
+
+/* Add background image to the navbar bar */
+.navbar {
+    background: url("../images/Title_Bar.JPG") center/cover no-repeat !important;
+    border-bottom: 1px solid #666 !important;  /* 3D-style strong line */
+    box-shadow: 0 3px 6px rgba(0,0,0,0.25); /* subtle 3D drop shadow */
+    padding: 6px 24px !important;   /* adjust height */
+}
+
+/* Make text readable on the image */
+.navbar .logo,
+.navbar .nav-links a {
+    color: white !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+
+/* ---------------------------------------------------
+   RENTAL MODAL POPUP (Starlit Rentals)
+--------------------------------------------------- */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    padding: 20px;
+}
+
+.modal-overlay[hidden] {
+    display: none !important;
+}
+
+.modal-overlay:not([hidden]) {
+    display: flex !important;
+}
+
+.modal-content {
+    background: #fff;
+    width: 860px;
+    max-width: 95%;
+    display: flex;
+    gap: 50px;
+    padding: 60px;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 26px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #666;
+    font-weight: 400;
+}
+.modal-close:hover { color: #000; }
+
+.modal-left {
+    width: 45%;
+}
+.modal-left img {
+    width: 100%;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.modal-thumbs {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.modal-thumbs img {
+    width: 60px;
+    height: 60px;
+    border-radius: 4px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.2s ease;
+}
+
+.modal-thumbs img.active {
+    border-color: var(--accent);
+}
+
+.modal-right {
+    width: 55%;
+    padding-left: 5px;   /* ← increase your side spacing here */
+    padding-right: 10px;
+}
+
+/*.modal-right {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 40px;
+    padding-right: 40px;
+}*/
+
+.modal-right > *:first-child {
+    margin-top: 30px;  /* increase or decrease as you want */
+}
+
+.modal-price {
+    color: var(--accent);
+    font-weight: 600;
+    margin-top: 5px;
+    font-size: 18px;
+}
+
+.modal-description {
+    margin-top: 15px;
+    color: #444;
+    line-height: 1.55;
+    font-size: 13px;
+}
+
+.modal-left img {
+    width: 100%;
+    aspect-ratio: 1 / 1;   /* force perfect square */
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.modal-thumbs img {
+    width: 70px;
+    height: 70px;
+    aspect-ratio: 1 / 1;   /* force perfect square */
+    border-radius: 6px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.2s ease;
+}
+
+.inquiry-container {
+    max-width: 1100px;
+    margin: 30px auto;
+    display: flex;
+    gap: 40px;
+    padding: 20px;
+}
+
+.inquiry-items {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.inquiry-item-card {
+    display: flex;
+    gap: 12px;
+    background: #fafafa;
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.inquiry-item-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.inq-item-name {
+    font-weight: 600;
+}
+
+.inq-item-cat {
+    font-size: 12px;
+    color: #777;
+}
+
+.remove-inquiry {
+    margin-top: 8px;
+    padding: 4px 10px;
+    background: #eee;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.inquiry-form-wrapper {
+    flex: 1;
+}
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #c7a457;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 5000;
+}
+
+.toast.show {
+    opacity: 1;
+}
+
+
+.modal-add-btn {
+    margin-top: 18px;
+    width: 100%;
+    padding: 12px;
+    background: #d4af37; /* gold */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.modal-add-btn:hover {
+    opacity: 0.85;
+}
+
+/* ------------------------------
+   CONTACT PAGE – INQUIRY CART
+------------------------------ */
+
+.inquiry-cart-box {
+    margin-top: 20px;
+}
+
+.inquiry-cart-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.inquiry-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inquiry-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fafafa;
+}
+
+.inquiry-thumb {
+    width: 55px;
+    height: 55px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.inquiry-item-name {
+    font-size: 15px;
+    flex-grow: 1;
+}
+
+.inquiry-remove-btn {
+    background: #ccc;
+    border: none;
+    color: white;
+    font-size: 16px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.inquiry-remove-btn:hover {
+    background: #a9a9a9;
+}
+
+/* === CONTACT PAGE COLUMN LAYOUT FIX === */
+
+.contact-wrapper-with-cart {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 60px;
+    padding: 40px 10%;
+}
+
+/* Left column (text + cart) */
+.left-column {
+    flex: 1;
+    max-width: 45%;
+}
+
+/* Right column (form) */
+.contact-form {
+    flex: 1;
+    max-width: 45%;
+}
+
+/* Make sure cart items look correct */
+.inquiry-items-list {
+    margin-top: 15px;
+}
+
+/* Prevent form stretching full width on small screens */
+@media (max-width: 900px) {
+    .contact-wrapper-with-cart {
+        flex-direction: column;
+    }
+
+    .left-column, .contact-form {
+        max-width: 100%;
+    }
+}
+
+/* ------------------------------ */
+/* CONTACT FOOTER (Hours + Logo) */
+/* ------------------------------ */
+
+.contact-footer {
+    margin-top: 40px; 
+    padding: 40px 0;
+    text-align: center;
+}
+
+.footer-hours h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.footer-hours p {
+    margin: 4px 0;
+    font-size: 15px;
+    color: #444;
+}
+
+.footer-logo {
+    display: block;
+    margin: 25px auto 0 auto;
+    width: 160px;        /* smaller logo size */
+    height: auto;
+    opacity: 0.9;
+}
+
+/* Horizontal Line Above Footer */
+.footer-divider {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #ccc; /* soft grey */
+    margin: 50px 0 30px;        /* spacing above & below */
+}
+
+.footer-email {
+    color: inherit;       /* Matches your footer text color */
+    text-decoration: none;
+}
+
+.footer-email:hover {
+    opacity: 0.7;
+}
+
+.footer-bottom {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #444;     /* subtle, clean text */
+}
+
+
+.site-footer .footer-column p {
+    margin: 2px 0;   /* tighter spacing, no empty line */
+}
+
+.site-footer .footer-heading {
+    margin-bottom: 6px;  /* small space under “Contact” heading */
+    font-weight: 600;
+}
+
+.footer-logo-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -36px; /* moves the logo up */
+}
+
+/* Force spacing above footer titles (Contact, Follow) */
+.site-footer .footer-column .footer-heading {
+    margin-top: 18px;   /* adjust higher or lower depending on how much space you want */
+    margin-bottom: 6px; /* small space below the title */
+    font-weight: 600;
+}
+
+/* Move the Contact + Follow columns up (without moving the logo column) */
+.site-footer .footer-column:not(.footer-logo-col) {
+    position: relative;
+    top: -10px;   /* adjust this number to move up/down */
+}
+
+/* --- OPERATING HOURS BANNER --- */
+.contact-hours-banner-wrapper {
+    width: 100%;
+    margin-top: 80px;
+}
+
+/* Full-width thin banner video */
+.contact-hours-banner {
+    width: 100%;
+    height: auto;
+    max-height: 180px;   /* maintains thin 5:1 style */
+    object-fit: cover;
+    display: block;
+}
+
+/* Layout for image + hours */
+.contact-hours-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 5%;
+    gap: 60px;
+}
+
+/* Arched-top image */
+.contact-hours-image {
+    width: 500px;
+    max-width: 45%;
+    object-fit: cover;
+
+    /* Rounded top, flat bottom */
+    border-top-left-radius: 240px;
+    border-top-right-radius: 240px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+
+    overflow: hidden;  /* ensures clean clipping */
+}
+
+
+/* Hours text */
+.contact-hours-text h2 {
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.contact-hours-text p {
+    font-size: 15px;
+    margin: 6px 0;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .contact-hours-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .contact-hours-image {
+        max-width: 80%;
+    }
+}
+
+.contact-hours-text {
+    text-align: center;      /* centers the two lines */
+    margin-top: 10px;        /* optional spacing */
+    font-size: 16px;         /* your chosen small size */
+    line-height: 1.5;
+}
+
+/* ===== PAGINATION STYLING ===== */
+.pagination {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;   /* Moves buttons to right side */
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+/* Pagination buttons */
+.pagination button {
+    background: #b98b5a;                  /* gold theme */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+/* Hover effect */
+.pagination button:hover:not(:disabled) {
+    background: #a57a4d;    /* darker gold on hover */
+}
+
+/* Disabled state */
+.pagination button:disabled {
+    background: #ccc;
+    cursor: default;
+    color: #666;
+}
+
+/* Page text between buttons */
+#pageInfo {
+    font-size: 14px;
+    font-weight: 500;
+    color: #444;
+}
+
+/* Increase LEFT + RIGHT spacing only */
+/*.event-text {
+    padding-left: 70px;
+    padding-right: 100px;
+}
+*/
+
+/* EVEN rows (0-based: 1st, 3rd, 5th…) → text on LEFT side */
+.event-row:nth-child(odd) .event-text {
+    padding-left: 40px;
+    padding-right: 80px;
+}
+
+/* ODD rows (0-based: 2nd, 4th, 6th…) → text on RIGHT side */
+.event-row:nth-child(even) .event-text {
+    padding-left: 120px;
+    padding-right: 70px;
+}
+
+/* Faint line under Events title */
+.events-title-divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.15);
+    margin: 0 0 35px 0; /* less space above, keep nice spacing below */
+}
+
+
+.events-title-divider {
+    margin-top: -50px !important;
+}
+
+/* ======================================================
+   RENTAL MODAL — MOVE THUMBNAILS TO THE LEFT SIDE
+   ====================================================== */
+
+.modal-left {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start;
+    gap: 18px;
+    width: 100% !important;
+}
+
+#modalThumbs,
+.modal-thumbs {
+    display: flex !important;
+    flex-direction: column !important;   /* vertical strip */
+    gap: 12px !important;
+    width: 80px !important;
+    margin-top: 0 !important;
+}
+
+#modalThumbs img,
+.modal-thumbs img {
+    width: 100% !important;
+    height: 80px !important;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    opacity: 0.75;
+    transition: opacity 0.2s, border-color 0.2s;
+    border: 2px solid transparent;
+}
+
+#modalThumbs img:hover,
+.modal-thumbs img:hover {
+    opacity: 1;
+}
+
+#modalThumbs img.active,
+.modal-thumbs img.active {
+    border-color: var(--accent);
+}
+
+#modalMainImage {
+    width: 350px !important;
+    height: auto !important;
+    object-fit: contain !important;
+    border-radius: 10px;
+}
+
+/* ============================================
+   MOVE THUMBNAILS TO THE LEFT OF MAIN IMAGE
+   ============================================ */
+
+.modal-left {
+    display: flex !important;
+    flex-direction: row-reverse !important;  /* <— thumbs on the left */
+    align-items: flex-start;
+    gap: 7px;
+    width: 100% !important;
+}
+
+/* Thumbnails become a vertical strip */
+#modalThumbs,
+.modal-thumbs {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: 80px !important;
+    margin-top: 0 !important;
+}
+
+#modalThumbs img,
+.modal-thumbs img {
+    width: 100% !important;
+    height: 80px !important;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    opacity: 0.75;
+    transition: opacity 0.2s, border-color 0.2s;
+    border: 2px solid transparent;
+}
+
+#modalThumbs img:hover,
+.modal-thumbs img:hover {
+    opacity: 1;
+}
+
+#modalThumbs img.active,
+.modal-thumbs img.active {
+    border-color: var(--accent);
+}
+
+/* Main image correctly sized */
+#modalMainImage {
+    width: 350px !important;
+    height: auto !important;
+    object-fit: contain !important;
+    border-radius: 10px;
+}
+
+/* Shift entire popup content slightly to the left */
+.modal-content {
+    padding-left: 10px !important;
+    padding-right: 30px !important;
+}
+
+/* Move thumbnails to the BOTTOM of the image */
+.modal-left {
+    display: flex !important;
+    flex-direction: row-reverse !important;
+    align-items: flex-end !important;  /* 🔥 this moves thumbs to the bottom */
+    gap: 14px !important;
+}
+
+.modal-thumbs,
+#modalThumbs {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;  /* 🔥 ensures they sit at the bottom */
+    gap: 8px !important;
+}
+
+/* ============================================
+   THUMBNAILS ON RIGHT — MORE LEFT SPACE,
+   LESS SPACE BETWEEN THUMBS & TEXT
+   ============================================ */
+
+.modal-left {
+    display: flex !important;
+    flex-direction: row !important;       /* main image left, thumbs right */
+    align-items: center !important;     /* thumbs bottom-aligned */
+    gap: 30px !important;                 /* 🔥 MORE space on the left of main image */
+    width: 100% !important;
+}
+
+/* Move thumbnails closer to the text */
+.modal-right {
+    padding-left: 5px !important;        /* 🔥 reduced space between thumbnails & text */
+}
+
+/* Vertical thumbnail strip on the right */
+#modalThumbs,
+.modal-thumbs {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+    gap: 6px !important;                  /* 🔥 slightly tighter spacing between thumbs */
+    width: 70px !important;
+    margin: 0 !important;
+}
+
+/* Thumbnail appearance */
+#modalThumbs img,
+.modal-thumbs img {
+    width: 70px !important;
+    height: 70px !important;
+    object-fit: cover !important;
+    border-radius: 6px !important;
+    cursor: pointer;
+    opacity: 0.8;
+    border: 2px solid transparent;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+
+#modalThumbs img:hover,
+.modal-thumbs img:hover {
+    opacity: 1;
+}
+
+#modalThumbs img.active,
+.modal-thumbs img.active {
+    border-color: var(--accent);
+}
+
+/* Main image with extra left breathing room */
+#modalMainImage {
+    width: 360px !important;
+    height: auto !important;
+    object-fit: cover !important;
+    border-radius: 10px;
+    margin-left: 40px !important;         /* 🔥 extra left spacing of the whole image */
+}
+
+/* ======================================================
+   RENTAL MODAL — VERTICALLY CENTER TEXT + ADD BUTTON
+====================================================== */
+
+/* LEFT SIDE: main image + thumbnails (unchanged layout) */
+.modal-left {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 30px !important;
+    width: 100% !important;
+}
+
+/* RIGHT SIDE: Vertically centered text + button */
+.modal-right {
+    width: 55%;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center !important;    /* 🔥 vertical centering */
+    gap: 14px !important;                  /* nice spacing between title/price/description */
+    padding-left: 10px !important;         /* reduced spacing from thumbnails */
+    padding-right: 40px !important;
+}
+
+/* Make the item title look clean */
+.modal-right h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+/* Price */
+.modal-price {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0;
+}
+
+/* Description */
+.modal-description {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.55;
+    margin-top: 4px;
+}
+
+/* Add to Inquiry Button */
+.modal-add-btn {
+    margin-top: 10px !important;
+    width: 100%;
+    padding: 12px;
+    background: #d4af37;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.modal-add-btn:hover {
+    opacity: 0.85;
+}
+
+/* Keep thumbnails vertical on the right */
+#modalThumbs,
+.modal-thumbs {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;  /* 🔥 center thumbnails vertically */
+    gap: 8px !important;
+    width: 70px !important;
+    margin: 0 !important;
+}
+
+/* Thumbnail styling */
+#modalThumbs img,
+.modal-thumbs img {
+    width: 70px !important;
+    height: 70px !important;
+    object-fit: cover !important;
+    border-radius: 6px !important;
+    cursor: pointer;
+    opacity: 0.8;
+    border: 2px solid transparent;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+
+#modalThumbs img:hover,
+.modal-thumbs img:hover {
+    opacity: 1;
+}
+
+#modalThumbs img.active,
+.modal-thumbs img.active {
+    border-color: var(--accent);
+}
+
+/* Main image */
+#modalMainImage {
+    width: 360px !important;
+    height: auto !important;
+    object-fit: cover !important;
+    border-radius: 10px;
+}
+
+.modal-right > *:first-child {
+    margin-top: 0 !important;
+}
+
+/* Reduce space between thumbnails and text in rental popup */
+.modal-content {
+    gap: 24px !important;      /* try 18–24px depending on how tight you want it */
+    padding-left: 40px;        /* optional: you can also lower this if needed */
+    padding-right: 40px;
+}
+
+.inquiry-empty {
+    color: #777 !important;   /* softer grey */
+}
+
+/* HERO TEXT — FORCE WHITE */
+.hero-kicker,
+.hero-home h1,
+.hero-subtitle {
+    color: #ffffff !important;
+}
+
+/* Also ensure subtitle has full opacity */
+.hero-subtitle {
+    opacity: 1 !important;
+}
+
