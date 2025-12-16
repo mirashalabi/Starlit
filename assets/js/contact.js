@@ -74,20 +74,115 @@ function removeInquiryItem(name) {
 ---------------------------------------------------- */
 function setupFormSubmit() {
     const form = document.getElementById("contactForm");
-    const hiddenField = document.getElementById("inquiry_items_field");
+    const itemsField = document.getElementById("inquiry_items_field");
+    const summaryField = document.getElementById("inquiry_summary_field");
+    const successMsg = document.getElementById("contactSuccess");
+    const errorMsg = document.getElementById("contactError");
 
-    if (!form || !hiddenField) return;
+    if (!form || !itemsField || !summaryField) return;
 
-    form.addEventListener("submit", () => {
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        // Hide messages
+        if (successMsg) successMsg.hidden = true;
+        if (errorMsg) errorMsg.hidden = true;
+
+        /* -------------------------
+           REQUIRED FIELD VALIDATION
+        -------------------------- */
+        const requiredFields = [
+            "name",
+            "lastname",
+            "email",
+            "phone",
+            "inquiry_type",
+            "message"
+        ];
+
+        let hasError = false;
+
+        requiredFields.forEach(name => {
+            const field = form.querySelector(`[name="${name}"]`);
+            if (!field || !field.value.trim()) {
+                hasError = true;
+                field?.classList.add("field-error");
+            } else {
+                field?.classList.remove("field-error");
+            }
+        });
+
+        if (hasError) {
+            if (errorMsg) errorMsg.hidden = false;
+            return; // ⛔ STOP submission
+        }
+
+        /* -------------------------
+           BUILD INQUIRY ITEMS
+        -------------------------- */
         const list = JSON.parse(localStorage.getItem("inquiryItems") || "[]");
 
-        if (list.length === 0) {
-            hiddenField.value = "No rental items added.";
-        } else {
-            hiddenField.value = list
-                .map(i => `• ${i.name}`)
+        let itemsText = "No rental items added.";
+
+        if (list.length > 0) {
+            itemsText = list
+                .map(item => {
+                    const name = item.name || "Unnamed item";
+                    const category = item.category || "Uncategorized";
+                    const price = item.price ? `$${item.price}` : "Price not listed";
+                    return `• ${name} (${category}) – ${price}`;
+                })
                 .join("\n");
         }
+
+        itemsField.value = itemsText;
+
+        /* -------------------------
+           BUILD SUMMARY
+        -------------------------- */
+        const fd = new FormData(form);
+
+        summaryField.value = `
+CONTACT DETAILS
+-------------------------
+Name: ${fd.get("name")} ${fd.get("lastname")}
+Email: ${fd.get("email")}
+Phone: ${fd.get("phone")}
+
+INQUIRY DETAILS
+-------------------------
+Inquiry Type: ${fd.get("inquiry_type")}
+Event Date: ${fd.get("event_date") || "Not provided"}
+
+MESSAGE
+-------------------------
+${fd.get("message")}
+
+INQUIRY ITEMS
+-------------------------
+${itemsText}
+        `.trim();
+
+        /* -------------------------
+           SEND TO NETLIFY
+        -------------------------- */
+        fetch("/", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(new FormData(form)).toString()
+        })
+        .then(() => {
+            form.reset();
+            localStorage.removeItem("inquiryItems");
+            renderInquiryCart();
+
+            if (errorMsg) errorMsg.hidden = true;   // ✅ hide error
+            if (successMsg) successMsg.hidden = false;
+        })
+        .catch(err => {
+            console.error(err);
+            alert("Submission failed. Please try again.");
+        });
     });
 }
 

@@ -60,11 +60,28 @@
     </div>
 
     <!-- RIGHT COLUMN (FORM) -->
-    <form name="contact" method="POST" data-netlify="true"
-          id="contactForm" novalidate class="contact-form">
+    <form
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        data-netlify-honeypot="bot-field"
+        id="contactForm"
+        novalidate
+        class="contact-form"
+    >
 
         <input type="hidden" name="form-name" value="contact">
         <input type="hidden" name="inquiry_items" id="inquiry_items_field">
+        <input type="hidden" name="inquiry_summary" id="inquiry_summary_field">
+
+        <p hidden>
+        <label>
+            Don’t fill this out:
+            <input name="bot-field">
+        </label>
+        </p>
+
+
 
         <div class="form-row">
             <div class="field-group">
@@ -100,11 +117,15 @@
 
         <label>Message *</label>
         <textarea name="message" id="message" rows="5" required></textarea>
+        
+        <p id="contactError" class="contact-error" hidden>
+            Please fill out all required fields.
+        </p>
 
         <button type="submit" class="contact-send-btn">Send</button>
 
         <p id="contactSuccess" class="contact-success" hidden>
-            🎉 Your message has been sent! We’ll get back to you soon.
+            Your inquiry has been submitted! We’ll get back to you soon.
         </p>
 
     </form>
