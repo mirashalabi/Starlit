@@ -37,11 +37,9 @@ function showToast() {
 
   setTimeout(() => {
     toast.classList.remove("show");
-    // Wait for transition to hide fully
     setTimeout(() => (toast.hidden = true), 300);
   }, 1600);
 }
-
 
 function formatPrice(value) {
   if (value == null || value === "") return "";
@@ -65,7 +63,12 @@ let currentCategory = "All";
 let currentSearchTerm = "";
 let currentSortMode = "none";
 let currentPage = 1;
-const ITEMS_PER_PAGE = 15;
+
+function getItemsPerPage() {
+    if (window.innerWidth < 600) return 10;
+    return 15;
+}
+const ITEMS_PER_PAGE = getItemsPerPage();
 
 
 function setupRentals() {
@@ -95,6 +98,8 @@ function setupRentals() {
     li.appendChild(btn);
     categoryList.appendChild(li);
   });
+
+  populateMobileCategories(categories);
 
   if (searchBox) {
     searchBox.addEventListener("input", () => {
@@ -127,7 +132,7 @@ function setupRentals() {
         const catCell = cells[2];
         const priceCell = cells[5];
         const photoCell = cells[6];
-        const descCell = cells[3]; // adjust number if description is in another column
+        const descCell = cells[3];
 
         const nameValue = nameCell?.v ? String(nameCell.v).trim() : null;
 
@@ -164,107 +169,6 @@ function setupRentals() {
       }
     });
 
-  function renderRentals() {
-    rentalGrid.innerHTML = "";
-    let items = [...allRentalItems];
-
-    if (currentCategory !== "All") {
-      items = items.filter(i => i.category === currentCategory);
-    }
-
-    if (currentSearchTerm) {
-      items = items.filter(i => i.name.toLowerCase().includes(currentSearchTerm));
-    }
-
-    if (currentSortMode === "low") items.sort((a, b) => (a.price || 0) - (b.price || 0));
-    if (currentSortMode === "high") items.sort((a, b) => (b.price || 0) - (a.price || 0));
-    if (currentSortMode === "name") items.sort((a, b) => a.name.localeCompare(b.name));
-
-    if (!items.length) {
-      emptyState.hidden = false;
-      return;
-    } else emptyState.hidden = true;
-
-    // ----- PAGINATION LOGIC -----
-    const totalItems = items.length;
-    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-
-    if (currentPage > totalPages) currentPage = totalPages || 1;
-
-    const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    const end = start + ITEMS_PER_PAGE;
-
-    const paginatedItems = items.slice(start, end);
-
-    // Update pagination controls
-    document.getElementById("pageInfo").textContent =
-        `Page ${currentPage} of ${totalPages || 1}`;
-
-    document.getElementById("prevPage").disabled = currentPage === 1;
-    document.getElementById("nextPage").disabled = currentPage === totalPages;
-
-
-    paginatedItems.forEach(item => {
-      const card = document.createElement("article");
-      card.className = "rental-card";
-      
-      card.dataset.item = JSON.stringify(item);
-
-      const imgWrap = document.createElement("div");
-      imgWrap.className = "rental-image";
-
-      const img = document.createElement("img");
-      img.src = item.images[0];
-      img.alt = item.name;
-      imgWrap.appendChild(img);
-
-      const body = document.createElement("div");
-      body.className = "rental-body";
-
-      const cat = document.createElement("span");
-      cat.className = "rental-category";
-      cat.textContent = item.category;
-
-      const title = document.createElement("h3");
-      title.className = "rental-name";
-      title.textContent = item.name;
-
-      const price = document.createElement("p");
-      price.className = "rental-price";
-      price.textContent = formatPrice(item.price);
-
-      body.appendChild(cat);
-      body.appendChild(title);
-      if (price.textContent) body.appendChild(price);
-
-      card.appendChild(imgWrap);
-      card.appendChild(body);
-      rentalGrid.appendChild(card);
-
-      if (item.images.length > 1) {
-        let interval = null;
-        let idx = 1;
-
-        card.addEventListener("mouseenter", () => {
-          if (interval) return;
-          img.src = item.images[idx];
-          interval = setInterval(() => {
-            idx = (idx + 1) % item.images.length;
-            if (idx === 0) idx = 1;
-            img.src = item.images[idx];
-          }, 10000);
-        });
-
-        card.addEventListener("mouseleave", () => {
-          if (interval) clearInterval(interval);
-          interval = null;
-          img.src = item.images[0];
-          idx = 1;
-        });
-      }
-    });
-  }
-
   const prevBtn = document.getElementById("prevPage");
   const nextBtn = document.getElementById("nextPage");
 
@@ -282,6 +186,114 @@ function setupRentals() {
       });
   }
 
+}
+
+// ---------- GLOBAL renderRentals() ADDED ----------
+function renderRentals() {
+    const rentalGrid = document.getElementById("rentalGrid");
+    const emptyState = document.getElementById("rentalEmptyState");
+
+    rentalGrid.innerHTML = "";
+    let items = [...allRentalItems];
+
+    if (currentCategory !== "All") {
+        items = items.filter(i => i.category === currentCategory);
+    }
+
+    if (currentSearchTerm) {
+        items = items.filter(i =>
+            i.name.toLowerCase().includes(currentSearchTerm)
+        );
+    }
+
+    if (currentSortMode === "low")
+        items.sort((a, b) => (a.price || 0) - (b.price || 0));
+
+    if (currentSortMode === "high")
+        items.sort((a, b) => (b.price || 0) - (a.price || 0));
+
+    if (currentSortMode === "name")
+        items.sort((a, b) => a.name.localeCompare(b.name));
+
+    if (!items.length) {
+        emptyState.hidden = false;
+        return;
+    } else emptyState.hidden = true;
+
+    const totalItems = items.length;
+    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+
+    if (currentPage > totalPages) currentPage = totalPages || 1;
+
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+    const paginatedItems = items.slice(start, end);
+
+    document.getElementById("pageInfo").textContent =
+        `Page ${currentPage} of ${totalPages || 1}`;
+
+    document.getElementById("prevPage").disabled = currentPage === 1;
+    document.getElementById("nextPage").disabled = currentPage === totalPages;
+
+    paginatedItems.forEach(item => {
+        const card = document.createElement("article");
+        card.className = "rental-card";
+        card.dataset.item = JSON.stringify(item);
+
+        const imgWrap = document.createElement("div");
+        imgWrap.className = "rental-image";
+
+        const img = document.createElement("img");
+        img.src = item.images[0];
+        img.alt = item.name;
+        imgWrap.appendChild(img);
+
+        const body = document.createElement("div");
+        body.className = "rental-body";
+
+        const cat = document.createElement("span");
+        cat.className = "rental-category";
+        cat.textContent = item.category;
+
+        const title = document.createElement("h3");
+        title.className = "rental-name";
+        title.textContent = item.name;
+
+        const price = document.createElement("p");
+        price.className = "rental-price";
+        price.textContent = formatPrice(item.price);
+
+        body.appendChild(cat);
+        body.appendChild(title);
+        if (price.textContent) body.appendChild(price);
+
+        card.appendChild(imgWrap);
+        card.appendChild(body);
+        rentalGrid.appendChild(card);
+
+        if (item.images.length > 1) {
+            let interval = null;
+            let idx = 1;
+
+            card.addEventListener("mouseenter", () => {
+                if (interval) return;
+                img.src = item.images[idx];
+                interval =
+                    setInterval(() => {
+                        idx = (idx + 1) % item.images.length;
+                        if (idx === 0) idx = 1;
+                        img.src = item.images[idx];
+                    }, 10000);
+            });
+
+            card.addEventListener("mouseleave", () => {
+                if (interval) clearInterval(interval);
+                interval = null;
+                img.src = item.images[0];
+                idx = 1;
+            });
+        }
+    });
 }
 
 // ---------- PHOTOGRAPHY ----------
@@ -345,6 +357,7 @@ function setupPhotography() {
 
       const imgWrap = document.createElement("div");
       imgWrap.className = "photo-image";
+
       const img = document.createElement("img");
       img.src = svc.images[0];
       img.alt = svc.name;
@@ -367,11 +380,14 @@ function setupPhotography() {
       if (svc.price || svc.duration) {
         const p = document.createElement("p");
         p.className = "photo-price";
+
         const priceText = svc.price ? `$${svc.price}` : "";
         const durationText = svc.duration ? `${svc.duration} hr` : "";
+
         p.textContent = durationText
           ? `Starting at ${priceText} / ${durationText}`
-          : 'Starting at ${priceText}';
+          : `Starting at ${priceText}`;
+
         body.appendChild(p);
       }
 
@@ -386,11 +402,12 @@ function setupPhotography() {
         card.addEventListener("mouseenter", () => {
           if (interval) return;
           img.src = svc.images[idx];
-          interval = setInterval(() => {
-            idx++;
-            if (idx >= svc.images.length) idx = 1;
-            img.src = svc.images[idx];
-          }, 10000);
+          interval =
+            setInterval(() => {
+              idx++;
+              if (idx >= svc.images.length) idx = 1;
+              img.src = svc.images[idx];
+            }, 10000);
         });
 
         card.addEventListener("mouseleave", () => {
@@ -490,6 +507,7 @@ function setupEvents() {
       const imgs = carousel.querySelectorAll("img");
       if (imgs.length > 1) {
         let idx = 0;
+
         setInterval(() => {
           imgs[idx].classList.remove("show");
           idx = (idx + 1) % imgs.length;
@@ -502,7 +520,6 @@ function setupEvents() {
 
 // ---------- HOME PAGE REVIEWS ----------
 
-// ---------- HOME PAGE REVIEWS ----------
 function setupReviewCarousel() {
   const slides = document.querySelectorAll(".review-slide");
   if (!slides.length) return;
@@ -511,9 +528,9 @@ function setupReviewCarousel() {
   const prev = document.querySelector(".review-arrow-left");
   const next = document.querySelector(".review-arrow-right");
 
-  // APPLY BACKGROUND IMAGES FROM data-bg
   slides.forEach(slide => {
     const bg = slide.dataset.bg;
+
     if (bg) {
       slide.style.backgroundImage = `url("assets/images/reviews/${bg}")`;
       slide.style.backgroundSize = "cover";
@@ -526,6 +543,7 @@ function setupReviewCarousel() {
 
   function show(i) {
     current = (i + slides.length) % slides.length;
+
     slides.forEach((s, idx) => s.classList.toggle("active", idx === current));
     dots.forEach((d, idx) => d.classList.toggle("active", idx === current));
   }
@@ -598,9 +616,6 @@ document.addEventListener("click", (e) => {
   // Remove any existing Add-to-Inquiry buttons
   modal.querySelectorAll(".modal-add-btn").forEach(btn => btn.remove());
 
-  // Remove old inquiry buttons
-  modal.querySelectorAll(".modal-add-btn").forEach(btn => btn.remove());
-
   // Create new button
   const addBtn = document.createElement("button");
   addBtn.className = "modal-add-btn";
@@ -609,7 +624,6 @@ document.addEventListener("click", (e) => {
   let inquiryList = JSON.parse(localStorage.getItem("inquiryItems") || "[]");
   let alreadyIn = inquiryList.some(i => i.name === item.name);
 
-  // If item already exists → show "Already in Inquiry"
   if (alreadyIn) {
       addBtn.textContent = "Already in Inquiry";
       addBtn.disabled = true;
@@ -621,7 +635,6 @@ document.addEventListener("click", (e) => {
       addBtn.onclick = () => {
           addItemToInquiry(item);
 
-          // Update button instantly after adding
           addBtn.textContent = "Already in Inquiry";
           addBtn.disabled = true;
           addBtn.style.background = "#ccc";
@@ -642,17 +655,17 @@ document.addEventListener("click", (e) => {
     const t = document.createElement("img");
     t.src = src;
     if (index === 0) t.classList.add("active");
+
     t.onclick = () => {
       modalMainImage.src = src;
       modalThumbs.querySelectorAll("img").forEach(i => i.classList.remove("active"));
       t.classList.add("active");
     };
+
     modalThumbs.appendChild(t);
   });
 
-  window.currentModalItem = item;
   modal.hidden = false;
-
 });
 
 function addItemToInquiry(item) {
@@ -681,8 +694,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------------------------
 
   function loadInquiry() {
-      const list = JSON.parse(localStorage.getItem("inquiryItems") || "[]");
-      return list;
+      return JSON.parse(localStorage.getItem("inquiryItems") || "[]");
   }
 
   function saveInquiry(list) {
@@ -714,7 +726,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 2000);
   }
 
-  // Add modal button click
   const addBtn = document.getElementById("addToInquiryBtn");
   if (addBtn) {
       addBtn.addEventListener("click", () => {
@@ -724,10 +735,10 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-
 });
 
-// ADD TO INQUIRY BUTTON HANDLER
+
+// ADD TO INQUIRY BUTTON HANDLER (modal)
 document.addEventListener("click", (e) => {
     if (e.target.id === "addToInquiryBtn") {
 
@@ -749,7 +760,6 @@ document.addEventListener("click", (e) => {
             localStorage.setItem("inquiryItems", JSON.stringify(list));
         }
 
-        // success animation
         e.target.textContent = "Added!";
         e.target.style.background = "#b98b5a";
         e.target.style.color = "#fff";
@@ -760,4 +770,57 @@ document.addEventListener("click", (e) => {
             e.target.style.color = "";
         }, 1200);
     }
+});
+
+
+// ================================
+// POPULATE MOBILE CATEGORY DROPDOWN
+// ================================
+
+function populateMobileCategories(categories) {
+    const select = document.getElementById("mobileCategorySelect");
+    if (!select) return;
+
+    select.innerHTML = ""; // reset dropdown
+
+    categories.forEach(cat => {
+        const opt = document.createElement("option");
+        opt.value = cat;
+        opt.textContent = cat;
+        select.appendChild(opt);
+    });
+
+    // 🔥 FIXED: Mobile dropdown instantly filters without refresh
+    select.addEventListener("change", () => {
+        currentCategory = select.value;
+        currentPage = 1;
+        renderRentals();  // Now works because renderRentals is global
+    });
+}
+
+// ================================
+// FULLSCREEN MOBILE MENU (WORKS WITH include.js)
+// ================================
+
+function initMobileMenu() {
+    const menu = document.getElementById("mobileMenu");
+    const openBtn = document.querySelector(".nav-toggle");
+    const closeBtn = document.querySelector(".mobile-menu-close");
+
+    if (!menu || !openBtn || !closeBtn) return;
+
+    openBtn.addEventListener("click", () => {
+        menu.classList.add("show");
+        document.body.style.overflow = "hidden";
+    });
+
+    closeBtn.addEventListener("click", () => {
+        menu.classList.remove("show");
+        document.body.style.overflow = "";
+    });
+}
+
+// Header is injected → wait a moment before binding
+document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(initMobileMenu, 50);
 });

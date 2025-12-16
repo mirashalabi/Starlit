@@ -7,18 +7,9 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <script defer src="assets/js/main.js"></script>
 </head>
-<body>
-<header>
-    <nav class="navbar">
-        <a href="index.html" class="logo">Starlit</a>
-        <ul class="nav-links">
-            <li><a href="events.html">Events</a></li>
-            <li><a href="photography.html">Photography</a></li>
-            <li><a href="rentals.html">Rentals</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-    </nav>
-</header>
+<body class="home-page">
+
+<div data-include="navbar.html"></div>
 
 <main>
 
@@ -31,12 +22,12 @@
                 Elegant event planning, curated rentals, and timeless photography
                 across Ottawa, Montreal, Toronto & beyond.
             </p>
-            <a href="#services" class="btn-primary">Explore Our Services</a>
+            <a href="#vision" class="btn-primary">Explore Our Services</a>
         </div>
     </section>
 
     <!-- SHORT ABOUT -->
-    <section class="home-section intro">
+    <section id="vision" class="home-section intro">
         <h2 class="section-title">Grow Your Vision</h2>
         <p class="section-text">
             Starlit brings unforgettable events to life through thoughtful planning,
@@ -47,30 +38,67 @@
 
     <!-- WHAT WE DO -->
     <section id="services" class="home-section what-we-do">
-        <h2 class="section-title">What We Do</h2>
+
         <div class="service-grid">
-            <a href="events.html" class="service-card service-link">
-                <h3>Event Planning</h3>
-                <p>From concept to day-of coordination, we design events that feel effortless and personal.</p>
-            </a>
 
-            <a href="photography.html" class="service-card service-link">
-                <h3>Photography</h3>
-                <p>Warm, candid imagery that captures the feeling of your day, not just the details.</p>
-            </a>
+            <!-- EVENTS -->
+            <div class="wwd-item">
+                <a href="events.html" class="wwd-card"
+                style="background-image:url('assets/images/WWD_Events.JPG')">
+                    <div class="wwd-overlay">
+                        <h3>Events</h3>
+                        <p>Creating unforgettable, personalised event experiences.</p>
+                    </div>
+                </a>
 
-            <a href="rentals.html" class="service-card service-link">
-                <h3>Rentals</h3>
-                <p>Backdrops, décor, tableware and more to transform any space into something magical.</p>
-            </a>
+                <div class="wwd-mobile-info">
+                    <h3>Events</h3>
+                    <p>Creating unforgettable, personalised event experiences.</p>
+                </div>
+            </div>
+
+            <!-- PHOTOGRAPHY -->
+            <div class="wwd-item">
+                <a href="photography.html" class="wwd-card"
+                style="background-image:url('assets/images/WWD_Photography.JPG')">
+                    <div class="wwd-overlay">
+                        <h3>Photography</h3>
+                        <p>Warm, candid imagery that captures your story beautifully.</p>
+                    </div>
+                </a>
+
+                <div class="wwd-mobile-info">
+                    <h3>Photography</h3>
+                    <p>Warm, candid imagery that captures your story beautifully.</p>
+                </div>
+            </div>
+
+            <!-- RENTALS -->
+            <div class="wwd-item">
+                <a href="rentals.html" class="wwd-card"
+                style="background-image:url('assets/images/WWD_Rentals.JPG')">
+                    <div class="wwd-overlay">
+                        <h3>Rentals</h3>
+                        <p>Backdrops, décor, tableware and more to transform any space.</p>
+                    </div>
+                </a>
+
+                <div class="wwd-mobile-info">
+                    <h3>Rentals</h3>
+                    <p>Backdrops, décor, tableware and more to transform any space.</p>
+                </div>
+            </div>
+
         </div>
-        
     </section>
+
+
+
 
     <!-- REVIEWS CAROUSEL -->
     <section class="reviews fullwidth-reviews">
         <h2 class="section-title" style="text-align:center; margin-top:90px; color:white; position:relative; z-index:5;">
-            Kind Words
+            <!--Kind Words-->
         </h2>
         <div class="review-carousel">
             <button class="review-arrow review-arrow-left" aria-label="Previous review">&#10094;</button>
@@ -79,28 +107,60 @@
                 <!-- Review 1 -->
                 <article class="review-slide active" data-bg="Reviews_1.JPG">
                     <p class="review-text">
-                        “Everything we rented was of the highest quality, from the vases to the elegant furniture.
-                        It made all the difference!”
+                        "The entire experience was smooth and enjoyable. The photos exceeded our expectations!"
                     </p>
-                    <p class="review-name">— Yasmin, Ottawa ON</p>
+                    <p class="review-name">Madison - Montreal, QC</p>
                 </article>
 
                 <!-- Review 2 -->
                 <article class="review-slide" data-bg="Reviews_2.JPG">
                     <p class="review-text">
-                        “Starlit turned our vision into reality. The setup, the flow, the tiny details—everything
-                        felt intentional and so us.”
+                        "The birthday party was a hit! They took care of everything, from the theme to the smallest detail. Highly recommend!"
                     </p>
-                    <p class="review-name">— Sarah & Omar, Montreal QC</p>
+                    <p class="review-name">Kathy - Montreal, QC</p>
                 </article>
 
                 <!-- Review 3 -->
                 <article class="review-slide" data-bg="Reviews_3.JPG">
                     <p class="review-text">
+                        "We had a couples photoshoot, and the results were breathtaking. The photographer captured our love perfectly!"
+                    </p>
+                    <p class="review-name">Erha - Dallas, TX</p>
+                </article>
+
+                <!-- Review 4 -->
+                <article class="review-slide" data-bg="Reviews_4.JPG">
+                    <p class="review-text">
+                        “Everything we rented was of the highest quality, from the vases to the elegant furniture. It made all the difference!”
+                    </p>
+                    <p class="review-name">Suzan - Ottawa, ON</p>
+                </article>
+
+                <!-- Review 5 -->
+                <article class="review-slide" data-bg="Reviews_5.JPG">
+                    <p class="review-text">
                         “Seamless, stress-free and stunning. Guests are still talking about how beautiful the space looked.”
                     </p>
-                    <p class="review-name">— Lina, Toronto ON</p>
+                    <p class="review-name">Yasmin, Toronto ON</p>
                 </article>
+                
+                 <!-- Review 6 -->
+                <article class="review-slide" data-bg="Reviews_6.JPG">
+                    <p class="review-text">
+                        "Our proposal was absolutely magical, thanks to their impeccable planning and attention to detail."
+                    </p>
+                    <p class="review-name">Mustafa - Ottawa, ON</p>
+                </article>
+
+                 <!-- Review 7 -->
+                <article class="review-slide" data-bg="Reviews_7.JPG">
+                    <p class="review-text">
+                        “The professional headshots I received were outstanding, exactly what I needed for my portfolio!”
+                    </p>
+                    <p class="review-name">Taylor - Toronto, ON</p>
+                </article>
+
+
             </div>
 
             <button class="review-arrow review-arrow-right" aria-label="Next review">&#10095;</button>
@@ -114,22 +174,82 @@
         <!-- Replace the review text above with your real Google review quotes -->
     </section>
 
-    <!-- NEWSLETTER / EMAIL SIGN-UP (Netlify form) -->
-    <section class="home-section newsletter">
-        <div class="newsletter-inner">
-            <h2 class="section-title">Stay in the Know</h2>
-            <p class="section-text">
-                Be the first to hear about new setups, seasonal packages, and behind-the-scenes moments.
-            </p>
-            <form name="newsletter" method="POST" data-netlify="true" class="newsletter-form">
-                <input type="hidden" name="form-name" value="newsletter">
-                <input type="email" name="email" placeholder="Enter your email *" required>
-                <button type="submit">Sign Up</button>
-            </form>
+
+    <section class="why-starlit">
+        <h2 class="why-title">WHY CHOOSE STARLIT</h2>
+
+        <p class="why-subtext">
+            Starlit delivers premium event planning, curated rentals, and photography designed 
+            to make your celebration unforgettable — without the stress.
+        </p>
+
+        <div class="why-grid">
+
+            <!-- BEST PRICE GUARANTEE -->
+            <div class="why-item">
+                <div class="why-icon-circle">
+                    <img src="assets/images/icons/Best_Price_Guarantee_Icon.PNG" alt="Best Price Guarantee">
+                </div>
+                <p class="why-label">BEST PRICE<br>GUARANTEE</p>
+            </div>
+
+            <!-- UNLIMITED SUPPLIES -->
+            <!--<div class="why-item">
+                <div class="why-icon-circle">
+                    <img src="assets/images/icons/Unlimited_Supplies_Icon.PNG" alt="Unlimited Supplies">
+                </div>
+                <p class="why-label">UNLIMITED<br>SUPPLIES</p>
+            </div>-->
+
+            <!-- TRUSTED QUALITY PARTNERS -->
+            <div class="why-item">
+                <div class="why-icon-circle">
+                    <img src="assets/images/icons/Trusted_Quality_Partners_Icon.PNG" alt="Trusted Quality Partners">
+                </div>
+                <p class="why-label">TRUSTED QUALITY<br>PARTNERS</p>
+            </div>
+
+            <!-- FAST CUSTOMER SERVICE -->
+            <div class="why-item">
+                <div class="why-icon-circle">
+                    <img src="assets/images/icons/Fast_Customer_Service_Icon.PNG" alt="Fast Customer Service">
+                </div>
+                <p class="why-label">FAST CUSTOMER<br>SERVICE</p>
+            </div>
+
+            <!-- QUICK DELIVERY -->
+            <!--<div class="why-item">
+                <div class="why-icon-circle">
+                    <img src="assets/images/icons/Quick_Delivery_Icon.PNG" alt="Quick Delivery">
+                </div>
+                <p class="why-label">QUICK<br>DELIVERY</p>
+            </div>-->
+
         </div>
     </section>
 
-</main>
+
+    <!-- CALL TO ACTION SECTION (replaces newsletter) -->
+    <section class="starlit-cta">
+        <div class="cta-content">
+            
+            <!-- Left: Logo -->
+            <div class="cta-image">
+                <img src="assets/images/Starlit_Tab_White_Logo.PNG" alt="Starlit Logo">
+            </div>
+
+            <!-- Right: Text + Button -->
+            <div class="cta-text-block">
+                <h2 class="cta-title">Talk to your Starlit Planner</h2>
+                <p class="cta-subtitle">“How can we make your event unforgettable?”</p>
+
+                <a href="contact.html" class="cta-button">
+                    Book Your Free Consultation
+                </a>
+            </div>
+        </div>
+    </section>
+
 
 <!-- FOOTER -->
 <div data-include="footer.html"></div>
@@ -138,3 +258,4 @@
 
 </body>
 </html>
+

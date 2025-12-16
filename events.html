@@ -8,45 +8,50 @@
     <script defer src="assets/js/main.js"></script>
 </head>
 
-<body>
-<header>
-    <nav class="navbar">
-        <a href="index.html" class="logo">Starlit</a>
-        <ul class="nav-links">
-            <li><a href="events.html" class="active">Events</a></li>
-            <li><a href="photography.html">Photography</a></li>
-            <li><a href="rentals.html">Rentals</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-    </nav>
-</header>
+<body class="events-page">
 
-<section class="events-hero">
-    <div class="events-hero-inner">
+<div data-include="navbar.html"></div>
 
-        <!-- LEFT SIDE -->
-        <div class="events-hero-left">
-            <h1>Our Events</h1>
+<section class="hero hero-events">
+    <div class="hero-inner">
+        <h1 class="hero-title">Our Events</h1>
+
+        <p class="hero-cta-bottom">
+            Planning something special?<br>
+            <a href="contact.html">Connect with us</a> for a free personalised quote!
+        </p>
+    </div>
+</section>
+
+
+
+<!--<section class="events-hero">
+    <div class="events-hero-inner">-->
+
+        <!-- LEFT SIDE --> <!--
+        <div class="events-hero-left">-->
+            <!--<h1>Our Events</h1>--><!--
             <p class="events-subtext">Uniquely Customized Event Solutions</p>
-        </div>
+        </div>-->
 
-        <!-- RIGHT SIDE -->
+        <!-- RIGHT SIDE --><!--
         <div class="events-hero-right">
             <p>
-                <br>Planning something special?<br>
-                Starlit delivers seamless event planning tailored to your vision
+                Planning something special?<br>
+                Starlit delivers seamless event planning tailored to your vision!
             </p>
 
             <p style="margin-top: 15px;">
-                Connect with us for a <strong>free</strong> personalised quote!
+                <a href="contact.html" style="color:var(--accent); text-decoration:underline;">
+                    Connect with us</a>
+                for a free personalised quote!
             </p>
         </div>
 
     </div>
-</section>
+</section>-->
 
 <h1 class="page-title"></h1>
-<div class="events-title-divider"></div>
 
 <!-- ===== EVENTS FROM GOOGLE SHEETS ===== -->
 <div id="eventsContainer"></div>
@@ -57,3 +62,4 @@
 
 </body>
 </html>
+

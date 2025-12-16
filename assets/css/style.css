@@ -1,12 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 
 :root{
     --max-width:1100px;
-    --accent:#b98b5a; /* warm gold */
+    --accent:#e6c068; /* warm gold */
     --muted:#888;
     --bg:#ffffff;
     --card:#fafafa;
+    -light-bg-color:rgba(255, 255, 255, 0.95);
 }
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -47,7 +51,7 @@ body{
     padding:140px 20px 120px;
     background:
         linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.4)),
-        url("../images/Header.JPG") center/cover no-repeat;
+        url("../images/Title_Bar.JPG") center/cover no-repeat !important;
 }
 
 .hero-home-inner{
@@ -1001,7 +1005,7 @@ textarea:focus::placeholder {
 .events-hero h1 {
     font-family: "Arial Rounded MT", "Poppins", sans-serif; /* match rentals */
     font-weight: 700;
-    font-size: 42px;
+    font-size: 37px !important;
     color: var(--accent) !important;   /* gold */
     margin-bottom: 6px;
 }
@@ -1557,18 +1561,23 @@ textarea:focus::placeholder {
 
 /* Add background image to the navbar bar */
 .navbar {
-    background: url("../images/Title_Bar.JPG") center/cover no-repeat !important;
-    border-bottom: 1px solid #666 !important;  /* 3D-style strong line */
-    box-shadow: 0 3px 6px rgba(0,0,0,0.25); /* subtle 3D drop shadow */
-    padding: 6px 24px !important;   /* adjust height */
+    background: transparent !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+    padding: 20px 24px !important; /* restore comfortable spacing */
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
-/* Make text readable on the image */
 .navbar .logo,
 .navbar .nav-links a {
-    color: white !important;
+    color: white !important;     /* white looks best on the new photo */
     text-shadow: 0 1px 3px rgba(0,0,0,0.4);
 }
+
 
 /* ---------------------------------------------------
    RENTAL MODAL POPUP (Starlit Rentals)
@@ -2436,3 +2445,2855 @@ textarea:focus::placeholder {
     opacity: 1 !important;
 }
 
+/* Default navbar text for all pages */
+.navbar .logo,
+.navbar .nav-links a {
+    color: #666 !important;       /* BLACK for all non-home pages */
+    text-shadow: none !important;
+}
+
+/* Homepage navbar text (overwrite to white) */
+.home-page .navbar .logo,
+.home-page .navbar .nav-links a {
+    color: white !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4) !important;
+}
+
+.nav-logo {
+    height: 42px;
+    width: auto;
+    display: block;
+}
+
+
+/* Full-width gold divider under navbar (non-home pages) */
+.nav-divider {
+    width: 100%;
+    height: 2px;
+    background: var(--accent); /* gold */
+    margin-top: 10px;  /* adjust spacing if needed */
+}
+
+/* Gold line under navbar on non-home pages */
+body:not(.home-page) .navbar {
+    position: relative !important;
+    border-bottom: 2px solid var(--accent) !important; /* gold line */
+    padding-bottom: 12px !important; /* spacing so tabs don't touch the line */
+}
+
+.home-page .navbar {
+    position: absolute !important;
+    border-bottom: none !important;
+}
+
+.events-hero {
+    margin-top: -10px !important;
+}
+
+/* Container that matches page-title alignment */
+.page-title-block {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 20px;  /* EXACT SAME padding as page-title */
+    text-align: center;  /* keeps the title centered */
+}
+
+/* Tagline aligned with left edge of the title’s text box */
+.page-title-block .photo-subtext {
+    text-align: left;
+    margin-top: -10px;
+    margin-bottom: 30px;
+    font-size: 15px;
+}
+
+/* Left-align only the Photography page title */
+body.photography-page .page-title {
+    text-align: left !important;
+    margin-left: 20px !important; /* aligns with padding of other pages */
+    margin-right: 0 !important;
+}
+
+.page-title-block {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.photo-subtext {
+    text-align: left;
+    margin-top: -10px;
+    margin-bottom: 30px;
+    font-size: 15px;
+}
+
+/* Align tagline left edge to photography title left edge */
+.photography-page .photo-subtext {
+    padding-left: 20px !important;  /* matches .page-title padding */
+}
+
+.photography-page .page-title-block {
+    padding-left: 0 !important;
+}
+
+/* Photography page header container — matches site layout */
+.photo-header-block {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 5px; /* SAME as other page sections */
+}
+
+/* Left-align the title properly */
+.photography-title {
+    text-align: left !important;
+    margin: 40px 0 10px 0 !important; /* removes the auto-centering margins */
+    padding: 0 !important;
+}
+
+/* Line up the tagline exactly under the title */
+.photo-subtext {
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 30px;
+    padding: 0 !important; /* ensures no extra indent */
+}
+
+/* -------------------------------------------------
+   NAVBAR — MOBILE RESPONSIVE
+--------------------------------------------------*/
+
+/* Hide toggle button on desktop */
+.nav-toggle {
+    display: none;
+    font-size: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #000; /* black for non-home pages */
+}
+
+/* Mobile layout */
+@media (max-width: 1170px) {
+
+    /* Show hamburger */
+    .nav-toggle {
+        display: block;
+        position: absolute;
+        right: 20px;
+        top: 18px;
+        z-index: 2000;
+    }
+
+    /* Stack nav vertically */
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        width: 100%;
+        padding: 20px 0;
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+
+        /* TRANSPARENT BACKGROUND WITH BLUR */
+        background: rgba(0, 0, 0, 0.8);   /* semi-transparent white */
+        backdrop-filter: blur(10px);            /* beautiful glass effect */
+
+        border-bottom: 2px solid var(--accent);
+        z-index: 9999;
+    }
+
+    .nav-links.show {
+        display: flex;       /* show when toggled */
+    }
+
+    .nav-links a {
+        color: #000 !important;
+        font-size: 20px;
+    }
+
+    /* Homepage white logo only: keep links white if needed */
+    .home-page .nav-links a {
+        color: #000 !important; /* You can change this if you prefer white links */
+    }
+}
+
+/* Default hamburger color (non-home pages) */
+.nav-toggle {
+    color: #000 !important;  /* black */
+}
+
+/* Homepage hamburger color */
+.home-page .nav-toggle {
+    color: #fff !important;  /* white */
+}
+
+/* Fixed header ONLY on non-home pages */
+body:not(.home-page) header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 5000;
+}
+
+/* Push content down so it doesn't hide under the fixed header */
+body:not(.home-page) {
+    padding-top: 90px;  /* tweak this if header is taller/shorter */
+}
+
+/* FORCE non-home navbar to be solid */
+body:not(.home-page) header,
+body:not(.home-page) .navbar {
+    background: #ffffff !important;   /* solid white */
+    backdrop-filter: none !important; /* remove any blur */
+    -webkit-backdrop-filter: none !important;
+}
+
+/* Keep homepage transparent */
+.home-page header,
+.home-page .navbar {
+    background: transparent !important;
+}
+
+/* ===== MOBILE FIX FOR EVENTS PAGE ===== */
+@media (max-width: 900px) {
+
+    /* Stack vertically: IMAGE on top, TEXT under */
+    .event-row {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 20px;
+        text-align: center; /* optional */
+    }
+
+    /* Image full width */
+    .event-carousel {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 3/2 !important;
+    }
+
+    /* Text block full width, below the image */
+    .event-text {
+        width: 100% !important;
+        padding: 0 10px !important;
+        text-align: left; /* if you want left-aligned text */
+    }
+
+    /* Make sure images resize properly */
+    .event-carousel img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+}
+
+/* MOBILE FIX — Make event images start closer to the left */
+@media (max-width: 900px) {
+
+    .event-row {
+        align-items: flex-start !important;  /* instead of center */
+        text-align: left !important;
+    }
+
+    .event-carousel {
+        width: 100% !important;
+        margin-left: 0 !important;  /* remove centering */
+        padding-left: 0 !important;
+    }
+
+    .event-carousel img {
+        width: 100% !important;
+        object-fit: cover;
+    }
+
+    .event-text {
+        width: 100% !important;
+        padding-left: 0 !important;  /* aligns text and image */
+        padding-right: 0 !important;
+    }
+}
+
+/* Match Photography + Rentals page titles to Events title style */
+.photography-page .page-title,
+.rentals-page .page-title {
+    font-size: 37px !important;
+    font-weight: 700 !important;
+    color: var(--accent) !important; /* gold color */
+}
+
+/* Make Photography + Rentals titles use the same font as Events titles */
+.photography-page .page-title,
+.rentals-page .page-title {
+    font-family: "Playfair Display", serif !important; /* or your events font */
+    font-size: 37px !important;
+    font-weight: 700 !important;
+    color: var(--accent) !important; /* gold */
+}
+
+/* Keep navbar height fixed */
+.navbar .logo {
+    display: flex;
+    align-items: center;   /* vertically center logo */
+    height: 42px;          /* same as original navbar height */
+}
+
+/* Enlarge homepage logo WITHOUT enlarging navbar */
+.home-page .nav-logo {
+    padding-top: 10px !important;
+    height: 75px !important;     /* bigger logo */
+    transform: translateY(4px);  /* gently shift down so it's visually centered */
+}
+
+/* ===============================
+   EVENTS PAGE — GOLD BORDER BANNER
+   =============================== */
+
+.events-hero {
+    max-width: var(--max-width);
+    margin: 30px auto 40px !important;
+    padding: 30px 30px;
+
+    background: #ffffff !important;   /* white interior */
+    border: 2px solid var(--accent);  /* gold border */
+    border-radius: 12px;              /* optional for elegant rounded look */
+
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06); /* subtle lift effect */
+}
+
+/* Add spacing around Events hero box on narrow screens */
+@media (max-width: 600px) {
+    .events-hero {
+        margin-left: 15px !important;
+        margin-right: 15px !important;
+    }
+}
+
+/* Fix right-side overflow for Events hero on mobile */
+@media (max-width: 600px) {
+    .events-hero {
+        width: calc(100% - 30px) !important;  /* ensures equal left/right spacing */
+        margin-left: 15px !important;
+        margin-right: 15px !important;
+        box-sizing: border-box !important;
+    }
+}
+
+
+/* ----------------------------------------------
+   NON-HOMEPAGE NAVBAR: BLACK BAR + GOLD TEXT
+----------------------------------------------- */
+
+/* Black navbar background */
+body:not(.home-page) .navbar {
+    background: #000 !important;   /* solid black */
+}
+
+/* Gold navigation text */
+body:not(.home-page) .navbar a {
+    /*color: var(--accent) !important;*/   /* your gold color */
+    color: white !important;
+}
+
+/* Gold hamburger icon */
+body:not(.home-page) .nav-toggle {
+    color: var(--accent) !important;
+}
+
+/* Dropdown menu text also gold */
+@media (max-width: 800px) {
+    body:not(.home-page) .nav-links a {
+        color: var(--accent) !important;
+    }
+}
+
+/* ---------------------------------------------
+   NON-HOMEPAGE PAGES — VERY FAINT GOLD BACKGROUND
+---------------------------------------------- */
+
+/*body:not(.home-page) {
+    background: rgba(230, 192, 104, 0.06); 
+}*/
+
+/* Remove all event dividers */
+.event-divider,
+.event-row::after,
+.event-row:not(:last-child)::after {
+    display: none !important;
+}
+
+/* Center event text only on narrow screens */
+@media (max-width: 700px) {
+    .event-text {
+        text-align: center !important;
+        align-items: center !important;
+    }
+
+    /* Also center the title inside the block */
+    .event-text h2 {
+        text-align: center !important;
+    }
+
+    /* Make paragraph text centered */
+    .event-text p {
+        text-align: center !important;
+    }
+}
+
+/* REMOVE ALL LINES BETWEEN EVENTS */
+.event-row,
+.event-item,
+.event-text,
+.event-container,
+.event-block {
+    border: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+}
+
+.event-row::before,
+.event-row::after,
+.event-item::before,
+.event-item::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Make event photos stretch edge-to-edge */
+.event-carousel img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    object-fit: cover !important;
+}
+
+/* Remove rounding on the image container itself */
+.event-carousel {
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Reduce spacing between event sections */
+.event-row {
+    margin: 0px 0 !important;   /* adjust to your preference */
+    padding: 0 !important;
+}
+
+/* Remove extra spacing inside containers */
+.event-carousel,
+.event-text {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Desktop layout: enforce side-by-side and allow switching */
+@media (min-width: 900px) {
+    .event-row {
+        display: flex !important;
+        flex-direction: row !important;   /* JavaScript determines order */
+        gap: 0px;                        /* optional spacing between image/text */
+        align-items: center;
+    }
+
+    /* Let both sides size properly */
+    .event-text,
+    .event-carousel {
+        flex: 1 1 50%;
+    }
+}
+
+/* Increase left & right padding inside each event text block */
+.event-text {
+    padding-left: 70px !important;
+    padding-right: 70px !important;
+}
+
+/* Extra left spacing ONLY for text blocks on the RIGHT side */
+.event-row:nth-child(even) .event-text {
+    padding-left: 90px !important;  /* adjust value as desired */
+}
+
+/* EVENTS HERO – tighten spacing between title block and paragraph on mobile */
+@media (max-width: 700px) {
+    .events-hero-inner {
+        gap: 12px !important;      /* was much larger, this shrinks the space */
+    }
+
+    .events-hero-right {
+        margin-top: 0 !important;  /* just in case any margin is pushing it down */
+    }
+}
+
+/* MOBILE: force every event section to display PHOTO first, TEXT second */
+@media (max-width: 800px) {
+    .event-row {
+        flex-direction: column !important;
+    }
+
+    .event-row .event-carousel {
+        order: 1 !important;   /* photo first */
+        width: 100% !important;
+        margin: 0;
+    }
+
+    .event-row .event-text {
+        order: 2 !important;   /* text second */
+        text-align: center;     /* optional: center on mobile */
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+}
+
+/* MOBILE FIX: center even rows' text spacing */
+@media (max-width: 800px) {
+    .event-row:nth-child(even) .event-text {
+        padding-left: 20px !important; 
+        padding-right: 20px !important;
+        text-align: center !important;
+    }
+}
+
+/* ==========================================
+   CONSISTENT STACKING ORDER ON MEDIUM SCREENS
+   ========================================== */
+@media (max-width: 1100px) {
+
+    /* Stack vertically */
+    .event-row {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        text-align: left !important;
+        gap: 20px !important;
+    }
+
+    /* Photo always first */
+    .event-row .event-carousel {
+        order: 1 !important;
+        width: 100% !important;
+    }
+
+    /* Text always second */
+    .event-row .event-text {
+        order: 2 !important;
+        width: 100% !important;
+        padding: 0 20px !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        text-align: center !important;
+    }
+
+    .event-text {
+        text-align: center !important;
+        align-items: center !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+
+    .event-text h2,
+    .event-text p {
+        text-align: center !important;
+    }
+
+    .event-row .event-text h2,
+    .event-row .event-text p {
+        text-align: center !important;
+    }
+}
+
+
+/* ============================================
+   TRUE FINAL FIX — CENTER TEXT WHEN STACKED
+   ============================================ */
+@media (max-width: 1100px) {
+
+    /* Reset all desktop paddings — these were blocking everything */
+    .event-text,
+    .event-row .event-text,
+    .event-row:nth-child(even) .event-text,
+    .event-row:nth-child(odd) .event-text {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        text-align: center !important;
+    }
+
+    .event-text h2,
+    .event-text p {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        width: 100% !important;
+    }
+}
+
+/* Base card style */
+.service-card {
+    position: relative;
+    height: 260px;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    color: white;
+    font-family: "Arial Rounded MT", sans-serif;
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Background images */
+.wwd-photo {
+    background: url("../images/WWD_Photography.JPG") center/cover no-repeat;
+}
+.wwd-events {
+    background: url("../images/WWD_Events.JPG") center/cover no-repeat;
+}
+.wwd-rentals {
+    background: url("../images/WWD_Rentals.JPG") center/cover no-repeat;
+}
+
+/* Text initially hidden */
+.service-card h3,
+.service-card p {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    z-index: 2;
+    color: #000; /* black text over white overlay */
+}
+
+/* White translucent overlay (hidden initially) */
+.service-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.82); 
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: 1;
+}
+
+/* Hover effects */
+.service-card:hover::before {
+    opacity: 1;
+}
+
+.service-card:hover h3,
+.service-card:hover p {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.service-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.20);
+}
+
+/* ============================================
+   WHAT WE DO — PREMIUM GOLD HOVER CARDS
+============================================ */
+
+/* =====================================
+   WHAT WE DO — FINAL WORKING VERSION
+===================================== */
+
+.wwd-card {
+    position: relative;
+    display: block;
+
+    aspect-ratio: 4/3;              /* landscape */
+    flex-shrink: 0;
+    width: 100%;
+    border-radius: 0px;
+    overflow: hidden;
+
+    /*border: 3px solid var(--accent);*/
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    cursor: pointer;
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.wwd-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+}
+
+/* Overlay shown on hover */
+.wwd-overlay {
+    position: absolute;
+    inset: 0;
+
+    /*background: rgba(255,255,255,0.60);*/
+    background: rgba(0,0,0,0.60);
+    backdrop-filter: blur(4px);
+
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+    text-align: center;
+
+    transition: opacity .35s ease;
+}
+
+.wwd-card:hover .wwd-overlay {
+    opacity: 1;
+}
+
+/* Text inside overlay */
+.wwd-overlay h3 {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0 0 12px;
+    color: white;
+}
+
+.wwd-overlay p {
+    font-size: 16px;
+    color: white;
+    margin: 0;
+}
+
+/* HERO SECTION */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Increase height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('../images/your_hero_image.jpg') center/cover no-repeat;
+    z-index: -1;
+    filter: brightness(100%);
+}
+
+/* HERO TEXT */
+.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;         /* adjust as needed */
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 12px;
+    color: #ffffff;
+}
+
+.hero-subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    color: #ffffff;
+    opacity: 0.95;
+    margin-top: 10px;
+}
+
+.section-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 38px;
+    font-weight: 300;        /* light weight like screenshot */
+    letter-spacing: 12px;    /* same wide spacing */
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+/* ============================================
+   WHAT WE DO — GOLD BORDER + RESPONSIVE CARDS
+============================================ */
+
+/* Make the grid adjust responsively */
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* bigger cards */
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* Add gold border to each card */
+.wwd-card {
+    /*border: 3px solid var(--accent); /* gold border */
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+
+    aspect-ratio: 4/3; /* same shape as your images */
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+/* Hover effect */
+.wwd-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+}
+
+/* Ensure background image fills frame */
+.wwd-card {
+    background-size: cover !important;
+    background-position: center !important;
+}
+
+/* Overlay stays the same */
+.wwd-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity .35s ease;
+}
+
+.wwd-card:hover .wwd-overlay {
+    opacity: 1;
+}
+
+/* Text inside overlay */
+.wwd-overlay h3 {
+    font-size: 26px;
+    color: white;
+    margin: 0 0 10px;
+}
+
+.wwd-overlay p {
+    font-size: 16px;
+    color: white;
+}
+
+
+/* 📱 Stack on small screens */
+@media (max-width: 800px) {
+    .service-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .wwd-card {
+        aspect-ratio: 4/3;
+        width: 100%;
+    }
+}
+
+/* MAKE WHAT-WE-DO CARDS BIGGER WITH 4:3 RATIO */
+.wwd-card {
+    aspect-ratio: 4 / 3 !important;    /* landscape */
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    background-size: cover !important;
+    background-position: center !important;
+}
+
+/* WIDER WHAT-WE-DO SECTION */
+.what-we-do {
+    max-width: 1400px !important; /* wider than before */
+    margin: 60px auto;
+    padding: 0 10px !important;   /* reduce side padding */
+}
+
+/* WIDER GRID — BIGGER CARDS */
+.service-grid {
+    grid-template-columns: repeat(3, 1fr) !important; 
+    gap: 20px !important;         /* smaller gaps = bigger cards */
+}
+
+@media (max-width: 900px) {
+    .service-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .what-we-do {
+        padding: 0 20px !important; /* more room for mobile */
+    }
+}
+
+/* ============================================
+   WHAT WE DO — FINAL SPACING + BIGGER CARDS
+============================================ */
+
+/* Reduce side spacing of the entire section */
+.what-we-do {
+    max-width: 1700px !important;  /* much wider than before */
+    margin: 60px auto !important;
+    padding-left: 10 !important;
+    padding-right: 10 !important;
+}
+
+/* Make grid fill more horizontally */
+.service-grid {
+    width: 100% !important;
+    max-width: 1700px !important;
+    margin: 0 auto !important;
+
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 16px !important; /* smaller gaps = bigger cards */
+}
+
+/* Force cards to expand fully */
+.wwd-card {
+    aspect-ratio: 4 / 3 !important;
+    width: 100% !important;
+    height: auto !important;
+    display: block;
+    border-radius: 14px;
+    background-size: cover !important;
+    background-position: center !important;
+    
+}
+
+/* Centered label under each What We Do card */
+.wwd-item {
+    text-align: center !important;
+}
+
+.wwd-label {
+    margin-top: 10px;
+    font-size: 20px;
+    font-family: "Arial Rounded MT", "Poppins", sans-serif;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Reduce bottom spacing under WHAT WE DO section */
+.what-we-do {
+    margin-bottom: 20px !important;
+    padding-bottom: 0 !important;
+}
+
+/* Reduce spacing under each label */
+.wwd-label {
+    margin-bottom: -90px !important;
+}
+
+/* Pull the reviews banner upward */
+.reviews {
+    margin-top: 10px !important;
+    padding-top: 0 !important;
+}
+
+@media (max-width: 900px) {
+    .service-grid {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+    }
+
+    .wwd-item {
+        margin-bottom: 90px; /* ensures room for the label */
+    }
+
+    .what-we-do {
+        padding: 0 20px !important;
+    }
+}
+
+/* WHAT WE DO — ensure item + label stay together */
+.service-grid {
+    display: grid;
+}
+
+.service-grid > .wwd-item {
+    width: 100%;
+}
+
+
+/* ================================
+   STARLIT CTA SECTION (Home Page)
+================================ */
+
+.starlit-cta {
+    width: 100%;
+    background: var(--accent);       /* gold */
+    border-radius: 20px;
+    padding: 60px 40px;
+    margin: 80px auto 40px;
+    max-width: 700px;
+}
+
+.cta-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.cta-image img {
+    width: 260px;
+    height: auto;
+    object-fit: contain;
+}
+
+.cta-text-block {
+    flex: 1;
+}
+
+/* Heading — matches “Talk to your wedding planner” */
+.cta-title {
+    font-family: "Poppins", sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: white;
+    margin: 0 0 10px 0;
+    letter-spacing: 1px;
+}
+
+/* Subtitle — italic and lighter */
+.cta-subtitle {
+    font-family: "Poppins", sans-serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 18px;
+    color: #fff;
+    margin: 10px 0 30px;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 14px 28px;
+    border: 2px solid white;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: 0.25s ease;
+}
+
+.cta-button:hover {
+    background: white;
+    color: var(--accent);
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+    .cta-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .cta-title {
+        font-size: 36px;
+    }
+
+    .cta-subtitle {
+        font-size: 18px;
+    }
+
+    .cta-button {
+        font-size: 16px;
+    }
+}
+
+
+/* ======================================
+   WHY CHOOSE STARLIT SECTION
+====================================== */
+
+.why-starlit {
+    max-width: 1300px;
+    margin: 100px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.why-title {
+    font-family: "Poppins", sans-serif;
+    font-size: 42px;
+    font-weight: 600;
+    letter-spacing: 6px;
+    margin-bottom: 20px;
+}
+
+.why-subtext {
+    max-width: 800px;
+    margin: 0 auto 60px;
+    font-size: 18px;
+    color: #444;
+    line-height: 1.6;
+}
+
+/* Grid */
+.why-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* Item */
+.why-item {
+    width: 200px;
+    text-align: center;
+}
+
+/* Gradient Circle */
+.why-icon-circle {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+
+    background: radial-gradient(
+        circle,
+        rgba(230,192,104,0.35) 0%,
+        rgba(230,192,104,0.15) 60%,
+        rgba(230,192,104,0.10) 100%
+    );
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.why-icon-circle img {
+    width: 70px;
+    height: auto;
+}
+
+.why-label {
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .why-grid {
+        justify-content: center;
+        gap: 40px;
+    }
+}
+
+/* ====================================================
+   MOBILE LAYOUT FOR WHAT WE DO (IMAGE LEFT, TEXT RIGHT)
+==================================================== */
+
+@media (max-width: 750px) {
+
+    /* Turn the grid into vertical rows */
+    .service-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 40px !important;
+    }
+
+    /* Form each item into a horizontal card */
+    .wwd-item {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 16px !important;
+        width: 100%;
+    }
+
+    /* Image on the LEFT (half screen) */
+    .wwd-card {
+        width: 50% !important;
+        aspect-ratio: 4 / 3 !important;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    /* DISABLE OVERLAY COMPLETELY on mobile */
+    .wwd-overlay {
+        display: none !important;
+    }
+
+    /* Title + description on RIGHT side */
+    .wwd-label {
+        margin: 0;
+        padding: 0;
+        font-size: 20px !important;
+        font-weight: 600;
+        text-align: left !important;
+        width: 100%;
+        color: #000 !important;
+    }
+
+    /* Mobile description (new element) */
+    .wwd-mobile-desc {
+        display: block !important;
+        margin-top: 6px;
+        font-size: 14px;
+        color: #555;
+        text-align: left !important;
+        width: 100%;
+        line-height: 1.45;
+    }
+
+    /* Wrap both texts into the right half */
+    .wwd-item > .wwd-label,
+    .wwd-item > .wwd-mobile-desc {
+        width: 50% !important;
+    }
+}
+
+@media (max-width: 750px) {
+    .wwd-label {
+        display: none !important;
+    }
+}
+
+@media (max-width: 750px) {
+    .wwd-overlay {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+}
+
+@media (max-width: 750px) {
+    .wwd-mobile-desc {
+        display: block !important;
+        width: 50% !important;
+        font-size: 14px;
+        color: #444;
+        line-height: 1.5;
+        margin: 0;
+        padding-right: 10px;
+    }
+}
+
+/* ==========================================================
+   FINAL FIX — PROPER MOBILE ROW LAYOUT FOR WHAT WE DO
+   ========================================================== */
+@media (max-width: 750px) {
+
+    /* 1. Turn grid into vertical stack */
+    .service-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 40px !important;
+        width: 100% !important;
+    }
+
+    /* 2. Each item becomes a row */
+    .wwd-item {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 16px !important;
+        width: 100% !important;
+    }
+
+    /* 3. Image on left */
+    .wwd-card {
+        width: 50% !important;
+        height: auto !important;
+        aspect-ratio: unset !important;
+        border-radius: 12px !important;
+        background-size: cover !important;
+        background-position: center !important;
+    }
+
+    /* 4. Completely disable the overlay */
+    .wwd-overlay {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        height: 0 !important;
+    }
+
+    /* 5. Hide desktop label on mobile */
+    .wwd-label {
+        display: none !important;
+    }
+
+    /* 6. Mobile description becomes visible */
+    .wwd-mobile-desc {
+        display: block !important;
+        width: 50% !important;
+        font-size: 15px;
+        color: #222;
+        margin: 0;
+        line-height: 1.45;
+        padding-right: 10px;
+    }
+}
+
+@media (max-width: 1000px) {
+
+    /* Force the card to have visible height */
+    .wwd-card {
+        width: 60% !important;
+        aspect-ratio: 4 / 3 !important;
+        /*height: 160px !important; /* you can adjust to 140 / 180 / etc */
+        border-radius: 12px !important;
+
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+
+        display: block !important;
+        flex-shrink: 0 !important; /* don't let it collapse */
+    }
+}
+
+@media (max-width: 750px) {
+
+    /* Force the card to have visible height */
+    .wwd-card {
+        width: 50% !important;
+        aspect-ratio: 4 / 3 !important;
+        /*height: 160px !important; /* you can adjust to 140 / 180 / etc */
+        border-radius: 12px !important;
+
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+
+        display: block !important;
+        flex-shrink: 0 !important; /* don't let it collapse */
+    }
+}
+
+.wwd-item {
+    text-align: center;
+    width: 100%;
+}
+
+.wwd-card {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4/3;
+    border-radius: 20px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+}
+
+.wwd-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+.wwd-description {
+    margin-top: 14px;
+    font-size: 16px;
+    color: #444;
+}
+
+.wwd-label {
+    margin-top: 4px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* Fix titles disappearing on narrow screens */
+@media (max-width: 1000px) {
+    .wwd-label {
+        display: block;
+    }
+
+    .service-grid {
+        grid-template-columns: 1fr !important;
+        gap: 32px !important;
+    }
+}
+
+/* MOBILE TEXT POSITIONING (only shows on narrow screens) */
+.wwd-mobile-info {
+    display: none;
+    padding-left: 15px;
+}
+
+.wwd-mobile-info h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 6px;
+}
+
+.wwd-mobile-info p {
+    font-size: 15px;
+    margin: 0;
+    color: #555;
+}
+
+/* Desktop layout — nothing changes! */
+@media (min-width: 901px) {
+    .wwd-mobile-info {
+        display: none;
+    }
+}
+
+/* Mobile layout — show text beside card */
+@media (max-width: 1000px) {
+    .service-grid {
+        grid-template-columns: 1fr !important;
+        gap: 40px !important;
+    }
+
+    .wwd-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .wwd-card {
+        width: 50%;
+        aspect-ratio: 4/3;
+        border-radius: 20px;
+    }
+
+    .wwd-mobile-info {
+        display: block;
+        width: 45%;
+    }
+
+    /* Hide overlay on small screens (so it doesn't cover the image) */
+    .wwd-overlay {
+        display: none;
+    }
+}
+
+
+.intro .section-title {
+    margin-bottom: 15px !important;
+}
+
+.intro .section-text {
+    margin-top: 10px !important;
+}
+
+/* MOBILE SPACING FIXES */
+@media (max-width: 1000px) {
+
+    /* Reduce vertical spacing between each card row */
+    .service-grid {
+        gap: 20px !important;   /* was 40px */
+    }
+
+    /* Reduce spacing INSIDE each row (between image + text) */
+    .wwd-item {
+        gap: 12px !important;   /* was 20px */
+        margin-bottom: 10px !important;
+    }
+
+    /* Reduce spacing under each image (if any extra exists) */
+    .wwd-card {
+        margin-bottom: 0 !important;
+    }
+
+    /* Reduce spacing beneath the *entire* What We Do section */
+    .what-we-do {
+        padding-bottom: 20px !important;  /* adjust as needed */
+        margin-bottom: 0 !important;
+    }
+}
+
+ /* Mobile-only: tighten gap between WHAT WE DO and REVIEWS */
+@media (max-width: 1000px) {
+
+  /* Reduce space under WHAT WE DO */
+  .home-section.what-we-do {
+    padding-bottom: -10px !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Reduce space before the reviews background starts */
+  .reviews.fullwidth-reviews {
+    padding-top: 10px !important;
+    margin-top: 0 !important;
+  }
+
+  /* Override the inline margin-top:90px on "Kind Words" */
+  .reviews.fullwidth-reviews h2.section-title {
+    margin-top: -10px !important;
+  }
+}
+
+@media (max-width: 1000px) {
+    .wwd-mobile-info {
+        padding-left: 25px;     /* already exists */
+        padding-right: 25px;    /* add this */
+    }
+}
+
+/* REVIEW TEXT RESPONSIVE SIZING */
+@media (max-width: 1000px) {
+    .review-text {
+        font-size: 22px !important;   /* slightly smaller */
+        line-height: 1.35;
+        padding: 0 40px;              /* margins left/right */
+    }
+
+    .review-name {
+        font-size: 18px !important;
+        padding: 0 40px;
+    }
+}
+
+@media (max-width: 600px) {
+    .review-text {
+        font-size: 18px !important;   /* smaller for phones */
+        padding: 0 55px;
+    }
+    .review-name {
+        font-size: 16px !important;
+    }
+}
+
+@media (max-width: 420px) {
+    .review-text {
+        font-size: 16px !important;   /* smallest size */
+        padding: 0 20px;
+    }
+    .review-name {
+        font-size: 14px !important;
+    }
+}
+
+/* WHY CHOOSE STARLIT — responsive grid */
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 30px;
+    justify-items: center;
+}
+
+@media (max-width: 1000px) {
+    .why-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    }
+}
+
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px; /* Always >= 10px */
+    justify-items: center;
+}
+
+@media (max-width: 900px) {
+    .why-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px; /* Never below 10px */
+        justify-items: center;
+    }
+}
+
+/* Base: 5 per row, centered */
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(120px, 1fr));
+    justify-items: center;
+    gap: clamp(10px, 3vw, 30px); /* responsive spacing, never less than 10px */
+    padding: 0 20px; /* ensures icons never touch window edges */
+}
+
+
+/* Medium screens: auto-wrap into 3 + 2 */
+@media (max-width: 900px) {
+    .why-grid {
+        grid-template-columns: repeat(3, minmax(120px, 1fr));
+    }
+}
+
+/* FINAL OVERRIDE — center WHY icons in 2 rows */
+
+/* Use flexbox instead of grid for Why grid */
+.why-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: flex-start;
+    gap: clamp(10px, 3vw, 30px); /* spacing shrinks but never below 10px */
+    padding: 0 20px;             /* margin from window edges */
+}
+
+/* Each icon block gets a reasonable width */
+.why-item {
+    flex: 0 1 180px;   /* try 160–200px if you want to tweak */
+    text-align: center;
+}
+
+
+/* ------------------------------------------
+WHY CHOOSE STARLIT — ALWAYS 3 + 2 LAYOUT
+Icons shrink automatically with window size
+------------------------------------------- */
+
+.why-grid {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;   /* center both rows */
+    gap: clamp(10px, 3vw, 20px); /* space shrinks but never <10px */
+    padding: 0 20px;            /* icons never touch edges */
+}
+
+/* Every icon block adapts automatically */
+.why-item {
+    flex: 1 1 calc(33.33% - clamp(10px, 3vw, 40px));
+    max-width: 260px;   /* so they don't get huge on large screens */
+    min-width: 140px;   /* prevents wrapping into 4 per row */
+    text-align: center;
+}
+
+/* The gold circle scales responsively */
+.why-icon-circle {
+    width: clamp(70px, 15vw, 150px);
+    height: clamp(70px, 15vw, 150px);
+    border-radius: 50%;
+    margin: 0 auto 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: radial-gradient(
+        circle,
+        rgba(230,192,104,0.35) 0%,
+        rgba(230,192,104,0.15) 60%,
+        rgba(230,192,104,0.10) 100%
+    );
+}
+
+/* Icon inside circle also scales */
+.why-icon-circle img {
+    width: clamp(30px, 7vw, 70px);
+    height: auto;
+}
+
+/* Label shrinks gently */
+.why-label {
+    font-size: clamp(12px, 2.2vw, 16px);
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-top: 8px;
+}
+
+/* WHY CHOOSE STARLIT — Responsive Typography */
+@media (max-width: 1200px) {
+    .why-title {
+        font-size: 36px;
+    }
+    .why-subtext {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 900px) {
+    .why-title {
+        font-size: 32px;
+    }
+    .why-subtext {
+        font-size: 16px;
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 700px) {
+    .why-title {
+        font-size: 28px;
+        letter-spacing: 3px;
+    }
+    .why-subtext {
+        font-size: 15px;
+        line-height: 1.45;
+    }
+}
+
+@media (max-width: 500px) {
+    .why-title {
+        font-size: 24px;
+        letter-spacing: 2px;
+    }
+    .why-subtext {
+        font-size: 14px;
+    }
+}
+
+/* CTA — Responsive scaling and side margins */
+@media (max-width: 1250px) {
+    .starlit-cta {
+        padding: 50px 30px;
+    }
+    .cta-title {
+        font-size: 30px;
+    }
+    .cta-subtitle {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 900px) {
+    .starlit-cta {
+        padding: 40px 25px;
+        margin-left: 20px;
+        margin-right: 20px; /* mobile left/right margin */
+    }
+    .cta-title {
+        font-size: 23px;
+    }
+    .cta-subtitle {
+        font-size: 14px;
+    }
+    .cta-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 24px;
+    }
+    .cta-image img {
+        width: 200px;
+    }
+}
+
+@media (max-width: 600px) {
+    .starlit-cta {
+        padding: 32px 20px;
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+    .cta-title {
+        font-size: 20px;
+    }
+    .cta-subtitle {
+        font-size: 12px;
+    }
+    .cta-image img {
+        width: 160px;
+    }
+}
+
+@media (max-width: 450px) {
+    .starlit-cta {
+        padding: 28px 16px;
+        margin-left: 14px;
+        margin-right: 14px;
+    }
+    .cta-title {
+        font-size: 24px;
+    }
+    .cta-subtitle {
+        font-size: 15px;
+    }
+    .cta-image img {
+        width: 140px;
+    }
+}
+
+/* Ensure CTA card always has padding from both sides */
+.starlit-cta {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* On smaller screens, enforce side-space */
+@media (max-width: 900px) {
+    .starlit-cta {
+        width: calc(100% - 40px); /* adds 20px left + 20px right space */
+        max-width: none !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .starlit-cta {
+        width: calc(100% - 32px); /* 16px left + 16px right */
+    }
+}
+
+@media (max-width: 450px) {
+    .starlit-cta {
+        width: calc(100% - 28px); /* 14px left + 14px right */
+    }
+}
+
+/* Keep CTA logo and text side-by-side on mobile */
+@media (max-width: 900px) {
+    .cta-content {
+        display: flex !important;
+        flex-direction: row !important;   /* <-- FORCE SIDE-BY-SIDE */
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: left !important;
+        gap: 20px !important;
+    }
+
+    .cta-image {
+        flex: 0 0 auto !important;
+    }
+
+    .cta-image img {
+        width: 160px !important;  /* adjust for smaller screens */
+        height: auto !important;
+    }
+
+    .cta-text-block {
+        flex: 1 !important;
+    }
+}
+
+/* CTA BUTTON — Responsive sizing */
+@media (max-width: 1100px) {
+    .cta-button {
+        font-size: 17px;
+        padding: 12px 26px;
+    }
+}
+
+@media (max-width: 900px) {
+    .cta-button {
+        font-size: 16px;
+        padding: 12px 22px;
+    }
+}
+
+@media (max-width: 700px) {
+    .cta-button {
+        font-size: 15px;
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 500px) {
+    .cta-button {
+        font-size: 14px;
+        padding: 10px 18px;
+        border-width: 1.5px;
+    }
+}
+
+@media (max-width: 380px) {
+    .cta-button {
+        font-size: 13px;
+        padding: 8px 16px;
+        border-width: 1.5px;
+    }
+}
+
+/* ==========================================
+   CTA CARD — Fully Responsive Shrinking
+========================================== */
+
+/* Default (desktop) */
+.starlit-cta {
+    max-width: 1200px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 0.25s ease;
+}
+
+/* Large tablet */
+@media (max-width: 1100px) {
+    .starlit-cta {
+        max-width: 900px; /* shrinks proportionately */
+        padding: 50px 30px;
+    }
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .starlit-cta {
+        max-width: 750px;
+        width: calc(100% - 40px);  /* clean side spacing */
+        padding: 40px 28px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+    .starlit-cta {
+        max-width: 600px;
+        width: calc(100% - 36px);
+        padding: 32px 22px;
+    }
+}
+
+/* Small mobile */
+@media (max-width: 500px) {
+    .starlit-cta {
+        max-width: 450px;
+        width: calc(100% - 28px);
+        padding: 28px 18px;
+    }
+}
+
+/* Very small screens */
+@media (max-width: 380px) {
+    .starlit-cta {
+        max-width: 340px;
+        width: calc(100% - 22px);
+        padding: 24px 16px;
+    }
+}
+
+/* =====================================================
+   CTA CARD — FLUID RESPONSIVE WIDTH USING CLAMP()
+===================================================== */
+
+.starlit-cta {
+    width: clamp(280px, 85vw, 900px); /* fluid scaling */
+    margin-left: auto;
+    margin-right: auto;
+    padding: clamp(20px, 5vw, 50px) clamp(16px, 4vw, 40px);
+    border-radius: 25px;
+}
+
+/* ==========================================
+   CTA — Center logo+text SIDE-BY-SIDE
+========================================== */
+
+.cta-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;        /* vertically center logo + text */
+    justify-content: center;    /* horizontally center them together */
+    gap: 32px;                  /* spacing between logo + text */
+    text-align: left;           /* keeps the text left-aligned */
+}
+
+/* Logo sizing */
+.cta-image img {
+    width: clamp(100px, 20vw, 220px);
+    height: auto;
+    display: block;
+}
+
+/* Text block stays on the right */
+.cta-text-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 420px;   /* keeps text from spreading too wide */
+}
+
+/* Responsive text scaling */
+.cta-title {
+    font-size: clamp(16px, 3vw, 28px);
+    margin: 0;
+}
+
+.cta-subtitle {
+    font-size: clamp(12px, 2vw, 18px);
+    margin: 6px 0 20px;
+}
+
+/* Responsive button sizing */
+.cta-button {
+    align-self: flex-start; /* keeps button left-aligned under text */
+    padding: clamp(8px, 1.2vw, 14px) clamp(14px, 2vw, 28px);
+    font-size: clamp(12px, 1.8vw, 15px);
+}
+
+.starlit-cta {
+    width: clamp(320px, 85vw, 900px);
+    margin-left: auto;
+    margin-right: auto;
+    padding: clamp(24px, 4vw, 48px);
+    border-radius: 25px;
+}
+
+/* Center the button under the text */
+.cta-text-block {
+    display: flex;
+    margin-top: -10px;
+    flex-direction: column;
+    align-items: center;     /* centers button + subtitle inside the text block */
+    text-align: center;      /* centers the actual text */
+}
+
+/* Ensure button is centered */
+.cta-button {
+    align-self: center !important;
+}
+
+/* =====================================
+   FOOTER — Responsive single-row layout
+===================================== */
+
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: nowrap;  /* prevents wrapping to next row */
+}
+
+/* Let each column shrink gracefully */
+.footer-column,
+.footer-logo-col {
+    flex: 1 1 auto;
+    min-width: 0;   /* allows shrinking instead of wrapping */
+}
+
+/* Reduce font sizes as the window narrows */
+@media (max-width: 1100px) {
+    .footer-column p,
+    .footer-column a,
+    .footer-locations {
+        font-size: 15px;
+    }
+    .footer-heading {
+        font-size: 17px;
+    }
+    .footer-logo {
+        max-width: 160px;
+    }
+}
+
+@media (max-width: 900px) {
+    .footer-column p,
+    .footer-column a,
+    .footer-locations {
+        font-size: 14px;
+    }
+    .footer-heading {
+        font-size: 16px;
+    }
+    .footer-logo {
+        max-width: 140px;
+    }
+}
+
+/* For even narrower screens, compress spacing */
+@media (max-width: 800px) {
+    .footer-top {
+        gap: 12px;
+    }
+    .footer-logo {
+        max-width: 120px;
+    }
+}
+
+/* Footer Contact Icons - Styled to match socials */
+.footer-contact-icons {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    justify-content: center; /* centers under "Contact" */
+    margin-top: 6px;
+}
+
+.footer-contact-icons img {
+    width: 28px;           /* match social icon size */
+    height: 28px;
+    object-fit: contain;
+    transition: 0.2s ease;
+}
+
+.footer-contact-icons a:hover img {
+    transform: scale(1.12);
+    opacity: 0.85;
+}
+
+/* Keeps layout stable on smaller screens */
+@media (max-width: 700px) {
+    .footer-contact-icons img {
+        width: 26px;
+        height: 26px;
+    }
+}
+
+/* Hide the mobile dropdown by default */
+.mobile-category-select {
+    display: none;
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    margin-bottom: 16px;
+}
+
+/* MOBILE MODE */
+@media (max-width: 980px) {
+
+    /* Hide the button list */
+    .category-list {
+        display: none !important;
+    }
+
+    /* Show dropdown instead */
+    .mobile-category-select {
+        display: block !important;
+    }
+}
+
+/* ======================================================
+   ALWAYS TWO ITEMS PER ROW ON MOBILE
+====================================================== */
+/* ALWAYS TWO ITEMS PER ROW */
+@media (max-width: 1250px) {
+    .rental-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 16px !important;
+        width: 100%;
+        padding: 0 14px;
+        box-sizing: border-box;
+    }
+
+    .rental-card {
+        width: 100% !important;    /* fill the grid column */
+        max-width: none !important; /* allow full expansion */
+    }
+}
+
+@media (max-width: 700px) {
+    .rental-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 16px !important;
+        width: 100%;
+        padding: 0 14px;
+        box-sizing: border-box;
+    }
+
+    .rental-card {
+        width: 100% !important;    /* fill the grid column */
+        max-width: none !important; /* allow full expansion */
+    }
+}
+
+
+@media (max-width: 480px) {
+    .rental-grid {
+        gap: 12px !important;
+        padding: 0 12px;
+    }
+
+    .rental-card {
+        width: 100% !important;
+        max-width: none !important;
+    }
+}
+
+/* ===========================
+   RENTALS HERO
+=========================== */
+
+.hero-rentals {
+    position: relative;
+    /*min-height: 35vh; /* HALF the height of home hero (70vh) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    color: #fff;
+
+    background:
+        linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.4)),
+        url("../images/Rentals_Title_Bar.JPG") center/cover no-repeat;
+}
+
+.hero-rentals-inner {
+    max-width: 700px;
+    padding: 60px 20px;
+}
+
+/* Title styling matches home hero */
+.hero-rentals .hero-title {
+    font-family: "Playfair Display", serif;
+    /*font-size: 48px;*/
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 1px;
+    color: #ffffff;
+}
+
+/* Responsive scaling */
+@media (max-width: 900px) {
+    /*.hero-rentals {
+        min-height: 30vh;
+    }
+
+    /*.hero-rentals .hero-title {
+        font-size: 36px;
+    }*/
+}
+
+@media (max-width: 600px) {
+    /*.hero-rentals {
+        min-height: 26vh;
+    }
+
+    /*.hero-rentals .hero-title {
+        font-size: 30px;
+    }*/
+}
+
+/* ===========================
+   RENTALS HERO — FORCE HALF HEIGHT
+=========================== */
+
+.rentals-page .hero-rentals {
+    height: 15vh !important;        /* FORCE half screen */
+    min-height: unset !important;
+    max-height: 15vh !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    color: #fff;
+
+    background:
+        linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.4)),
+        url("../images/Rentals_Title_Bar.JPG") center/cover no-repeat;
+}
+
+/* =========================================
+   RENTALS PAGE — NAVBAR OVER HERO IMAGE
+========================================= */
+
+/* Make header overlay the hero */
+.rentals-page header {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 5000;
+}
+
+/* Transparent navbar on hero */
+.rentals-page .navbar {
+    background: transparent !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+/* Navbar text + logo visible on image */
+.rentals-page .navbar a,
+.rentals-page .nav-toggle {
+    color: #fff !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.45);
+}
+
+/* Ensure logo stays white */
+.rentals-page .nav-logo {
+    filter: brightness(1.1);
+}
+
+/* Remove top offset so hero reaches the top */
+.rentals-page {
+    padding-top: 0 !important;
+}
+
+.hero-rentals {
+    position: relative;
+    z-index: 1;
+}
+
+/* =========================================
+   RENTALS PAGE — HERO REPLACES BLACK HEADER
+========================================= */
+
+/* Remove fixed black header on Rentals */
+body.rentals-page header {
+    position: absolute !important;
+    background: transparent !important;
+}
+
+/* Remove black navbar background */
+body.rentals-page .navbar {
+    background: transparent !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+/* White nav text over image */
+body.rentals-page .navbar a,
+body.rentals-page .nav-toggle {
+    color: #fff !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.45);
+}
+
+body.rentals-page {
+    padding-top: 0 !important;
+}
+
+.hero-rentals {
+    margin-top: 0 !important;
+}
+
+/* Space below Rentals hero image */
+.rentals-page .hero-rentals {
+    margin-bottom: 60px; /* ← controls white space under image */
+}
+
+/* =========================================
+   RENTALS PAGE — MATCH HOME LOGO SIZE
+========================================= */
+
+.rentals-page .nav-logo {
+    height: 75px !important;      /* same as home */
+    padding-top: 10px !important;
+    transform: translateY(4px);
+}
+
+
+/* =========================================
+   SHARED HERO BASE (Non-home)
+========================================= */
+
+.hero-photography,
+.hero-events {
+    position: relative;
+    height: 50vh !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    color: white;
+}
+
+.hero-inner {
+    padding-top: 120px; /* clears navbar */
+}
+
+.hero-title {
+    font-family: "Playfair Display", serif;
+    font-size: 48px;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.hero-photography {
+    background:
+        linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.4)),
+        url("../images/Photography_Title_Bar.JPG") center/cover no-repeat;
+}
+
+
+.hero-events {
+    background:
+        linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.4)),
+        url("../images/Events_Title_Bar.JPG") center/cover no-repeat;
+}
+
+/* =========================================
+   HERO PAGES — NAVBAR OVER IMAGE
+========================================= */
+
+body.photography-page header,
+body.events-page header {
+    position: absolute !important;
+    top: 0;
+    width: 100%;
+    z-index: 5000;
+}
+
+body.photography-page .navbar,
+body.events-page .navbar {
+    background: transparent !important;
+    border-bottom: none !important;
+}
+
+body.photography-page .navbar a,
+body.events-page .navbar a,
+body.photography-page .nav-toggle,
+body.events-page .nav-toggle {
+    color: white !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.45);
+}
+
+/* =========================================
+   HERO PAGES — MATCH HOME LOGO SIZE
+========================================= */
+
+.photography-page .nav-logo,
+.events-page .nav-logo,
+.rentals-page .nav-logo {
+    height: 75px !important;
+    padding-top: 10px !important;
+    transform: translateY(4px);
+}
+
+.photography-page,
+.events-page,
+.rentals-page {
+    padding-top: 0 !important;
+}
+
+/* =====================================================
+   PHOTOGRAPHY + EVENTS — MATCH RENTALS HERO (SAFE)
+   DOES NOT AFFECT HOME
+===================================================== */
+
+/* --- 1. Remove fixed white header ONLY on these pages --- */
+body.photography-page header,
+body.events-page header {
+    position: absolute !important;
+    background: transparent !important;
+}
+
+/* --- 2. Navbar overlays hero image --- */
+body.photography-page .navbar,
+body.events-page .navbar {
+    background: transparent !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+/* --- 3. White nav text on hero image --- */
+body.photography-page .navbar a,
+body.events-page .navbar a,
+body.photography-page .nav-toggle,
+body.events-page .nav-toggle {
+    color: #fff !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.45);
+}
+
+/* --- 4. Remove non-home body offset ONLY here --- */
+body.photography-page,
+body.events-page {
+    padding-top: 0 !important;
+}
+
+/* --- 5. FORCE hero height to match Rentals EXACTLY --- */
+body.photography-page .hero-photography,
+body.events-page .hero-events {
+    height: 15vh !important;
+    min-height: 15vh !important;
+    max-height: 15vh !important;
+}
+
+/* --- 6. Neutralize generic .hero ONLY inside these pages --- */
+body.photography-page .hero,
+body.events-page .hero {
+    height: auto !important;
+}
+
+/* --- 7. Match spacing under hero --- */
+body.photography-page .hero-photography,
+body.events-page .hero-events {
+    margin-bottom: 60px;
+}
+
+
+/* =====================================================
+   CENTER HERO TEXT — EVENTS & PHOTOGRAPHY
+===================================================== */
+
+body.events-page .hero-events,
+body.photography-page .hero-photography {
+    display: flex;
+    align-items: center;     /* vertical centering */
+    justify-content: center; /* horizontal centering */
+    text-align: center;
+}
+
+body.events-page .hero-events .hero-inner,
+body.photography-page .hero-photography .hero-inner {
+    padding: 0 !important;
+    margin: 0;
+}
+
+/* =========================================
+   PHOTOGRAPHY — RIGHT-ALIGN CTA UNDER HERO
+========================================= */
+
+.photography-page .photo-header-block {
+    margin-top: 0 !important; /* remove gap from image */
+    padding-top: 0 !important;
+}
+
+.photography-page .photo-subtext {
+    margin-top: 0 !important;      /* no spacing from image */
+    padding-top: 0 !important;
+
+    text-align: right;             /* RIGHT aligned */
+    max-width: var(--max-width);
+    margin-left: auto;
+    margin-right: auto;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+}
+
+/* Keep gold accent */
+.photography-page .photo-subtext a {
+    color: var(--accent);
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+/* =========================================
+   PHOTOGRAPHY — REDUCE GAP UNDER HERO
+========================================= */
+
+/* Reduce space BELOW the title bar image */
+.photography-page .hero-photography {
+    margin-bottom: 12px !important; /* was ~60px */
+}
+
+/* Kill extra spacing ABOVE the CTA text */
+.photography-page .photo-header-block {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Ensure CTA hugs the image */
+.photography-page .photo-subtext {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* =====================================================
+   PHOTOGRAPHY — CTA ON TITLE BAR IMAGE (BOTTOM RIGHT)
+===================================================== */
+
+.photography-page .hero-photography {
+    position: relative;
+}
+
+/* Position CTA in bottom-right corner */
+.photography-page .hero-cta-bottom {
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+
+    margin: 0;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+
+    color: #ffffff;
+    text-align: right;
+
+    z-index: 2;
+}
+
+/* White link with subtle emphasis */
+.photography-page .hero-cta-bottom a {
+    color: #ffffff;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+
+/* =========================================
+   PHOTOGRAPHY — SPACE BETWEEN HERO & CARDS
+========================================= */
+
+.photography-page .photography-section {
+    margin-top: 60px; /* creates visible space below title bar */
+}
+
+/* =====================================================
+   HERO CTA — BOTTOM RIGHT (Photography + Events)
+===================================================== */
+
+.photography-page .hero-cta-bottom,
+.events-page .hero-cta-bottom {
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+
+    margin: 0;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+
+    color: #ffffff;
+    text-align: right;
+    line-height: 1.6;
+
+    z-index: 2;
+}
+
+/* Link styling */
+.photography-page .hero-cta-bottom a,
+.events-page .hero-cta-bottom a {
+    color: #ffffff;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+/* =====================================================
+   RENTALS — MATCH PHOTOGRAPHY TITLE EXACTLY
+===================================================== */
+
+/* Use same base sizing */
+.rentals-page .hero-title {
+    /*font-size: 48px !important;*/
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* Match responsive behavior */
+@media (max-width: 900px) {
+    .rentals-page .hero-title {
+        font-size: 36px !important;
+    }
+}
+
+@media (max-width: 600px) {
+    /*.rentals-page .hero-title {
+        font-size: 30px !important;
+    }*/
+}
+
+/* Unified hero title scaling (Photography, Events, Rentals) */
+@media (max-width: 900px) {
+    .hero-title {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-title {
+        font-size: 30px;
+    }
+}
+
+/* =========================================
+   RENTALS — MOBILE FILTER HEADER
+========================================= */
+
+@media (max-width: 1000px) {
+    .mobile-filter-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    .mobile-filter-header .filter-title {
+        margin: 0;
+        font-size: 20px;
+        white-space: nowrap;
+    }
+}
+
+/* Gold framed mobile category select */
+.mobile-category-select {
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    padding: 6px 12px;
+
+    background-color: #fff;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    color: #222;
+}
+
+/* =========================================
+   RENTALS — NUDGE CATEGORY DROPDOWN DOWN
+========================================= */
+
+@media (max-width: 980px) {
+  .mobile-category-select {
+      margin-top: 11px;   /* pushes dropdown slightly lower */
+  }
+
+  /* RENTALS: reduce space between Filter section and note */
+  .rentals-page .rentals-sidebar {
+  padding-bottom: 0 !important;
+  }
+  .rentals-page .rentals-sidebar .mobile-category-select {
+    margin-bottom: 10px !important;
+  }
+
+  .rentals-page .rentals-sidebar .category-list {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .rentals-page .rentals-sidebar-note {
+    margin-top: -25px !important;   /* reduce this if needed */
+  }
+
+  /* RENTALS — tighten space between note and search bar */
+  .rentals-page .rentals-sidebar-note {
+    margin-bottom: 12px !important;
+  }
+
+  .rentals-page .filter-bar {
+    margin-top: -25px !important;   /* reduce gap above search */
+  }
+
+  /* RENTALS — control space under title bar image */
+  body.rentals-page .hero-rentals{
+    margin-bottom: 20px !important;  /* change 20px -> 0px / 10px / 30px */
+  }
+
+  .hero-rentals{
+    margin-bottom: 20px !important;
+  }
+
+  body.rentals-page .hero-rentals{
+    /*height: 22vh !important;*/
+    max-height: 22vh !important;
+  }
+
+
+
+
+}
+
+/* =========================================
+   RENTALS HERO — LOCKED HEIGHT (MATCHES PHOTOGRAPHY & EVENTS)
+========================================= */
+
+body.rentals-page .hero-rentals {
+    height: 15vh !important;
+    min-height: 15vh !important;
+    max-height: 15vh !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    background:
+        linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.4)),
+        url("../images/Rentals_Title_Bar.JPG") center/cover no-repeat;
+}
+
+/* FULLSCREEN MOBILE MENU */
+.mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: #ffffff;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.mobile-menu-overlay.show {
+    display: flex;
+}
+
+.mobile-menu-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    font-size: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.mobile-menu-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.mobile-menu-links li {
+    margin: 14px 0;
+}
+
+.mobile-menu-links a {
+    font-family: "Playfair Display", serif;
+    font-size: 22px;
+    text-decoration: none;
+    color: #222;
+}
+
+.mobile-menu-footer {
+    position: absolute;
+    bottom: 30px;
+    display: flex;
+    gap: 20px;
+}
+
+.mobile-menu-footer img {
+    width: 28px;
+    height: 28px;
+}
+
+/* ================================
+   MOBILE MENU FOOTER
+================================ */
+
+.mobile-menu-footer {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Logo */
+.footer-logo {
+    width: 160px;
+    max-width: 60vw;
+    margin-bottom: 22px;
+}
+
+/* Icon row */
+.mobile-menu-icons {
+    display: flex;
+    gap: 20px;
+}
+
+.mobile-menu-icons img {
+    width: 36px;
+    height: 36px;
+}
+
+.mobile-menu-footer {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-logo {
+    width: 160px;
+    max-width: 60vw;
+    margin-bottom: 22px;
+}
+
+.mobile-menu-icons {
+    display: flex;
+    gap: 20px;
+}
+
+.mobile-menu-icons img {
+    width: 36px;
+    height: 36px;
+}
+
+/* FORCE BIGGER LOGO IN MOBILE MENU */
+.mobile-menu-footer .footer-logo {
+    width: 200px !important;
+    max-width: none !important;
+    height: auto !important;
+}
