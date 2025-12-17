@@ -826,6 +826,7 @@ function initMobileMenu() {
 }
 
 // Header is injected → wait a moment before binding
-document.addEventListener("DOMContentLoaded", () => {
+/*document.addEventListener("DOMContentLoaded", () => {
     setTimeout(initMobileMenu, 50);
-});
+});*/
+

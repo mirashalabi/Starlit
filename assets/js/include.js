@@ -8,10 +8,15 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(response => response.text())
             .then(data => {
                 el.innerHTML = data;
+
+                // ✅ IMPORTANT: run after navbar/footer is injected
+                if (file.includes("navbar") && typeof initMobileMenu === "function") {
+                    initMobileMenu();
+                }
             })
             .catch(err => {
                 console.error("Include error:", err);
-                el.innerHTML = "Footer failed to load.";
+                el.innerHTML = "Failed to load content.";
             });
     });
 });

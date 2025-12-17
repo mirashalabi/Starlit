@@ -112,6 +112,20 @@ function setupFormSubmit() {
             }
         });
 
+        // Extra format validation
+        const emailField = form.querySelector('[name="email"]');
+        const phoneField = form.querySelector('[name="phone"]');
+
+        if (emailField && !isValidEmail(emailField.value.trim())) {
+            emailField.classList.add("field-error");
+            hasError = true;
+        }
+
+        if (phoneField && !isValidPhone(phoneField.value.trim())) {
+            phoneField.classList.add("field-error");
+            hasError = true;
+        }
+
         if (hasError) {
             if (errorMsg) errorMsg.hidden = false;
             return; // ⛔ STOP submission
@@ -186,3 +200,10 @@ ${itemsText}
     });
 }
 
+function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function isValidPhone(phone) {
+    return /^[0-9+\-\s()]{7,20}$/.test(phone);
+}
