@@ -689,6 +689,11 @@ document.addEventListener("DOMContentLoaded", () => {
   setupEvents();
   setupReviewCarousel();
   
+  document.querySelectorAll(".wwd-card[data-bg]").forEach(card => {
+    card.style.backgroundImage = `url('${card.dataset.bg}')`;
+  });
+
+
   // ---------------------------
   // INQUIRY CART SYSTEM
   // ---------------------------
