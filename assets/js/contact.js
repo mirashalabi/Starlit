@@ -180,11 +180,14 @@ ${itemsText}
         /* -------------------------
            SEND TO NETLIFY
         -------------------------- */
-        fetch("/", {
+        fetch(form.action, {
             method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams(new FormData(form)).toString()
+            body: new FormData(form),
+            headers: {
+                "Accept": "application/json"
+            }
         })
+
         .then(() => {
             form.reset();
             localStorage.removeItem("inquiryItems");

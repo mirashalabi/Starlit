@@ -44,24 +44,15 @@
     <!-- RIGHT COLUMN (FORM) -->
     <form
         name="contact"
-        method="POST"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
         id="contactForm"
+        action="https://formspree.io/f/abcdwxyz"
+        method="POST"
         novalidate
         class="contact-form"
     >
 
-        <input type="hidden" name="form-name" value="contact">
         <input type="hidden" name="inquiry_items" id="inquiry_items_field">
         <input type="hidden" name="inquiry_summary" id="inquiry_summary_field">
-
-        <p hidden>
-        <label>
-            Don’t fill this out:
-            <input name="bot-field">
-        </label>
-        </p>
 
 
 
