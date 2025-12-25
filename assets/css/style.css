@@ -5385,7 +5385,7 @@ select:focus {
 }
 
 /* Phone only */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
     .contact-send-btn {
         min-height: 48px;
         line-height: 1.2;
