@@ -5429,7 +5429,7 @@ select:focus {
     }
 
     .review-text {
-        padding: 0 35px;
+        padding: 0 38px;
     }
 
     .review-arrow-left {
@@ -5450,8 +5450,26 @@ select:focus {
     }
 
     body:not(.home-page) .nav-logo {
-        height: 45px;
-        max-height: 45px;
+        height: 55px;
+        max-height: 55px;
+    }
+
+    /* Home page – reduce "Grow Your Vision" TITLE size */
+    #vision .section-title {
+        font-size: 22px;
+        line-height: 1.3;
+        text-align: center;
+    }
+
+    /* Reviews – smaller text on phone */
+    .review-text {
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .review-name {
+        font-size: 11px;
+        margin-top: 10px;
     }
 
 }
