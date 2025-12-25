@@ -5421,7 +5421,7 @@ select:focus {
     .why-subtext,
     .wwd-mobile-info p {
         font-size: 9px !important;
-        line-height: 1.2;
+        line-height: 1.2 !important;
         text-align: center;
         max-width: 90%;
         margin-left: auto;
@@ -5464,7 +5464,7 @@ select:focus {
     /* Reviews – smaller text on phone */
     .review-text {
         font-size: 12px !important;
-        line-height: 1.2;
+        line-height: 1.2 !important;
     }
 
     .review-name {
