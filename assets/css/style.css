@@ -5385,13 +5385,22 @@ select:focus {
 }
 
 /* Phone only */
-@media (max-width: 600px) {
+@media (max-width: 480px) {
     .contact-send-btn {
         min-height: 48px;
         line-height: 1.2;
         padding: 12px 20px;
         font-size: 16px;
+        color: #000;
     }
+
+    .contact-send-btn,
+    .contact-send-btn:hover,
+    .contact-send-btn:active,
+    .contact-send-btn:focus {
+        color: #000;
+    }
+
 
     .form-row {
         flex-direction: column;
@@ -5405,7 +5414,7 @@ select:focus {
     .section-text,
     .why-subtext,
     .wwd-mobile-info p {
-        font-size: 15px;
+        font-size: 12px;
         line-height: 1.6;
         text-align: center;
         max-width: 90%;
@@ -5414,7 +5423,7 @@ select:focus {
     }
 
     .review-text {
-        padding: 0 28px;
+        padding: 0 35px;
     }
 
     .review-arrow-left {
@@ -5435,8 +5444,8 @@ select:focus {
     }
 
     body:not(.home-page) .nav-logo {
-        height: 36px;
-        max-height: 36px;
+        height: 45px;
+        max-height: 45px;
     }
 
 }
