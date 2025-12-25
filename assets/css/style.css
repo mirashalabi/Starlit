@@ -5472,4 +5472,8 @@ select:focus {
         margin-top: 10px;
     }
 
+    body {
+        background: purple !important;
+    }
+
 }
