@@ -5383,3 +5383,60 @@ textarea:focus,
 select:focus {
     color: #000;
 }
+
+/* Phone only */
+@media (max-width: 480px) {
+    .contact-send-btn {
+        min-height: 48px;
+        line-height: 1.2;
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .form-row .field-group {
+        width: 100%;
+    }
+
+    .section-text,
+    .why-subtext,
+    .wwd-mobile-info p {
+        font-size: 15px;
+        line-height: 1.6;
+        text-align: center;
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .review-text {
+        padding: 0 28px;
+    }
+
+    .review-arrow-left {
+        left: 8px;
+    }
+
+    .review-arrow-right {
+        right: 8px;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        text-align: center;
+    }
+
+    body:not(.home-page) .nav-logo {
+        height: 36px;
+        max-height: 36px;
+    }
+
+}
