@@ -5456,14 +5456,14 @@ select:focus {
 
     /* Home page – reduce "Grow Your Vision" TITLE size */
     #vision .section-title {
-        font-size: 35px !important;
+        font-size: 25px !important;
         line-height: 1.9;
         text-align: center;
     }
 
     /* Reviews – smaller text on phone */
     .review-text {
-        font-size: 12px !important;
+        font-size: 14px !important;
         line-height: 1.2;
     }
 
