@@ -5473,7 +5473,7 @@ select:focus {
     }
 
     .starlit-cta .cta-image img {
-        max-width: 140px;   /* adjust as needed */
+        max-width: 100px;   /* adjust as needed */
         width: 100%;
         height: auto;
     }
