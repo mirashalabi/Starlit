@@ -5650,8 +5650,8 @@ select:focus {
 
   /* Modal card: never wider than screen */
   .modal-content {
-    width: 95% !important;
-    max-width: 95% !important;
+    width: 100% !important;
+    max-width: 400px !important;
     margin: 0 !important;
 
     padding: 16px !important;
@@ -5661,4 +5661,41 @@ select:focus {
     flex-direction: column !important;  /* stack image then text */
     box-sizing: border-box !important;
   }
+
+    /* CONTACT FORM — force inputs to always be full width */
+    .contact-form .field-group {
+    flex: 1;
+    min-width: 0;            /* important inside flex rows */
+    }
+
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form select,
+    .select-wrapper {
+    width: 100% !important;
+    box-sizing: border-box;
+    display: block;
+    }
+
+    /* CONTACT — Send button full width + centered + gold theme */
+    .contact-send-btn {
+    width: 100% !important;
+    max-width: 520px;          /* optional: keeps it elegant on desktop */
+    margin: 18px auto 0 !important; /* centers the button */
+    display: block;
+
+    background: #fff !important;
+    border: 2px solid var(--accent) !important;
+    color: var(--accent) !important;
+
+    padding: 14px 16px !important;
+    border-radius: 10px !important;
+    font-weight: 600;
+    }
+
+    .contact-send-btn:hover {
+    background: var(--accent) !important;
+    color: #fff !important;
+    }
+
 }
