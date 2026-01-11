@@ -5789,5 +5789,199 @@ select:focus {
 
 }
 
+/* =========================
+   RENTALS POPUP — PHONE SIZE FIX
+   (Put at VERY END of CSS)
+========================= */
+@media (max-width: 480px) {
 
+  .modal-overlay{
+    padding: 12px !important;
+  }
 
+  /* Kill any scaling rules from the <=800px block */
+  .modal-content{
+    transform: none !important;
+    width: min(92vw, 440px) !important;   /* <-- big (about 2x what you have now) */
+    max-width: 92vw !important;
+    padding: 18px !important;
+    gap: 14px !important;
+  }
+}
+
+/* =========================
+   CONTACT FORM — CONSISTENT LABEL/FIELD SPACING (PHONE)
+   (Put at VERY END of CSS)
+========================= */
+@media (max-width: 900px) {
+
+  /* Make every label + input spacing identical */
+  .contact-form .field-group{
+    gap: 4px !important;              /* controls the exact label->field spacing */
+  }
+
+  .contact-form label{
+    margin: 0 !important;             /* remove inconsistent margins */
+    padding: 0 !important;
+    line-height: 1.2 !important;
+  }
+
+  .contact-form input,
+  .contact-form textarea,
+  .contact-form select{
+    margin: 0 !important;             /* prevent extra gaps */
+  }
+
+  .contact-form .select-wrapper{
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+/* =========================
+   CONTACT — MAKE SELECT/DATE MATCH UNDERLINE INPUTS (PHONE)
+   Put at VERY END of CSS
+========================= */
+@media (max-width: 480px) {
+
+  /* Ensure label + control always stack the same way */
+  .contact-form .field-group{
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+  }
+
+  /* Use ONE consistent label spacing */
+  .contact-form .field-group label{
+    margin: 0 0 16px 0 !important;   /* <-- controls label -> field spacing */
+    line-height: 1.2 !important;
+  }
+
+  /* Make all controls share the same “underline” look/spacing */
+  .contact-form input,
+  .contact-form textarea,
+  .contact-form select{
+    width: 100% !important;
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 3px solid #000 !important;
+    border-radius: 0 !important;
+
+    padding: 16px 0 10px 0 !important;  /* <-- controls the “empty space” above the line */
+    margin: 0 0 18px 0 !important;      /* <-- space after each field */
+    line-height: 1.2 !important;
+
+    -webkit-appearance: none !important;
+    appearance: none !important;
+  }
+
+  /* If your select is inside a wrapper, kill wrapper spacing */
+  .contact-form .select-wrapper{
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Keep your dropdown arrow usable */
+  .contact-form select{
+    padding-right: 34px !important;
+    background-position: right 8px center !important;
+    background-repeat: no-repeat !important;
+  }
+}
+
+/* --- Make First/Last match other fields --- */
+
+/* The row that contains First + Last */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 32px;          /* spacing between First/Last */
+  align-items: start;
+}
+
+/* Each field wrapper inside the row */
+.form-row > * {
+  min-width: 0;              /* prevents weird shrinking */
+}
+
+/* Make ALL inputs/selects truly fill their container */
+.form-row input,
+.form-row select,
+.form-row .select-wrap {
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
+}
+
+/* Ensure label-to-line spacing matches everywhere */
+.form-row label {
+  display: block;
+  margin-bottom: 12px;       /* match your other fields’ spacing */
+}
+
+/* If you use underline style inputs */
+.form-row input {
+  border: 0;
+  border-bottom: 2px solid #000;
+  padding: 12px 0;
+  background: transparent;
+}
+
+/* Mobile: stack First/Last like the other fields */
+@media (max-width: 480px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    row-gap: 18px;
+  }
+}
+
+/* =========================================
+   WIX CONTACT FORM — TIGHTER, MATCHING SPACING
+   (paste at the VERY END of your CSS)
+========================================= */
+
+/* 1) Reduce space between label text and the input underline/box */
+form label,
+form [class*="label"],
+form [class*="Label"]{
+  margin-bottom: 6px !important;
+  padding-bottom: 0 !important;
+  line-height: 1.15 !important;
+}
+
+/* 2) Reduce internal top/bottom padding of ALL inputs/selects/textarea */
+form input,
+form textarea,
+form select,
+form [class*="TextInput"] input,
+form [class*="Input"] input,
+form [class*="Dropdown"] select,
+form [class*="Date"] input,
+form [class*="Phone"] input{
+  padding-top: 10px !important;
+  padding-bottom: 6px !important;
+}
+
+/* 3) Reduce space AFTER each field (the gap between one field and the next) */
+form .field,
+form [class*="field"],
+form [class*="Field"],
+form [class*="input"],
+form [class*="Input"],
+form [class*="TextInput"],
+form [class*="Dropdown"],
+form [class*="Date"],
+form [class*="Phone"]{
+  margin-bottom: 12px !important;
+}
+
+/* 4) Specifically tighten the dropdown container too (Wix often adds extra height) */
+form [class*="Dropdown"]{
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* 5) If the date field is using a separate wrapper, tighten it */
+form [class*="Date"]{
+  margin-top: 0 !important;
+}
