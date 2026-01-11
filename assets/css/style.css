@@ -5650,7 +5650,8 @@ select:focus {
 
   /* Modal card: never wider than screen */
   .modal-content {
-    width: min(980px, 96vw) !important;  /* big, but never exceeds screen */
+    width: 100% !important;  /* big, but never exceeds screen */
+    max-width: 1000px !important;
     margin: 0 !important;
 
     padding: 16px !important;
