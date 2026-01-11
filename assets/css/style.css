@@ -5650,8 +5650,7 @@ select:focus {
 
   /* Modal card: never wider than screen */
   .modal-content {
-    width: 100% !important;
-    max-width: 400px !important;
+    width: min(980px, 96vw) !important;  /* big, but never exceeds screen */
     margin: 0 !important;
 
     padding: 16px !important;
@@ -5697,5 +5696,97 @@ select:focus {
     background: var(--accent) !important;
     color: #fff !important;
     }
+}
+
+@media (max-width: 480px) {
+    /* ===== CONTACT FORM: FORCE FULL-WIDTH FIELDS (FINAL OVERRIDE) ===== */
+
+    /* Make the form column actually take full available width */
+    .contact-form {
+    width: 100% !important;
+    max-width: none !important;
+    }
+
+    /* Each row should span full width */
+    .contact-form .form-row {
+    width: 100% !important;
+    }
+
+    /* Each field-group should fill its column */
+    .contact-form .field-group {
+    flex: 1 1 0 !important;
+    width: 100% !important;
+    min-width: 0 !important; /* IMPORTANT for iPhone Safari flexbox */
+    }
+
+    /* Inputs/selects/textarea must be explicitly full width */
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form select {
+    width: 100% !important;
+    max-width: none !important;
+    display: block !important;
+    box-sizing: border-box !important;
+    flex: 1 1 auto !important;
+    }
+
+    /* Your dropdown wrapper also needs to fill the row */
+    .contact-form .select-wrapper {
+    width: 100% !important;
+    max-width: none !important;
+    display: block !important;
+    box-sizing: border-box !important;
+    }
+
+    /* ===== CONTACT SEND BUTTON: FULL WIDTH + GOLD TEXT ===== */
+    .contact-send-btn {
+    width: 100% !important;
+    max-width: 520px;                 /* optional (remove if you want full desktop width too) */
+    margin: 18px auto 0 !important;
+    display: block !important;
+
+    background: #fff !important;
+    border: 2px solid var(--accent) !important;
+
+    color: var(--accent) !important;
+    -webkit-text-fill-color: var(--accent) !important; /* iPhone Safari */
+    font-weight: 700 !important;
+
+    padding: 14px 16px !important;
+    border-radius: 10px !important;
+    }
+
+    /* Hover: keep text gold too */
+    .contact-send-btn:hover {
+    background: rgba(230, 192, 104, 0.12) !important; /* soft gold tint */
+    color: var(--accent) !important;
+    -webkit-text-fill-color: var(--accent) !important;
+    }
+
+
+    /* ===== CONTACT SEND BUTTON: TRUE FULL WIDTH ===== */
+    .contact-send-btn {
+    width: 100% !important;
+    max-width: none !important;   /* remove desktop cap */
+    display: block !important;
+
+    margin: 18px 0 0 0 !important;
+
+    background: #fff !important;
+    border: 2px solid var(--accent) !important;
+
+    color: var(--accent) !important;
+    -webkit-text-fill-color: var(--accent) !important;
+
+    font-weight: 700 !important;
+    padding: 14px 16px !important;
+    border-radius: 10px !important;
+
+    box-sizing: border-box !important;
+    }
+
 
 }
+
+
+
