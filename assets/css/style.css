@@ -5478,4 +5478,162 @@ select:focus {
         height: auto;
     }
 
+    .contact-heading {
+        font-size: 46px !important;   /* adjust to taste: 42–52 */
+        line-height: 1.05 !important;
+    }
+
+}
+
+/* =========================================================
+   RENTALS MODAL (<=800px)
+   Scale the ENTIRE card (and all its contents) down smoothly.
+   No reflow, no stacking, no element-by-element sizing.
+========================================================= */
+
+:root{
+  /* IMPORTANT: set this to the modal's desktop width */
+  --modal-base-width: 1100px;
+
+  /* margin around modal on small screens */
+  --modal-margin: 24px;
+}
+
+@media (max-width: 800px){
+
+  .modal-overlay{
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: var(--modal-margin) !important;
+    overflow: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .modal-content{
+    /* Lock to desktop size so scaling affects everything inside */
+    width: var(--modal-base-width) !important;
+    max-width: none !important;
+
+    /* Scale factor based on available viewport width */
+    --scale: min(
+      1,
+      calc((100vw - (var(--modal-margin) * 2)) / var(--modal-base-width))
+    );
+
+    transform-origin: center center !important;
+    transform: scale(var(--scale)) !important;
+
+    margin: 0 !important;
+  }
+
+  /* Avoid any clipping from overflow rules elsewhere */
+  .modal-content,
+  .modal-left,
+  .modal-right,
+  #modalThumbs,
+  .modal-thumbs{
+    overflow: visible !important;
+  }
+}
+
+
+/* =========================================
+   RENTALS MODAL — PHONE: fit within screen
+========================================= */
+@media (max-width: 850px) {
+
+  /* Make sure the overlay doesn't force overflow */
+  .modal-overlay {
+    padding: 14px !important;
+  }
+
+  /* Modal card: never wider than screen */
+  .modal-content {
+    width: 70% !important;
+    max-width: 70% !important;
+    margin: 0 !important;
+
+    padding: 16px !important;
+    gap: 14px !important;
+
+    display: flex !important;
+    flex-direction: column !important;  /* stack image then text */
+    box-sizing: border-box !important;
+  }
+
+  /* Left side: full width */
+  .modal-left {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+  }
+
+  /* Main image: full width, responsive height */
+  #modalMainImage,
+  .modal-left img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1 !important;
+    object-fit: cover !important;
+    margin: 0 !important;
+  }
+
+  /* Thumbnails: horizontal row under the main image */
+  #modalThumbs,
+  .modal-thumbs {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 8px !important;
+    overflow-x: auto !important;
+    padding-bottom: 6px !important;
+    box-sizing: border-box !important;
+  }
+
+  #modalThumbs img,
+  .modal-thumbs img {
+    width: 62px !important;
+    height: 62px !important;
+    flex: 0 0 auto !important;
+  }
+
+  /* Right side: full width, smaller text so it fits nicely */
+  .modal-right {
+    width: 100% !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .modal-right h2 {
+    font-size: 18px !important;
+    margin: 0 !important;
+  }
+
+  .modal-price {
+    font-size: 16px !important;
+    margin: 0 !important;
+  }
+
+  .modal-description {
+    font-size: 13px !important;
+  }
+
+  /* Button: full width but not overflowing */
+  .modal-add-btn {
+    width: 100% !important;
+    font-size: 14px !important;
+    padding: 12px !important;
+  }
+
+  /* Close button: easier to tap */
+  .modal-close {
+    font-size: 28px !important;
+    top: 10px !important;
+    right: 10px !important;
+  }
 }
