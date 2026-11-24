@@ -70,8 +70,8 @@ export const testimonials = [
  * (rating-only reviews are left out). Add new ones here.
  */
 export const googleReviews = [
-  { quote: 'Beautiful decor very professional', name: 'Nour D.', place: 'Google review', stars: 5 },
   { quote: "We had a couple's photo shoot, and the results were amazing. The photographer captured our day perfectly!", name: 'Kal H.', place: 'Google review', stars: 5 },
+  { quote: 'Beautiful decor very professional', name: 'Nour D.', place: 'Google review', stars: 5 },
 ] as const;
 
 /** "Why Choose Starlit": the three items the original shows (Unlimited Supplies and Quick Delivery are commented out in its HTML). */
