@@ -44,8 +44,8 @@ export const locations: Location[] = [
     provinceCode: 'QC',
     wikipedia: 'https://en.wikipedia.org/wiki/Montreal',
     wikidata: 'https://www.wikidata.org/wiki/Q340',
-    photo: 'events/80s-disco-party-5',
-    photoAlt: 'An 80s disco party table with flowers, silver plates and a rainbow tinsel backdrop, styled by Starlit',
+    photo: 'events/butterfly-birthday-party-5',
+    photoAlt: 'A Happy Birthday cake with butterflies and candles beside blue drinks with butterfly toppers, styled by Starlit',
     local: [],
   },
   {
