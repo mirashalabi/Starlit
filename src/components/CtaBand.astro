@@ -1,0 +1,20 @@
+---
+// "Talk to your Starlit Planner": heading, quote and button verbatim from the original home page.
+import { site } from '~/config/site';
+import Icon from './Icon.astro';
+---
+<section class="section cta-band" aria-labelledby="cta-h">
+  <div class="wrap">
+    <div class="cta">
+      <img class="cta__logo" src="/img/logo-white.png" width="480" height="258" alt="" loading="lazy" />
+      <div>
+        <h2 id="cta-h" class="display-m">Talk to your <em>Starlit</em> Planner</h2>
+        <p class="cta__quote">“How can we make your event unforgettable?”</p>
+      </div>
+      <div class="cta__actions">
+        <a class="btn btn--gold" href="/contact/">Book Your Free Consultation <Icon name="arrow" /></a>
+        <a class="cta__phone" href={site.phoneHref}>{site.phone}</a>
+      </div>
+    </div>
+  </div>
+</section>

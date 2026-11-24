@@ -1,0 +1,136 @@
+/* RULE: every motion value is a token, every transition sits inside reduced-motion no-preference, every hover inside (hover: hover) | PREVENTS: doc drift between JS comments and CSS, motion forced on users who opted out, and cards stuck lifted after a tap on a phone. */
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   MOTION, the CSS half of src/scripts/motion.ts.
+
+   The numbers below are the ONLY place the motion values live. Do not repeat
+   them in comments, READMEs or the JS. Port the original site's motion at its
+   measured size; these defaults are the floor that visibly registers.
+
+   Rules encoded here:
+   - Nothing is hidden unless <html> has .motion-ready (set by motion.ts after
+     it has skipped the hero and everything above the fold).
+   - Side slides only from 861px up, and the body clips horizontal overflow so
+     the page never scrolls sideways while they travel.
+   - Shadows fade by opacity on ::after; the header never changes size.
+   - Print shows everything.
+   ────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --reveal-rise: 56px;
+  --reveal-slide: 120px;
+  --t-reveal: .9s;
+  --t-slide: .8s;
+  --ease-reveal: cubic-bezier(.2, .7, .2, 1);
+  --stagger: 90ms;
+
+  /* Hover and header timings. */
+  --t-btn: .15s;
+  --t-card: .18s;
+  --t-header: .25s;
+  --hover-btn-lift: -1px;
+  --hover-card-lift: -4px;
+  --hover-img-zoom: 1.03;
+}
+
+/* Side slides travel past the viewport edge; clip, never hidden (hidden breaks
+   position: sticky on the header). */
+body { overflow-x: clip; }
+
+/* Header shadow: a ::after faded by opacity when motion.ts sets data-scrolled.
+   Starlit's header is position: fixed (theme.css), over the hero. */
+[data-header]::after {
+  content: ""; position: absolute; inset: auto 0 -12px 0; height: 12px;
+  pointer-events: none; opacity: 0;
+  background: linear-gradient(rgb(0 0 0 / .10), rgb(0 0 0 / 0));
+}
+[data-header][data-scrolled]::after { opacity: 1; }
+#top-sentinel { position: absolute; top: 0; left: 0; width: 1px; height: 8px; pointer-events: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+  [data-header]::after { transition: opacity var(--t-header) ease; }
+
+  /* Reveals: rise (default) and stagger. */
+  .motion-ready [data-reveal],
+  .motion-ready [data-reveal="stagger"] > * {
+    transition:
+      opacity var(--t-reveal) var(--ease-reveal),
+      transform var(--t-reveal) var(--ease-reveal);
+  }
+  .motion-ready [data-reveal="stagger"] { transition: none; }
+  .motion-ready [data-reveal="stagger"] > * { transition-delay: calc(var(--i, 0) * var(--stagger)); }
+
+  .motion-ready [data-reveal]:not([data-reveal="stagger"]):not(.is-in),
+  .motion-ready [data-reveal="stagger"]:not(.is-in) > * {
+    opacity: 0;
+    transform: translateY(var(--reveal-rise));
+  }
+}
+
+/* Side slides: desktop only. Below 861px left/right fall back to the rise above. */
+@media (prefers-reduced-motion: no-preference) and (min-width: 861px) {
+  .motion-ready [data-reveal="left"],
+  .motion-ready [data-reveal="right"] { transition-duration: var(--t-slide); }
+  .motion-ready [data-reveal="left"]:not(.is-in)  { transform: translateX(calc(var(--reveal-slide) * -1)); }
+  .motion-ready [data-reveal="right"]:not(.is-in) { transform: translateX(var(--reveal-slide)); }
+}
+
+/* Hovers: only on devices that really hover, and only when motion is welcome.
+   Replace the selectors with the site's own button/card/image classes. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .btn { transition: transform var(--t-btn) ease, background-color var(--t-btn) ease, border-color var(--t-btn) ease, color var(--t-btn) ease; }
+  .btn:hover { transform: translateY(var(--hover-btn-lift)); }
+
+  .rental-card { transition: transform var(--t-card) ease, box-shadow var(--t-card) ease, border-color var(--t-card) ease; }
+  .rental-card:hover { transform: translateY(var(--hover-card-lift)); box-shadow: var(--shadow); border-color: transparent; }
+  .rental-card__img img { transition: transform .6s var(--ease-reveal); }
+  .rental-card:hover .rental-card__img img { transform: scale(1.06); }
+
+  /* Big photo cards: the photo drifts in, the arrow travels. */
+  .pillar .pillar__img img, .event-card .event-card__img img { transition: transform 1.2s var(--ease-reveal); }
+  .pillar:hover .pillar__img img, .event-card:hover .event-card__img img { transform: scale(1.07); }
+  .pillar:hover .link-arrow svg, .event-card:hover .link-arrow svg { transform: translateX(6px); }
+  .split__media img, .gallery img { transition: transform .9s var(--ease-reveal); }
+  .split__media:hover img, .gallery > :hover img { transform: scale(var(--hover-img-zoom)); }
+}
+
+/* ── Entrances and loops (Starlit) ─────────────────────────────────────────
+   The hero text rises out of a mask on load: transform only, never opacity, so
+   the words are painted (and counted for LCP) from the first frame they enter.
+   The hero photo drifts in slowly (a long, soft zoom). The gold marquee loops.
+   All of it stops under reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-hero] .hero__title .line > span { animation: line-up 1.15s cubic-bezier(.2,.75,.15,1) both; animation-delay: calc(.12s + var(--l, 0) * .12s); }
+  .js [data-hero] .rise-in { animation: rise-in 1s cubic-bezier(.2,.75,.15,1) both; animation-delay: var(--d, .55s); }
+  [data-hero] .hero__media img { animation: drift 18s cubic-bezier(.2,.6,.2,1) both; transform-origin: 60% 60%; }
+  .marquee__track { animation: marquee var(--marquee-t, 38s) linear infinite; }
+  .marquee:hover .marquee__track { animation-play-state: paused; }
+  .marquee__star { animation: twinkle 3.2s ease-in-out infinite; }
+  .hero__title em { background: linear-gradient(100deg, var(--gold) 0%, var(--gold) 38%, #fff6d8 50%, var(--gold) 62%, var(--gold) 100%); background-size: 260% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shimmer 5.5s ease-in-out 1.4s infinite; }
+  .quotes__bar i.run { animation: bar var(--quote-t, 7s) linear both; }
+}
+@keyframes line-up { from { transform: translateY(105%); } to { transform: none; } }
+@keyframes rise-in { from { transform: translateY(28px); } to { transform: none; } }
+@keyframes drift { from { transform: scale(1.14); } to { transform: scale(1); } }
+@keyframes marquee { to { transform: translateX(-50%); } }
+@keyframes twinkle { 0%, 100% { transform: scale(1) rotate(0); opacity: 1; } 50% { transform: scale(.7) rotate(45deg); opacity: .6; } }
+@keyframes shimmer { 0%, 30% { background-position: 100% 0; } 70%, 100% { background-position: 0 0; } }
+@keyframes bar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* Reduced motion: belt and braces for anything a component adds on its own. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print: everything visible, nothing offset, nothing sticky. */
+@media print {
+  [data-reveal], [data-reveal] > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+  [data-header] { position: static; }
+  [data-header]::after { display: none; }
+}

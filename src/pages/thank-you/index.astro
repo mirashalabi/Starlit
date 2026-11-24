@@ -1,0 +1,15 @@
+---
+import Base from '~/layouts/Base.astro';
+import Icon from '~/components/Icon.astro';
+import { site } from '~/config/site';
+---
+<Base title="Thank You | Starlit Events & Photography" description="Your inquiry has been submitted." noindex solidHeader cta={false}>
+  <section class="page-head on-light" style="min-height:70svh;display:flex;align-items:center">
+    <div class="wrap wrap--narrow center">
+      <p class="eyebrow">Inquiry sent</p>
+      <h1 class="display-l">Thank <em>you!</em></h1>
+      <p class="lead muted">Your inquiry has been submitted! We’ll get back to you soon.</p>
+      <p style="margin-top:32px"><a class="btn btn--ink" href="/">Back to home <Icon name="arrow" /></a> <a class="btn btn--ghost" href={site.phoneHref} style="margin-left:8px">{site.phone}</a></p>
+    </div>
+  </section>
+</Base>

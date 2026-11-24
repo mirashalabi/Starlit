@@ -1,0 +1,88 @@
+---
+import { locations as LOC, cityNode } from '~/config/locations';
+import Base from '~/layouts/Base.astro';
+import Photo from '~/components/Photo.astro';
+import Icon from '~/components/Icon.astro';
+import Crumbs from '~/components/Crumbs.astro';
+import Lightbox from '~/components/Lightbox.astro';
+import { getImage } from 'astro:assets';
+import { photo } from '~/lib/photos';
+import { events, eventUrl, photoKey, eventCover, fit, type EventType } from '~/lib/data';
+import { altFor } from '~/config/alts';
+import { locations, locationUrl } from '~/config/locations';
+
+export function getStaticPaths() {
+  return events.map((e) => ({ params: { slug: e.slug }, props: { e } }));
+}
+const { e } = Astro.props as { e: EventType };
+const heroKey = eventCover(e);
+const gallery = e.photos.filter((p) => photoKey('events', p) !== heroKey);
+const heroName = e.photos.find((p) => photoKey('events', p) === heroKey) ?? e.photos[0];
+const full = await Promise.all(gallery.map((p) => getImage({ src: photo(photoKey('events', p)), width: 1800, format: 'webp' })));
+const others = events.filter((x) => x.slug !== e.slug);
+const crumbs = [{ name: 'Events', path: '/events/' }, { name: e.name, path: eventUrl(e) }];
+---
+<Base
+  heroSizes="(max-width: 700px) 70vw, 100vw"
+  heroPhoto={heroKey}
+  title={fit([`${e.name} | Starlit Events`, `${e.name} | Starlit Events`], 65)}
+  description={fit([`${e.description} Planned and styled by Starlit in Ottawa, Montreal and Toronto.`, `${e.description} By Starlit in Ottawa, Montreal and Toronto.`, `${e.description} Planned and styled by Starlit.`, e.description], 160)}
+  ogImage={`/og/events-${e.slug}.jpg`}
+  crumbs={crumbs}
+  mainEntity="#service"
+  nodes={(abs, ids) => [{ '@type': 'Service', '@id': abs(`${eventUrl(e)}#service`), name: e.name, serviceType: 'Event planning', description: e.description, url: abs(eventUrl(e)), provider: { '@id': ids.biz }, mainEntityOfPage: { '@id': ids.page }, image: abs(`/og/events-${e.slug}.jpg`), areaServed: LOC.map(cityNode) }]}
+>
+  <section class="page-hero" data-hero>
+    <div class="hero__media" data-parallax><Photo name={heroKey} alt={altFor(heroName, `${e.name} styled by Starlit`)} eager sizes="(max-width: 700px) 70vw, 100vw" /></div>
+    <div class="wrap page-hero__inner" data-parallax-content>
+      <Crumbs items={crumbs} />
+      <p class="eyebrow eyebrow--light">Our Events</p>
+      <h1 class="display-l">{e.name}</h1>
+      <p>{e.description}</p>
+    </div>
+  </section>
+
+  <section class="section on-light" aria-labelledby="gal-h">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2 id="gal-h" class="display-m">{e.name} <em>by Starlit</em></h2>
+        </div>
+        <div>
+          <p class="lead muted">Planning something special? Connect with us for a free personalised quote!</p>
+          <p class="muted" style="margin:0 0 18px">Available in {locations.map((l, i) => <Fragment>{i > 0 && (i === locations.length - 1 ? ' and ' : ', ')}<a href={locationUrl(l)}>{l.city}</a></Fragment>)}.</p>
+          <div class="split__actions">
+            <a class="btn btn--ink" href={`/contact/?type=Event&about=${encodeURIComponent(e.name)}`}>Get a free quote <Icon name="arrow" /></a>
+          </div>
+          <div class="event-links">
+            <a class="link-arrow" href="/photography/event-photography/">Add photography <Icon name="arrow" /></a>
+            <a class="link-arrow" href="/rentals/">Browse rentals <Icon name="arrow" /></a>
+          </div>
+        </div>
+      </div>
+      <div class="gallery" data-gallery>
+        {gallery.map((p, i) => (
+          <button type="button" data-full={full[i].src} aria-label={`Open photo ${i + 1} of ${gallery.length}: ${altFor(p, e.name)}`}>
+            <Photo name={photoKey('events', p)} alt={altFor(p, `${e.name} styled by Starlit`)} sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" maxWidth={1280} />
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ivory on-light" aria-labelledby="more-h">
+    <div class="wrap">
+      <div class="section-head"><div><h2 id="more-h" class="display-m">More <em>Events</em></h2></div></div>
+      <div class="event-cards cards-3">
+        {others.map((o) => (
+          <a class="event-card" href={eventUrl(o)} style="min-height:clamp(340px,30vw,460px)">
+            <span class="event-card__img"><Photo name={eventCover(o)} alt="" sizes="(min-width: 760px) 33vw, 100vw" maxWidth={1280} /></span>
+            <h3 class="display-s">{o.name}</h3>
+            <span class="link-arrow">View <Icon name="arrow" /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <Lightbox />
+</Base>

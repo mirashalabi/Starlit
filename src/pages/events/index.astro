@@ -1,0 +1,46 @@
+---
+import Base from '~/layouts/Base.astro';
+import Photo from '~/components/Photo.astro';
+import Icon from '~/components/Icon.astro';
+import Crumbs from '~/components/Crumbs.astro';
+import { events, eventUrl, eventCover } from '~/lib/data';
+import Faq from '~/components/Faq.astro';
+import { faqGroup } from '~/config/faq';
+---
+<Base
+  heroSizes="(max-width: 700px) 70vw, 100vw"
+  heroPhoto="site/events-title-bar"
+  title="Event Planning in Ottawa, Montreal & Toronto | Starlit"
+  description="Romantic proposals, themed birthday parties, bachelorettes and more, planned and styled by Starlit. Connect with us for a free personalised quote."
+  ogImage="/og/events.jpg"
+  crumbs={[{ name: 'Events', path: '/events/' }]}
+  pageType="CollectionPage"
+  nodes={(abs, ids) => [{ '@type': 'ItemList', '@id': abs('/events/#list'), itemListElement: events.map((e, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(eventUrl(e)), name: e.name })) }]}
+>
+  <section class="page-hero" data-hero>
+    <div class="hero__media" data-parallax><Photo name="site/events-title-bar" alt="A turreted lakeside house among green hills" eager sizes="(max-width: 700px) 70vw, 100vw" /></div>
+    <div class="wrap page-hero__inner" data-parallax-content>
+      <Crumbs items={[{ name: 'Events', path: '/events/' }]} />
+      <h1 class="display-xl">Our <em>Events</em></h1>
+      <p>Planning something special?<br /><a href="/contact/?type=Event">Connect with us</a> for a free personalised quote!</p>
+      <p style="margin-top:10px">Events across <a href="/service-areas/ottawa/">Ottawa</a>, <a href="/service-areas/montreal/">Montreal</a> and <a href="/service-areas/toronto/">Toronto</a>.</p>
+    </div>
+  </section>
+
+
+  <section class="section on-light">
+    <div class="wrap">
+      <div class="event-cards">
+        {events.map((e) => (
+          <a class="event-card" href={eventUrl(e)}>
+            <span class="event-card__img"><Photo name={eventCover(e)} alt="" sizes="(min-width: 760px) 50vw, 100vw" /></span>
+            <h2>{e.name}</h2>
+            <p>{e.description}</p>
+            <span class="link-arrow">{e.photos.length} photos <Icon name="arrow" /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <Faq groups={[faqGroup('planning'), faqGroup('general')]} more />
+</Base>

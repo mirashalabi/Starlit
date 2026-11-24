@@ -1,0 +1,33 @@
+---
+// FAQ accordion: native <details>, so every answer is in the HTML and works with JavaScript off.
+import type { FaqGroup } from '~/config/faq';
+import Icon from './Icon.astro';
+
+interface Props { groups: FaqGroup[]; heading?: string; headingId?: string; more?: boolean; open?: boolean }
+const { groups, heading, headingId = 'faq-h', more = false, open = false } = Astro.props;
+---
+<section class="section section--ivory on-light faq" aria-labelledby={headingId}>
+  <div class="wrap">
+    <div class="faq__layout">
+      <div class="faq__head">
+        <h2 id={headingId} class="display-m">{heading ?? <Fragment>Frequently Asked <em>Questions</em></Fragment>}</h2>
+        {more && <a class="link-arrow" href="/faq/">All questions <Icon name="arrow" /></a>}
+      </div>
+      <div class="faq__groups">
+        {groups.map((g, gi) => (
+          <div class="faq__group" id={groups.length > 1 ? g.id : undefined}>
+            {groups.length > 1 && <h3 class="faq__group-title">{g.title}</h3>}
+            <div class="faq__list">
+              {g.items.map((f, i) => (
+                <details class="faq__item" open={open && gi === 0 && i === 0 ? true : undefined}>
+                  <summary><span>{f.q}</span><Icon name="plus" class="faq__icon" /></summary>
+                  <div class="faq__a"><p>{f.a}</p></div>
+                </details>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

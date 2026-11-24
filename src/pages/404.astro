@@ -1,0 +1,19 @@
+---
+import Base from '~/layouts/Base.astro';
+import Icon from '~/components/Icon.astro';
+---
+<Base title="Page Not Found | Starlit Events & Photography" description="This page could not be found." noindex solidHeader cta={false}>
+  <section class="page-head on-light" style="min-height:70svh;display:flex;align-items:center">
+    <div class="wrap wrap--narrow center">
+      <p class="eyebrow">404</p>
+      <h1 class="display-l">Page not <em>found</em></h1>
+      <p class="lead muted">The page you were looking for has moved or no longer exists.</p>
+      <p style="margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a class="btn btn--ink" href="/">Home <Icon name="arrow" /></a>
+        <a class="btn btn--ghost" href="/events/">Events</a>
+        <a class="btn btn--ghost" href="/photography/">Photography</a>
+        <a class="btn btn--ghost" href="/rentals/">Rentals</a>
+      </p>
+    </div>
+  </section>
+</Base>

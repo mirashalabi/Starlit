@@ -1,0 +1,62 @@
+---
+// "Follow Starlit": Instagram and TikTok call to action with a strip of photos, each tile its own link.
+// The HTML ships Starlit's own event photos linking to the profile. In the browser the strip asks the
+// starlit-instagram Worker (workers/instagram-feed) for the latest posts and swaps each tile for a real post
+// that opens on Instagram. If the Worker is down or has fewer than 6 posts, the fallback tiles stay.
+import Photo from './Photo.astro';
+import Sky from './Sky.astro';
+import Social from './Social.astro';
+import { site } from '~/config/site';
+import { photoKey } from '~/lib/data';
+const shots = ['Romantic_Proposal_3', '80s_Disco_Party_1', 'Butterfly_Birthday_Party_1', 'Dreamy_Bachelorette_Party_2', 'Romantic_Proposal_6', '80s_Disco_Party_7'];
+const ig = site.social.find((s) => s.label === 'Instagram')!;
+---
+<section class="follow dark has-sky" aria-labelledby="follow-h">
+  <Sky delay={5} />
+  <div class="wrap follow__inner">
+    <div class="follow__text">
+      <h2 id="follow-h" class="display-l">Follow <em>Starlit</em></h2>
+      <p class="lead muted">See our events, setups and shoots on Instagram and TikTok.</p>
+      <Social variant="big" />
+    </div>
+    <ul class="follow__strip" aria-label={`Latest from Instagram ${ig.handle}`} data-ig-feed={site.instagramFeed}>
+      {shots.map((s) => (
+        <li><a class="follow__tile" href={ig.href} target="_blank" rel="noopener" aria-label={`See more on Instagram ${ig.handle}`}>
+          <Photo name={photoKey('events', s)} alt="" sizes="(min-width: 900px) 16vw, 33vw" maxWidth={640} />
+        </a></li>
+      ))}
+    </ul>
+  </div>
+</section>
+<script>
+  const strip = document.querySelector<HTMLElement>('[data-ig-feed]');
+  const feed = strip?.dataset.igFeed;
+  const swap = () => {
+    fetch(`${feed}/feed`)
+      .then((r) => (r.ok ? r.json() : []))
+      .then((posts: { url: string; img: string; caption: string }[]) => {
+        const tiles = [...strip!.querySelectorAll<HTMLAnchorElement>('.follow__tile')];
+        if (!Array.isArray(posts) || posts.length < tiles.length) return;
+        tiles.forEach((a, i) => {
+          const p = posts[i];
+          // Preloaded off the page, so never loading="lazy" (a detached lazy image never loads).
+          const img = new Image(640, 640);
+          img.alt = ''; img.decoding = 'async';
+          img.addEventListener('load', () => {
+            a.replaceChildren(img);
+            a.href = p.url;
+            a.setAttribute('aria-label', `Open this post on Instagram${p.caption ? `: ${p.caption}` : ''}`);
+          }, { once: true });
+          img.src = p.img;
+        });
+      })
+      .catch(() => {});
+  };
+  if (strip && feed) {
+    // Ask for the posts only when the strip comes near the screen.
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { io.disconnect(); swap(); } }, { rootMargin: '600px 0px' });
+      io.observe(strip);
+    } else swap();
+  }
+</script>

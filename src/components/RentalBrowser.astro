@@ -1,0 +1,44 @@
+---
+// The rentals listing: every item is in the HTML (crawlable, works with JavaScript off);
+// search, sort and pages are added on top by ui.ts. Wording as on the original Rentals page.
+import RentalCard from './RentalCard.astro';
+import Icon from './Icon.astro';
+import { categories, categoryUrl, rentals, type Rental } from '~/lib/data';
+
+interface Props { items: Rental[]; current?: string; eagerCards?: number }
+const { items, current, eagerCards = 0 } = Astro.props;
+---
+<div class="rentals-layout">
+  <aside class="rentals-side" aria-label="Rental categories">
+    <h2>Filter by Category</h2>
+    <ul class="chips">
+      <li><a class="chip" href="/rentals/" aria-current={!current ? 'page' : undefined}>All <span>{rentals.length}</span></a></li>
+      {categories.map((c) => <li><a class="chip" href={categoryUrl(c.name)} aria-current={current === c.name ? 'page' : undefined}>{c.name} <span>{c.count}</span></a></li>)}
+    </ul>
+    <p class="side-note">Add items to your inquiry using the “Add to Inquiry” button. You can review and submit your inquiry on the <a href="/contact/">Contact Us</a> page.</p>
+  </aside>
+  <div>
+    <div class="toolbar">
+      <label class="field-search">
+        <span class="visually-hidden">Search rentals</span>
+        <Icon name="search" />
+        <input type="search" placeholder="Search rentals…" data-rental-search autocomplete="off" />
+      </label>
+      <label>
+        <span class="visually-hidden">Sort rentals</span>
+        <select data-rental-sort>
+          <option value="none">Sort by…</option>
+          <option value="low">Price: Low to High</option>
+          <option value="high">Price: High to Low</option>
+          <option value="name">Name: A to Z</option>
+        </select>
+      </label>
+    </div>
+    <p class="result-count" data-rental-count aria-live="polite">{items.length} items</p>
+    <ul class="rental-grid" data-rental-grid>
+      {items.map((r, i) => <li data-rental data-name={r.name} data-price={r.price ?? ''} data-cats={[r.category, ...r.alsoIn].join('|')} data-search={`${r.name} ${r.category} ${r.description}`.toLowerCase()}><RentalCard item={r} heading="h2" eager={i < eagerCards} /></li>)}
+    </ul>
+    <p class="empty" data-rental-empty hidden>No items match your filters yet.</p>
+    <nav class="pager" data-pager aria-label="Rental pages"></nav>
+  </div>
+</div>

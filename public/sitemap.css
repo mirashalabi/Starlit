@@ -1,0 +1,92 @@
+/* Styles /sitemap.xml in a browser. Linked with <?xml-stylesheet type="text/css"?> because an XSLT
+   stylesheet now draws a removal warning in Chrome. Search engines ignore this file.
+   Brand: Starlit ink #15120e, ivory #f8f3ea, logo gold #e6c068 (deep gold #7d5a12 for text on ivory).
+   The clickable version for people is /sitemap/. */
+@font-face { font-family: 'Playfair'; src: url('/fonts/playfair.woff2') format('woff2'); font-weight: 400 900; font-display: swap; }
+@font-face { font-family: 'Poppins'; src: url('/fonts/poppins-300.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'Poppins'; src: url('/fonts/poppins-500.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+
+urlset {
+  display: block;
+  position: relative;
+  min-height: 100vh;
+  margin: 0;
+  padding: 150px max(20px, calc((100vw - 1040px) / 2)) 96px;
+  background: #f8f3ea linear-gradient(#15120e, #15120e) no-repeat top / 100% 8px;
+  color: #2a241d;
+  font: 300 16px/1.6 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  counter-reset: page;
+}
+/* Eyebrow */
+urlset::after {
+  content: "Starlit Events & Photography";
+  position: absolute;
+  top: 72px;
+  left: max(20px, calc((100vw - 1040px) / 2));
+  font: 500 12px/1 'Poppins', system-ui, sans-serif;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: #7d5a12;
+}
+/* Title */
+urlset::before {
+  content: "Sitemap";
+  display: block;
+  margin: 0 0 12px;
+  font: 500 clamp(56px, 9vw, 112px)/.95 'Playfair', Georgia, serif;
+  letter-spacing: -.03em;
+  color: #15120e;
+}
+url {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  align-items: baseline;
+  gap: 12px;
+  padding: 15px 22px;
+  margin: 0 0 8px;
+  background: #fffdf9;
+  border: 1px solid rgb(42 36 29 / .1);
+  border-radius: 14px;
+  counter-increment: page;
+  transition: border-color .2s ease, transform .25s cubic-bezier(.2, .7, .2, 1), box-shadow .25s ease;
+}
+url:first-of-type { margin-top: 36px; }
+url:hover {
+  border-color: #e6c068;
+  transform: translateX(6px);
+  box-shadow: 0 14px 30px -22px rgb(21 18 14 / .45);
+}
+url::before {
+  content: counter(page, decimal-leading-zero);
+  font: 500 12.5px/1 'Poppins', system-ui, sans-serif;
+  letter-spacing: .14em;
+  color: #b58f2e;
+}
+loc {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 15.5px;
+  color: #15120e;
+}
+lastmod, changefreq, priority { display: none; }
+
+@media (max-width: 600px) {
+  urlset { padding-top: 128px; }
+  urlset::after { top: 56px; }
+  url { grid-template-columns: 40px 1fr; padding: 13px 16px; }
+  loc { font-size: 14px; }
+}
+
+@media (prefers-color-scheme: dark) {
+  urlset { background-color: #15120e; background-image: linear-gradient(#e6c068, #e6c068); color: #f8f3ea; }
+  urlset::before { color: #f8f3ea; }
+  urlset::after { color: #e6c068; }
+  url { background: #221d17; border-color: rgb(255 255 255 / .1); }
+  url::before { color: #e6c068; }
+  loc { color: #f8f3ea; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  url { transition: none; }
+  url:hover { transform: none; }
+}

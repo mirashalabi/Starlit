@@ -1,0 +1,43 @@
+---
+import Base from '~/layouts/Base.astro';
+import Photo from '~/components/Photo.astro';
+import Icon from '~/components/Icon.astro';
+import Crumbs from '~/components/Crumbs.astro';
+import { site } from '~/config/site';
+import { locations, locationUrl, cityNode } from '~/config/locations';
+const crumbs = [{ name: 'Service Areas', path: '/service-areas/' }];
+---
+<Base
+  heroSizes="(max-width: 700px) 70vw, 100vw"
+  heroPhoto="site/gold-arch-eucalyptus-willow"
+  title="Service Areas: Ottawa, Montreal & Toronto | Starlit Events"
+  description="Starlit plans events, rents décor and photographs celebrations in Ottawa, Montreal and Toronto. Travel within 50 km of each city is included."
+  ogImage="/og/home.jpg"
+  crumbs={crumbs}
+  pageType="CollectionPage"
+  nodes={(abs) => [{ '@type': 'ItemList', '@id': abs('/service-areas/#list'), name: 'Starlit service areas', itemListElement: locations.map((l, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(locationUrl(l)), name: l.city, item: cityNode(l) })) }]}
+>
+  <section class="page-hero page-hero--short" data-hero>
+    <div class="hero__media" data-parallax><Photo name="site/gold-arch-eucalyptus-willow" alt="A gold arch with eucalyptus and white drapery set up outdoors by Starlit" eager sizes="(max-width: 700px) 70vw, 100vw" /></div>
+    <div class="wrap page-hero__inner" data-parallax-content>
+      <Crumbs items={crumbs} />
+      <h1 class="display-xl">Service <em>Areas</em></h1>
+      <p>{site.heroLead}</p>
+    </div>
+  </section>
+  <section class="section on-light">
+    <div class="wrap">
+      <div class="area-cards area-cards--3">
+        {locations.map((l) => (
+          <a class="event-card" href={locationUrl(l)}>
+            <span class="event-card__img"><Photo name={l.photo} alt="" sizes="(min-width: 900px) 33vw, 100vw" maxWidth={1280} /></span>
+            <p style="margin:0 0 6px;letter-spacing:.08em">{l.province}</p>
+            <h2 class="display-m">{l.city}</h2>
+            <p>Travel within 50 km of {l.city} is included.</p>
+            <span class="link-arrow">Starlit in {l.city} <Icon name="arrow" /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

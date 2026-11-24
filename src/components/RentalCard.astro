@@ -1,0 +1,27 @@
+---
+import Photo from './Photo.astro';
+import Icon from './Icon.astro';
+import { getImage } from 'astro:assets';
+import { photo } from '~/lib/photos';
+import { type Rental, rentalUrl, dayPrice, photoKey } from '~/lib/data';
+
+interface Props { item: Rental; heading?: 'h2' | 'h3'; eager?: boolean }
+const { item, heading = 'h3', eager = false } = Astro.props;
+const H = heading;
+const key = photoKey('rentals', item.photos[0]);
+const thumb = await getImage({ src: photo(key), width: 160, format: 'webp' });
+const url = rentalUrl(item);
+---
+<article class="rental-card">
+  <div class="rental-card__img"><Photo name={key} alt={item.name} eager={eager} sizes="(min-width: 1200px) 260px, (min-width: 600px) 30vw, 46vw" maxWidth={800} /></div>
+  <div class="rental-card__body">
+    <span class="rental-card__cat">{item.category}</span>
+    <H><a href={url}>{item.name}</a></H>
+    <div class="rental-card__foot">
+      <span class="rental-card__price">{dayPrice(item.price).replace(' / day', '')}<small> / day</small></span>
+      <button class="add-btn" type="button" data-add data-name={item.name} data-category={item.category} data-price={item.price ?? ''} data-image={thumb.src} data-url={url} data-add-text="Add" aria-pressed="false" aria-label={`Add ${item.name} to your inquiry`}>
+        <Icon name="plus" /><span class="add-btn__label">Add</span>
+      </button>
+    </div>
+  </div>
+</article>

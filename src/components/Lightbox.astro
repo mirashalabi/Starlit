@@ -1,0 +1,9 @@
+---
+import Icon from './Icon.astro';
+---
+<dialog class="lightbox" data-lightbox aria-label="Photo viewer">
+  <figure class="lightbox__fig"><img src="data:," alt="" width="1800" height="1200" /></figure>
+  <button type="button" class="lightbox__close" data-lb-close aria-label="Close"><Icon name="close" /></button>
+  <button type="button" class="lightbox__prev" data-lb-prev aria-label="Previous photo"><Icon name="arrow-left" /></button>
+  <button type="button" class="lightbox__next" data-lb-next aria-label="Next photo"><Icon name="arrow" /></button>
+</dialog>

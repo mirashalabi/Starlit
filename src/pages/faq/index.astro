@@ -1,0 +1,31 @@
+---
+import Base from '~/layouts/Base.astro';
+import Crumbs from '~/components/Crumbs.astro';
+import Faq from '~/components/Faq.astro';
+import { faqGroups, allFaqs } from '~/config/faq';
+const crumbs = [{ name: 'FAQ', path: '/faq/' }];
+---
+<Base
+  title="FAQ: Booking, Planning, Photography & Rentals | Starlit"
+  description="How to book Starlit, how far ahead to reserve, retainers, travel, planning packages, print rights, rental delivery, changes and damage."
+  ogImage="/og/home.jpg"
+  crumbs={crumbs}
+  mainEntity="#faq"
+  solidHeader
+  nodes={(abs) => [{
+    '@type': 'FAQPage',
+    '@id': abs('/faq/#faq'),
+    mainEntity: allFaqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  }]}
+>
+  <section class="page-head on-light">
+    <div class="wrap">
+      <Crumbs items={crumbs} />
+      <h1 class="display-l">Frequently Asked <em>Questions</em></h1>
+      <nav class="faq__jump" aria-label="FAQ topics">
+        {faqGroups.map((g) => <a class="chip" href={`#${g.id}`}>{g.title}</a>)}
+      </nav>
+    </div>
+  </section>
+  <Faq groups={faqGroups} heading="Questions by topic" headingId="faq-all-h" open />
+</Base>

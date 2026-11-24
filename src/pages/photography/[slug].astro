@@ -1,0 +1,76 @@
+---
+import Menu from '~/components/Menu.astro';
+import { locations as LOC, cityNode } from '~/config/locations';
+import Base from '~/layouts/Base.astro';
+import Photo from '~/components/Photo.astro';
+import Icon from '~/components/Icon.astro';
+import Crumbs from '~/components/Crumbs.astro';
+import { altFor } from '~/config/alts';
+import { photography, photographyUrl, photoKey, money, fit, type PhotoService } from '~/lib/data';
+
+export function getStaticPaths() {
+  return photography.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props as { p: PhotoService };
+const crumbs = [{ name: 'Photography', path: '/photography/' }, { name: p.name, path: photographyUrl(p) }];
+const others = photography.filter((x) => x.slug !== p.slug);
+const prices = p.variations.length ? p.variations.filter((v) => v.price != null) : p.price != null ? [{ label: p.name, price: p.price }] : [];
+const firstSentence = p.description.split(/(?<=\.)\s/)[0];
+---
+<Base
+  heroPhoto={photoKey('photography', p.photos[0])}
+  heroSizes="(min-width: 860px) 50vw, 100vw"
+  heroMax={1600}
+  title={fit([`${p.name}${p.from != null ? ` from ${money(p.from)}` : ''} | Starlit Photography`, `${p.name}${p.from != null ? ` from ${money(p.from)}` : ''} | Starlit Photography`, `${p.name} | Starlit`], 65)}
+  description={fit([`${p.name} by Starlit in Ottawa, Montreal and Toronto${p.from != null ? `, starting at ${money(p.from)}${p.hours ? ` / ${p.hours} hr` : ''}` : ''}. ${p.tagline}.`, `${firstSentence}${p.from != null ? ` Starting at ${money(p.from)}${p.hours ? ` / ${p.hours} hr` : ''}.` : ''}`, `${p.name} by Starlit: ${p.tagline.toLowerCase()}${p.from != null ? `, starting at ${money(p.from)}${p.hours ? ` / ${p.hours} hr` : ''}` : ''}. Ottawa, Montreal & Toronto.`], 160)}
+  ogImage={`/og/photography-${p.slug}.jpg`}
+  crumbs={crumbs}
+  mainEntity="#service"
+  solidHeader
+  nodes={(abs, ids) => [{
+    '@type': 'Service', '@id': abs(`${photographyUrl(p)}#service`), name: p.name, serviceType: 'Photography', description: p.description, url: abs(photographyUrl(p)), provider: { '@id': ids.biz }, mainEntityOfPage: { '@id': ids.page },
+    image: abs(`/og/photography-${p.slug}.jpg`),
+    areaServed: LOC.map(cityNode),
+    ...(prices.length ? { offers: prices.map((v) => ({ '@type': 'Offer', name: v.label, price: v.price, priceCurrency: 'CAD', url: abs(photographyUrl(p)), ...(LOC.find((l) => l.city === v.label) ? { areaServed: cityNode(LOC.find((l) => l.city === v.label)!) } : {}), ...(p.hours ? { priceSpecification: { '@type': 'UnitPriceSpecification', price: v.price, priceCurrency: 'CAD', referenceQuantity: { '@type': 'QuantitativeValue', value: p.hours, unitCode: 'HUR' } } } : {}) })) } : {}),
+  }]}
+>
+  <section class="page-head on-light">
+    <div class="wrap">
+      <Crumbs items={crumbs} />
+      <div class="split" style="align-items:start">
+        <div class="split__media"><Photo name={photoKey('photography', p.photos[0])} alt={altFor(p.photos[0], `${p.name} by Starlit`)} eager sizes="(min-width: 860px) 50vw, 100vw" maxWidth={1600} /></div>
+        <div class="split__text">
+          <p class="eyebrow">{p.tagline}</p>
+          <h1 class="display-l" style="font-size:clamp(44px,5.4vw,88px)">{p.name}</h1>
+          {p.from != null && <p class="price-tag">Starting at <strong>{money(p.from)}</strong>{p.hours ? ` / ${p.hours} hr` : ''}</p>}
+          <p class="item__desc">{p.description}</p>
+          <p class="item__q">Available in <a href="/service-areas/ottawa/">Ottawa</a>, <a href="/service-areas/montreal/">Montreal</a> and <a href="/service-areas/toronto/">Toronto</a>.</p>
+          {p.variations.length > 0 && (
+            <Menu compact label="Options" items={p.variations.map((v) => ({ name: v.label, price: v.price != null ? `${money(v.price)}${p.hours ? ` / ${p.hours} hr` : ''}` : 'Ask us' }))} />
+          )}
+          {p.questions.map((q) => <p class="item__q">{q}</p>)}
+          <div class="item__actions">
+            <a class="btn btn--ink" href={`/contact/?type=Photography&about=${encodeURIComponent(p.name)}`}>Get a personalised quote <Icon name="arrow" /></a>
+            {p.slug === 'event-photography' && <a class="btn btn--ghost" href="/events/">See our events</a>}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-light" aria-labelledby="more-h">
+    <div class="wrap">
+      <div class="section-head"><div><h2 id="more-h" class="display-m">More <em>Photography</em></h2></div></div>
+      <div class="event-cards cards-4">
+        {others.map((o) => (
+          <a class="event-card" href={photographyUrl(o)} style="min-height:clamp(340px,28vw,440px)">
+            <span class="event-card__img"><Photo name={photoKey('photography', o.photos[0])} alt="" sizes="(min-width: 760px) 25vw, 100vw" maxWidth={960} /></span>
+            <h3 class="display-s">{o.name}</h3>
+            {o.from != null && <p>Starting at {money(o.from)}{o.hours ? ` / ${o.hours} hr` : ''}</p>}
+            <span class="link-arrow">View <Icon name="arrow" /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

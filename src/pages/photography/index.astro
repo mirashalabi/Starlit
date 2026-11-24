@@ -1,0 +1,52 @@
+---
+import Base from '~/layouts/Base.astro';
+import Photo from '~/components/Photo.astro';
+import Icon from '~/components/Icon.astro';
+import Crumbs from '~/components/Crumbs.astro';
+import { altFor } from '~/config/alts';
+import { photography, photographyUrl, photoKey, money } from '~/lib/data';
+import Faq from '~/components/Faq.astro';
+import { faqGroup } from '~/config/faq';
+---
+<Base
+  heroSizes="(max-width: 700px) 70vw, 100vw"
+  heroPhoto="site/photography-title-bar"
+  title="Photography in Ottawa, Montreal & Toronto | Starlit"
+  description={`Event, headshot, product, milestone and casual photography by Starlit, starting at ${money(Math.min(...photography.map((p) => p.from ?? Infinity)))}. Connect with us for a personalised quote.`}
+  ogImage="/og/photography.jpg"
+  crumbs={[{ name: 'Photography', path: '/photography/' }]}
+  pageType="CollectionPage"
+  nodes={(abs) => [{ '@type': 'ItemList', '@id': abs('/photography/#list'), itemListElement: photography.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(photographyUrl(p)), name: p.name })) }]}
+>
+  <section class="page-hero" data-hero>
+    <div class="hero__media" data-parallax><Photo name="site/photography-title-bar" alt="Rolling green hills and a lake under a blue sky with white clouds" eager sizes="(max-width: 700px) 70vw, 100vw" /></div>
+    <div class="wrap page-hero__inner" data-parallax-content>
+      <Crumbs items={[{ name: 'Photography', path: '/photography/' }]} />
+      <h1 class="display-xl"><em>Photography</em></h1>
+      <p><a href="/contact/?type=Photography">Connect with us</a> for a personalised quote!</p>
+      <p style="margin-top:10px">Sessions in <a href="/service-areas/ottawa/">Ottawa</a>, <a href="/service-areas/montreal/">Montreal</a> and <a href="/service-areas/toronto/">Toronto</a>.</p>
+    </div>
+  </section>
+
+  <section class="section on-light">
+    <div class="wrap">
+      {photography.map((p, i) => (
+        <div class:list={['split', { 'split--flip': i % 2 === 1 }]}>
+          <div class="split__media">
+            <Photo name={photoKey('photography', p.photos[0])} alt={altFor(p.photos[0], `${p.name} by Starlit`)} sizes="(min-width: 860px) 50vw, 100vw" maxWidth={1600} />
+          </div>
+          <div class="split__text">
+            <p class="split__num">0{i + 1} · {p.tagline}</p>
+            <h2 class="display-m"><a href={photographyUrl(p)} style="text-decoration:none">{p.name}</a></h2>
+            {p.from != null && <p class="price-tag">Starting at <strong>{money(p.from)}</strong>{p.hours ? ` / ${p.hours} hr` : ''}</p>}
+            <p class="muted">{p.description}</p>
+            <div class="split__actions">
+              <a class="btn btn--ink" href={photographyUrl(p)}>Details &amp; pricing <Icon name="arrow" /></a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+  <Faq groups={[faqGroup('photography')]} more />
+</Base>

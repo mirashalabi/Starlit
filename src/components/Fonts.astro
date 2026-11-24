@@ -1,0 +1,24 @@
+---
+// RULE: brand fonts never move text after first paint | PREVENTS: the hero jumping when Playfair or Poppins arrive (measured CLS 0.19 to 0.36).
+// font-display: optional + preload: the brand faces are used when they arrive in the first moment (desktop and
+// every repeat visit); otherwise the metric-matched fallbacks in theme.css stay for that page view. Latin subset
+// (covers French accents). Files come from @fontsource, self-hosted.
+import pf from '@fontsource-variable/playfair-display/files/playfair-display-latin-wght-normal.woff2?url';
+import pfi from '@fontsource-variable/playfair-display/files/playfair-display-latin-wght-italic.woff2?url';
+import p300 from '@fontsource/poppins/files/poppins-latin-300-normal.woff2?url';
+import p400 from '@fontsource/poppins/files/poppins-latin-400-normal.woff2?url';
+import p500 from '@fontsource/poppins/files/poppins-latin-500-normal.woff2?url';
+import p600 from '@fontsource/poppins/files/poppins-latin-600-normal.woff2?url';
+const css = `
+@font-face{font-family:'Playfair Display Variable';font-style:normal;font-weight:400 900;font-display:optional;src:url(${pf}) format('woff2-variations')}
+@font-face{font-family:'Playfair Display Variable';font-style:italic;font-weight:400 900;font-display:optional;src:url(${pfi}) format('woff2-variations')}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:300;font-display:optional;src:url(${p300}) format('woff2')}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:400;font-display:optional;src:url(${p400}) format('woff2')}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:500;font-display:optional;src:url(${p500}) format('woff2')}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:600;font-display:optional;src:url(${p600}) format('woff2')}
+`;
+---
+<link rel="preload" href={pf} as="font" type="font/woff2" crossorigin />
+<link rel="preload" href={p300} as="font" type="font/woff2" crossorigin />
+<link rel="preload" href={p500} as="font" type="font/woff2" crossorigin />
+<style is:inline set:html={css}></style>

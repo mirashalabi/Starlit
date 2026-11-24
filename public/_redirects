@@ -1,0 +1,9 @@
+# Original URLs (GitHub Pages, .html) to the new clean URLs.
+/index.html        /                 301
+/events.html       /events/          301
+/photography.html  /photography/     301
+/rentals.html      /rentals/         301
+/contact.html      /contact/         301
+/navbar.html       /                 301
+/footer.html       /                 301
+/home.html         /                 301

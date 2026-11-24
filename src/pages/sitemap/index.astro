@@ -1,0 +1,73 @@
+---
+// The sitemap for people: every page, grouped, from the same data as /sitemap.xml.
+import Base from '~/layouts/Base.astro';
+import Crumbs from '~/components/Crumbs.astro';
+import { site } from '~/config/site';
+import { locations, locationUrl } from '~/config/locations';
+import { events, eventUrl, photography, photographyUrl, categories, categoryUrl, inCategory, rentalUrl, rentals, dayPrice, money } from '~/lib/data';
+const crumbs = [{ name: 'Sitemap', path: '/sitemap/' }];
+const main = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about/' },
+  { label: 'Service Areas', href: '/service-areas/' },
+  ...locations.map((l) => ({ label: `Starlit in ${l.city}`, href: locationUrl(l) })),
+  { label: 'Events', href: '/events/' },
+  { label: 'Photography', href: '/photography/' },
+  { label: 'Rentals', href: '/rentals/' },
+  { label: 'FAQ', href: '/faq/' },
+  { label: 'Contact Us', href: '/contact/' },
+  { label: 'Privacy', href: '/privacy/' },
+];
+const total = main.length + events.length + photography.length + categories.length + rentals.length;
+---
+<Base
+  title="Sitemap | Starlit Events & Photography"
+  description={`Every page on the ${site.name} website: events, photography sessions and all ${rentals.length} rentals by category.`}
+  ogImage="/og/home.jpg"
+  crumbs={crumbs}
+  solidHeader
+  cta={false}
+>
+  <section class="page-head on-light">
+    <div class="wrap">
+      <Crumbs items={crumbs} />
+      <h1 class="display-xl"><em>Sitemap</em></h1>
+      <p class="lead muted" style="margin:0">{total} pages. <a href="/sitemap.xml">The XML version</a> is the one search engines read.</p>
+      <nav class="faq__jump" aria-label="Sitemap sections" style="margin-top:24px">
+        <a class="chip" href="#main-pages">Main pages</a>
+        <a class="chip" href="#events">Events</a>
+        <a class="chip" href="#photography">Photography</a>
+        {categories.map((c) => <a class="chip" href={`#${c.slug}`}>{c.name}</a>)}
+      </nav>
+    </div>
+  </section>
+
+  <section class="section on-light smap" style="padding-top:clamp(40px,5vw,72px)">
+    <div class="wrap">
+      <div class="smap__grid">
+        <div class="smap__block" id="main-pages">
+          <h2 class="smap__h">Main pages <span>{main.length}</span></h2>
+          <ul class="smap__list">{main.map((m) => <li><a href={m.href}>{m.label}</a></li>)}</ul>
+        </div>
+        <div class="smap__block" id="events">
+          <h2 class="smap__h"><a href="/events/">Events</a> <span>{events.length}</span></h2>
+          <ul class="smap__list">{events.map((e) => <li><a href={eventUrl(e)}>{e.name}</a></li>)}</ul>
+        </div>
+        <div class="smap__block" id="photography">
+          <h2 class="smap__h"><a href="/photography/">Photography</a> <span>{photography.length}</span></h2>
+          <ul class="smap__list">{photography.map((p) => <li><a href={photographyUrl(p)}>{p.name}</a>{p.from != null && <small>from {money(p.from)}</small>}</li>)}</ul>
+        </div>
+      </div>
+
+      <h2 class="display-m" style="margin:clamp(64px,8vw,112px) 0 clamp(28px,3vw,40px)"><a href="/rentals/" style="text-decoration:none"><em>Rentals</em></a></h2>
+      <div class="smap__grid smap__grid--rentals">
+        {categories.map((c) => (
+          <div class="smap__block" id={c.slug}>
+            <h3 class="smap__h"><a href={categoryUrl(c.name)}>{c.name}</a> <span>{c.count}</span></h3>
+            <ul class="smap__list">{inCategory(c.name).map((r) => <li><a href={rentalUrl(r)}>{r.name}</a>{r.price != null && <small>{dayPrice(r.price)}</small>}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
