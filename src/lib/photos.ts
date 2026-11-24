@@ -32,6 +32,8 @@ export const focus: Record<string, string> = {
   'events/romantic-proposal-1': '50% 50%',
   'events/romantic-proposal-2': '50% 55%',
   'events/80s-disco-party-3': '45% 50%',
+  'events/80s-disco-party-5': '50% 55%',
+  'events/dreamy-bachelorette-party-6': '45% 50%',
   'events/butterfly-birthday-party-5': '45% 50%',
   'events/dreamy-bachelorette-party-1': '50% 55%',
   'photography/event-photography': '50% 25%',

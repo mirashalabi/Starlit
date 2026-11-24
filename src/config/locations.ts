@@ -33,8 +33,8 @@ export const locations: Location[] = [
     provinceCode: 'ON',
     wikipedia: 'https://en.wikipedia.org/wiki/Ottawa',
     wikidata: 'https://www.wikidata.org/wiki/Q1930',
-    photo: 'site/title-bar',
-    photoAlt: 'A gold arch with eucalyptus and white drapery under a pergola with hanging bulbs, styled by Starlit',
+    photo: 'events/romantic-proposal-2',
+    photoAlt: 'A heart of red roses framing a riverside balcony, with candles, for a proposal styled by Starlit',
     local: [],
   },
   {
@@ -44,8 +44,8 @@ export const locations: Location[] = [
     provinceCode: 'QC',
     wikipedia: 'https://en.wikipedia.org/wiki/Montreal',
     wikidata: 'https://www.wikidata.org/wiki/Q340',
-    photo: 'rentals/gold-arch-frames-set',
-    photoAlt: 'Three gold arch frames in different sizes from Starlit rentals',
+    photo: 'events/80s-disco-party-5',
+    photoAlt: 'An 80s disco party table with flowers, silver plates and a rainbow tinsel backdrop, styled by Starlit',
     local: [],
   },
   {
@@ -55,8 +55,8 @@ export const locations: Location[] = [
     provinceCode: 'ON',
     wikipedia: 'https://en.wikipedia.org/wiki/Toronto',
     wikidata: 'https://www.wikidata.org/wiki/Q172',
-    photo: 'rentals/full-gold-set-with-eucalyptus-arrangement',
-    photoAlt: 'A full gold display set with a eucalyptus arrangement from Starlit rentals',
+    photo: 'events/dreamy-bachelorette-party-6',
+    photoAlt: 'A round arch with greenery, white drapery and gold MRS balloons for a bachelorette party, styled by Starlit',
     local: [],
   },
 ];
