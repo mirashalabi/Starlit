@@ -596,11 +596,9 @@ html:not(.js) .quotes__nav { display: none; }
 .follow__tile { position: relative; display: block; aspect-ratio: 1; border-radius: 12px; overflow: hidden; background: var(--ink-2); }
 .follow__tile img, .follow__tile picture { width: 100%; height: 100%; }
 .follow__tile img { object-fit: cover; transition: transform .9s cubic-bezier(.2,.7,.2,1), filter .4s ease; }
-/* Stagger the whole middle column (2nd of every 3), so the two rows never overlap. */
-.follow__strip li:nth-child(3n+2) { transform: translateY(18px); }
 .follow__strip:hover .follow__tile img { filter: brightness(.75); }
 .follow__strip .follow__tile:hover img { transform: scale(1.08); filter: none; }
-@media (max-width: 900px) { .follow__inner { grid-template-columns: 1fr; } .follow__strip li:nth-child(3n+2) { transform: none; } }
+@media (max-width: 900px) { .follow__inner { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { .follow__tile img, .social a { transition: none; } }
 .footer .social { display: flex; gap: 10px; }
 
