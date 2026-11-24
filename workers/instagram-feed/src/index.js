@@ -7,18 +7,19 @@
  *   GET /status       ->  when the feed last updated and the last error (no secrets)
  *   GET /refresh?key= ->  update now (key = first 12 characters of IG_TOKEN's SHA-256, see docs/INSTAGRAM.md)
  *
- * Meta omits media_url for videos with licensed audio (changelog July 30 2026), so videos use thumbnail_url
- * and posts with neither are skipped. On any Meta error the last good feed keeps being served.
+ * Only photo and carousel posts are shown (no reels or videos). Posts without a picture are skipped. On any Meta error the last good feed keeps being served.
  */
-const FIELDS = 'id,media_type,media_url,thumbnail_url,permalink,caption,timestamp';
+const FIELDS = 'id,media_type,media_product_type,media_url,thumbnail_url,permalink,caption,timestamp';
 
 async function update(env) {
   if (!env.IG_USER_ID) throw new Error('IG_USER_ID is not set');
-  const res = await fetch(`${env.GRAPH}/${env.IG_USER_ID}/media?fields=${FIELDS}&limit=18&access_token=${encodeURIComponent(env.IG_TOKEN)}`);
+  const res = await fetch(`${env.GRAPH}/${env.IG_USER_ID}/media?fields=${FIELDS}&limit=40&access_token=${encodeURIComponent(env.IG_TOKEN)}`);
   const body = await res.json();
   if (!res.ok || body.error) throw new Error(`Meta ${res.status}: ${body.error?.message ?? 'no data'}`.slice(0, 300));
   const posts = (body.data || [])
-    .map((m) => ({ id: m.id, url: m.permalink, src: m.media_type === 'VIDEO' ? m.thumbnail_url || m.media_url : m.media_url, caption: (m.caption || '').replace(/\s+/g, ' ').slice(0, 140) }))
+    // Photos and carousels only: no reels or videos (Kal, Nov 23 2026).
+    .filter((m) => (m.media_type === 'IMAGE' || m.media_type === 'CAROUSEL_ALBUM') && m.media_product_type !== 'REELS')
+    .map((m) => ({ id: m.id, url: m.permalink, src: m.media_url, caption: (m.caption || '').replace(/\s+/g, ' ').slice(0, 140) }))
     .filter((p) => p.url && p.src)
     .slice(0, 6);
   if (!posts.length) throw new Error('Meta returned no posts with a picture');
