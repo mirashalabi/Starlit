@@ -85,6 +85,8 @@ export default {
     form.set("turnstile", turnstile);
     if (detail) form.set("turnstile_detail", detail);
     form.set("country", (request.cf && request.cf.country) || "");
+    form.set("city", (request.cf && request.cf.city) || "");
+    form.set("region", (request.cf && request.cf.region) || "");
 
     try {
       // Apps Script wants a urlencoded body (URLSearchParams), and answers with a 302 to

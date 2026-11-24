@@ -1,6 +1,7 @@
 // RULE: every interaction works on top of complete server-rendered HTML; with JavaScript off the menu, every rental, every quote and the form still work | PREVENTS: the original's failure, where rentals, events and photography were empty until scripts ran.
 
 import { armLeadForm, turnstileToken, sendLead } from './turnstile-lazy';
+import { attribution } from './attribution';
 
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document) => r.querySelector<T>(s);
@@ -259,6 +260,7 @@ if (form) {
     if (!fd.get('form_ms')) fd.set('form_ms', String(Date.now() - started));
     fd.set('page_url', location.href.split('#')[0]);
     fd.set('referrer', document.referrer.slice(0, 300));
+    Object.entries(attribution()).forEach(([k, v]) => v && fd.set(k, v));
     fd.set('inquiry_type', String(fd.get('service') || ''));
     const btn = $<HTMLButtonElement>('[type="submit"]', form);
     if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent || ''; btn.textContent = 'Sending…'; }
