@@ -381,7 +381,7 @@ function notify_(r) {
     row("Came from", link(r.first_referrer)) +
     row("First page seen", link(r.landing_page)) +
     row("Sent from page", link(r.page_url)) +
-    row("Page before form", r.referrer && r.referrer !== r.first_referrer ? link(r.referrer) : "") +
+    row("Page before form", r.referrer && r.referrer.split("?")[0] !== String(r.landing_page).split("?")[0] && r.referrer !== r.first_referrer ? link(r.referrer) : "") +
     row("Earlier visit", txt(r.first_visit)) +
     row("Pages viewed", txt(r.pages_viewed)) +
     row("Campaign tags", txt(tags)) +
