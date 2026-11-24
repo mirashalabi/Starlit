@@ -33,8 +33,8 @@ export const locations: Location[] = [
     provinceCode: 'ON',
     wikipedia: 'https://en.wikipedia.org/wiki/Ottawa',
     wikidata: 'https://www.wikidata.org/wiki/Q1930',
-    photo: 'events/romantic-proposal-2',
-    photoAlt: 'A heart of red roses framing a riverside balcony, with candles, for a proposal styled by Starlit',
+    photo: 'site/title-bar',
+    photoAlt: 'A gold arch with eucalyptus and white drapery under a pergola with hanging bulbs, styled by Starlit',
     local: [],
   },
   {

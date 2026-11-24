@@ -36,7 +36,7 @@ await photoCard('events', 'events/romantic-proposal-1');
 await productCard('photography', 'site/wwd-photography');
 await photoCard('rentals', 'site/wwd-rentals');
 await photoCard('contact', 'site/title-bar');
-for (const [slug, key] of [['ottawa', 'events/romantic-proposal-2'], ['montreal', 'events/80s-disco-party-5'], ['toronto', 'events/dreamy-bachelorette-party-6']]) await photoCard(`areas-${slug}`, key);
+for (const [slug, key] of [['ottawa', 'site/title-bar'], ['montreal', 'events/80s-disco-party-5'], ['toronto', 'events/dreamy-bachelorette-party-6']]) await photoCard(`areas-${slug}`, key);
 for (const e of events) await photoCard(`events-${e.slug}`, `events/${slugify(e.photos[(COVER[e.slug] ?? 1) - 1] ?? e.photos[0])}`);
 for (const p of photography) await productCard(`photography-${p.slug}`, `photography/${slugify(p.photos[0])}`);
 for (const c of categories) {
