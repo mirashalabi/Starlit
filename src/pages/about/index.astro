@@ -1,0 +1,85 @@
+---
+// About: composed only from the owner's existing words (home page, footer, contact page, sheet). No new claims.
+import Base from '~/layouts/Base.astro';
+import Photo from '~/components/Photo.astro';
+import Icon from '~/components/Icon.astro';
+import Crumbs from '~/components/Crumbs.astro';
+import { site, pillars, reasons, testimonials } from '~/config/site';
+import { locations, locationUrl } from '~/config/locations';
+import { events, eventUrl, photography, photographyUrl, categories, categoryUrl, rentals, money } from '~/lib/data';
+const crumbs = [{ name: 'About', path: '/about/' }];
+const photoFrom = Math.min(...photography.map((p) => p.from ?? Infinity));
+---
+<Base
+  heroSizes="(max-width: 700px) 70vw, 100vw"
+  heroPhoto="site/title-bar"
+  title="About Starlit Events & Photography | Ottawa, Montreal & Toronto"
+  description="Starlit brings unforgettable events to life through thoughtful planning, curated décor, and storytelling photography across Ottawa, Montreal and Toronto."
+  ogImage="/og/home.jpg"
+  crumbs={crumbs}
+  pageType="AboutPage"
+>
+  <section class="page-hero page-hero--short" data-hero>
+    <div class="hero__media" data-parallax><Photo name="site/title-bar" alt="A gold arch with eucalyptus and white drapery under a pergola with hanging bulbs" eager sizes="(max-width: 700px) 70vw, 100vw" /></div>
+    <div class="wrap page-hero__inner" data-parallax-content>
+      <Crumbs items={crumbs} />
+      <h1 class="display-xl">About <em>Starlit</em></h1>
+      <p>{site.heroLead}</p>
+    </div>
+  </section>
+
+  <section class="section on-light">
+    <div class="wrap">
+      <div class="statement-row">
+        <h2 class="display-l">Grow Your <em>Vision</em></h2>
+        <p class="lead muted">Starlit brings unforgettable events to life through thoughtful planning, curated décor, and storytelling photography. From intimate celebrations to full-scale events, we handle the details so you can be fully present.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ivory on-light" style="padding-top:clamp(56px,7vw,104px)" aria-labelledby="facts-h">
+    <div class="wrap">
+      <h2 id="facts-h" class="display-m" style="margin-bottom:32px">{site.name} <em>at a glance</em></h2>
+      <dl class="tiles">
+        <div class="tile"><dt>What we do</dt><dd>{pillars.map((p) => p.title).join(', ')}</dd></div>
+        <div class="tile"><dt>Based in</dt><dd><a href="/service-areas/ottawa/">{site.base.locality}, {site.base.regionName}</a></dd></div>
+        <div class="tile"><dt>Where</dt><dd>{locations.map((l, i) => <Fragment>{i > 0 && ', '}<a href={locationUrl(l)}>{l.city}</a></Fragment>)}. Travel within 50 km of each city included.</dd></div>
+        <div class="tile"><dt>Events</dt><dd>{events.map((e, i) => <Fragment>{i > 0 && ', '}<a href={eventUrl(e)}>{e.name}</a></Fragment>)}</dd></div>
+        <div class="tile"><dt>Photography</dt><dd>{photography.map((p, i) => <Fragment>{i > 0 && ', '}<a href={photographyUrl(p)}>{p.name}</a></Fragment>)}{Number.isFinite(photoFrom) && <Fragment>. Starting at {money(photoFrom)}.</Fragment>}</dd></div>
+        <div class="tile"><dt>Rentals</dt><dd>{categories.map((c, i) => <Fragment>{i > 0 && ', '}<a href={categoryUrl(c.name)}>{c.name}</a></Fragment>)}. Priced by the day.</dd></div>
+        <div class="tile"><dt>Why choose Starlit</dt><dd>{reasons.map((r) => r.label).join(', ')}</dd></div>
+        <div class="tile"><dt>Hours</dt><dd>{site.hours.map((h) => <span style="display:block">{h.label}: {h.text}</span>)}</dd></div>
+        <div class="tile"><dt>Contact</dt><dd><a href={site.phoneHref}>{site.phone}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section on-light" aria-labelledby="why-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="why-h" class="display-l">Why Choose <em>Starlit</em></h2>
+        <p class="lead muted">Starlit delivers premium event planning, curated rentals, and photography designed to make your celebration unforgettable, without the stress.</p>
+      </div>
+      <div class="reasons">
+        {reasons.map((r) => (
+          <div class="reason">
+            <span class="reason__icon"><img src={r.icon} width="44" height="44" alt="" loading="lazy" /></span>
+            <h3>{r.label}</h3>
+          </div>
+        ))}
+      </div>
+      <div class="pillars" style="margin-top:clamp(56px,7vw,96px)">
+        {pillars.map((p, i) => (
+          <a class="pillar" href={p.href} style="min-height:clamp(380px,36vw,520px)">
+            <span class="pillar__img"><Photo name={p.photo} alt="" sizes="(min-width: 860px) 33vw, 100vw" /></span>
+            <span class="pillar__num">0{i + 1}</span>
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+            <span class="link-arrow">Explore {p.title} <Icon name="arrow" /></span>
+          </a>
+        ))}
+      </div>
+      <p class="muted" style="margin-top:40px"><a href="/">What our clients say</a> · <a href="/faq/">Frequently asked questions</a></p>
+    </div>
+  </section>
+</Base>

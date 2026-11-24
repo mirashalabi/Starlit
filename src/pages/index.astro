@@ -1,0 +1,259 @@
+---
+import Base from '~/layouts/Base.astro';
+import Photo from '~/components/Photo.astro';
+import Icon from '~/components/Icon.astro';
+import Marquee from '~/components/Marquee.astro';
+import RentalCard from '~/components/RentalCard.astro';
+import FollowBand from '~/components/FollowBand.astro';
+import HScroll from '~/components/HScroll.astro';
+import Sky from '~/components/Sky.astro';
+import { locations, locationUrl } from '~/config/locations';
+import { site, pillars, testimonials, googleReviews, reasons } from '~/config/site';
+import { events, eventUrl, eventCover, rentals, inCategory } from '~/lib/data';
+import { occasions } from '~/config/occasions';
+
+// The 80s Disco Party slot is a slideshow (Kal, Nov 23 2026): the 80s Disco Party Starlit styled, then
+// Christmas, then Easter, cross-fading on their own. Order is fixed here.
+const disco = events.find((e) => e.slug === '80s-disco-party')!;
+const slides = [
+  { href: eventUrl(disco), photo: eventCover(disco), name: disco.name, text: disco.description, cta: `View the ${disco.name.toLowerCase()}` },
+  ...['christmas-holiday-party-ottawa', 'easter-brunch-ottawa'].map((slug) => {
+    const o = occasions.find((x) => x.slug === slug)!;
+    return { href: `/occasions/${o.slug}/`, photo: o.photo, name: o.name, text: o.card, cta: `Plan your ${o.name}` };
+  }),
+];
+// Google Business Profile reviews lead the testimonial carousel, then the original site's testimonials.
+const quotes = [...googleReviews.map((g) => ({ ...g, google: true })), ...testimonials.map((t) => ({ ...t, google: false }))];
+const featured = [...inCategory('Backdrops and Stands').slice(0, 4), ...inCategory('Decor and Display').filter((r) => /Neon|Hurricane Vases with Floating|Bud Vases|LED Sign/.test(r.name)).slice(0, 4)];
+---
+<Base
+  title="Starlit Events & Photography | Ottawa, Montreal & Toronto"
+  description="Elegant event planning, curated rentals, and timeless photography across Ottawa, Montreal, Toronto & beyond. Book your free consultation with Starlit."
+  ogImage="/og/home.jpg"
+  ogImageAlt="A gold arch with eucalyptus and white drapery set up outdoors by Starlit"
+>
+  <link slot="head" rel="preload" as="image" href="/video/cities-poster-m.webp" type="image/webp" media="(max-width: 700px)" fetchpriority="high" />
+  <link slot="head" rel="preload" as="image" href="/video/cities-poster.webp" type="image/webp" media="(min-width: 701px)" fetchpriority="high" />
+  <section class="hero hero--city" data-hero>
+    <div class="hero__media" data-parallax>
+      <picture>
+        <source media="(max-width: 700px)" srcset="/video/cities-poster-m.webp" width="720" height="1280" />
+        <img src="/video/cities-poster.webp" width="1920" height="1080" alt="Ottawa lit up at dusk, reflected in the water" fetchpriority="high" decoding="async" />
+      </picture>
+      <video class="hero__video" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" data-city-video data-src="/video/cities.mp4" data-src-m="/video/cities-m.mp4" data-cues="0:Ottawa,4.2:Toronto,10.8:Montréal"></video>
+    </div>
+    <ol class="hero__cities" aria-hidden="true" data-cities>
+      <li data-city="Ottawa"><span>Ottawa</span><i></i></li>
+      <li data-city="Toronto"><span>Toronto</span><i></i></li>
+      <li data-city="Montréal"><span>Montréal</span><i></i></li>
+    </ol>
+    <button type="button" class="hero__pause" data-city-pause hidden aria-pressed="false">
+      <span class="visually-hidden" data-city-pause-label>Pause background video</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="i-pause"><path d="M7 5h3v14H7zM14 5h3v14h-3z" fill="currentColor"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="i-play"><path d="M8 5l11 7-11 7z" fill="currentColor"/></svg>
+    </button>
+    <div class="wrap hero__inner" data-parallax-content>
+      <p class="eyebrow eyebrow--light rise-in" style="--d:.05s">{site.heroEyebrow}</p>
+      <h1 class="hero__title display-xl">
+        <span class="line" style="--l:0"><span>Creating Moments</span></span>
+        <span class="line" style="--l:1"><span>That <em>Sparkle</em></span></span>
+      </h1>
+      <div class="hero__row">
+        <p class="hero__lead rise-in" style="--d:.55s">{site.heroLead}</p>
+        <div class="hero__ctas rise-in" style="--d:.7s">
+          <a class="btn btn--gold" href="#services">Explore Our Services <Icon name="arrow" /></a>
+          <a class="btn btn--ghost" href="/contact/">Book Your Free Consultation</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Marquee night items={['Events', 'Photography', 'Rentals', ...site.cities]} />
+
+  <section class="section section--night has-sky" id="services" aria-labelledby="vision-h">
+    <Sky dense />
+    <div class="wrap">
+      <div class="statement-row" style="margin-bottom:clamp(48px,6vw,88px)">
+        <div>
+          <h2 id="vision-h" class="display-l">Grow Your <em>Vision</em></h2>
+        </div>
+        <div>
+          <p class="lead muted">Starlit brings unforgettable events to life through thoughtful planning, curated décor, and storytelling photography. From intimate celebrations to full-scale events, we handle the details so you can be fully present.</p>
+          <a class="link-arrow" href="/about/">About Starlit <Icon name="arrow" /></a>
+        </div>
+      </div>
+      <div class="pillars">
+        {pillars.map((p) => (
+          <a class="pillar" href={p.href}>
+            <span class="pillar__img"><Photo name={p.photo} alt="" sizes="(min-width: 860px) 33vw, 100vw" /></span>
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+            <span class="link-arrow">Explore {p.title} <Icon name="arrow" /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark has-sky" aria-labelledby="events-h">
+    <Sky delay={2} />
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2 id="events-h" class="display-l">Our <em>Events</em></h2>
+        </div>
+        <div>
+          <p class="lead muted">Planning something special? Connect with us for a free personalised quote!</p>
+          <a class="link-arrow" href="/events/">See all events <Icon name="arrow" /></a>
+        </div>
+      </div>
+      <div class="event-cards">
+        {events.map((e) => e.slug === '80s-disco-party' ? (
+          <div class="rotator" data-rotator aria-roledescription="carousel" aria-label="Featured events">
+            {slides.map((sl, i) => (
+              <a class:list={['event-card', { 'is-active': i === 0 }]} href={sl.href} data-slide inert={i === 0 ? undefined : true} aria-roledescription="slide" aria-label={`${i + 1} of ${slides.length}: ${sl.name}`}>
+                <span class="event-card__img"><Photo name={sl.photo} alt="" sizes="(min-width: 760px) 50vw, 100vw" /></span>
+                <h3 class="display-s" style="font-size:clamp(34px,3.6vw,56px)">{sl.name}</h3>
+                <p>{sl.text}</p>
+                <span class="link-arrow">{sl.cta} <Icon name="arrow" /></span>
+              </a>
+            ))}
+            <div class="rotator__nav">
+              {slides.map((sl, i) => <button type="button" data-go={i} aria-label={`Show ${sl.name}`} aria-current={i === 0 ? 'true' : undefined}></button>)}
+            </div>
+          </div>
+        ) : (
+          <a class="event-card" href={eventUrl(e)}>
+            <span class="event-card__img"><Photo name={eventCover(e)} alt="" sizes="(min-width: 760px) 50vw, 100vw" /></span>
+            <h3 class="display-s" style="font-size:clamp(34px,3.6vw,56px)">{e.name}</h3>
+            <p>{e.description}</p>
+            <span class="link-arrow">View the {e.name.toLowerCase()} <Icon name="arrow" /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews dark" aria-labelledby="quotes-h" data-quotes>
+    <div class="reviews__bg" aria-hidden="true">
+      {quotes.map((_, i) => (
+        <div class:list={['reviews__img', { 'is-active': i === 0 }]} data-quote-bg>
+          <Photo name={`site/reviews-${(i % 7) + 1}`} alt="" sizes="100vw" maxWidth={900} />
+        </div>
+      ))}
+    </div>
+    <div class="wrap">
+      <h2 id="quotes-h" class="visually-hidden">What our clients say</h2>
+      <div class="quotes">
+        <div class="quotes__stage">
+          {quotes.map((t, i) => (
+            <figure class:list={['quote', { 'is-active': i === 0 }]}>
+              <blockquote>{t.quote}</blockquote>
+              <figcaption>{t.name} <span>· {t.google ? <a href={site.google.reviews} target="_blank" rel="noopener">★★★★★ Google review</a> : t.place}</span></figcaption>
+            </figure>
+          ))}
+        </div>
+        <div class="quotes__nav">
+          <button class="quotes__btn" type="button" data-quote-prev aria-label="Previous testimonial"><Icon name="arrow-left" /></button>
+          <button class="quotes__btn" type="button" data-quote-next aria-label="Next testimonial"><Icon name="arrow" /></button>
+          <span class="quotes__count" data-quote-count>01 / {String(quotes.length).padStart(2, '0')}</span>
+          <span class="quotes__bar"><i></i></span>
+        </div>
+        <p class="quotes__google">
+          <a class="link-arrow" href={site.google.reviews} target="_blank" rel="noopener">Read our reviews on Google <Icon name="arrow" /></a>
+          <a class="link-arrow" href={site.google.writeReview} target="_blank" rel="noopener">Leave a review <Icon name="arrow" /></a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <HScroll />
+
+  <div class="dawn" aria-hidden="true"><Sky delay={6} /></div>
+
+  <section class="section section--ivory on-light has-glow" aria-labelledby="why-h">
+    <span class="glow" aria-hidden="true"></span>
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2 id="why-h" class="display-l">Why Choose <em>Starlit</em></h2>
+        </div>
+        <p class="lead muted">Starlit delivers premium event planning, curated rentals, and photography designed to make your celebration unforgettable, without the stress.</p>
+      </div>
+      <div class="reasons">
+        {reasons.map((r) => (
+          <div class="reason">
+            <span class="reason__icon"><img src={r.icon} width="44" height="44" alt="" loading="lazy" /></span>
+            <h3>{r.label}</h3>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-light has-glow" aria-labelledby="rent-h">
+    <span class="glow" aria-hidden="true" style="animation-delay:-6s"></span>
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2 id="rent-h" class="display-l"><em>Rentals</em></h2>
+        </div>
+        <div>
+          <p class="lead muted">Backdrops, décor, tableware and more to transform any space.</p>
+          <a class="link-arrow" href="/rentals/">Browse all {rentals.length} rentals <Icon name="arrow" /></a>
+        </div>
+      </div>
+      <ul class="rental-grid rental-grid--feature">
+        {featured.map((r) => <li><RentalCard item={r} /></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--ivory on-light has-glow" aria-labelledby="areas-h">
+    <span class="glow" aria-hidden="true" style="animation-delay:-11s"></span>
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="areas-h" class="display-l">Serving Ottawa, Montreal <em>&amp; Toronto</em></h2>
+        <div>
+          <p class="lead muted">Travel within 50 km of each city is included.</p>
+          <a class="link-arrow" href="/service-areas/">All service areas <Icon name="arrow" /></a>
+        </div>
+      </div>
+      <div class="area-cards area-cards--3">
+        {locations.map((l) => (
+          <a class="event-card" href={locationUrl(l)}>
+            <span class="event-card__img"><Photo name={l.photo} alt="" sizes="(min-width: 900px) 33vw, 100vw" maxWidth={1280} /></span>
+            <p style="margin:0 0 6px;letter-spacing:.08em">{l.province}</p>
+            <h3 class="display-m">{l.city}</h3>
+            <span class="link-arrow">Starlit in {l.city} <Icon name="arrow" /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="dusk" aria-hidden="true"><Sky delay={1} /></div>
+  <FollowBand />
+  <script>
+    // Featured-events slideshow: advances every 5.5 s, pauses while hovered, focused or off screen; no autoplay under reduced motion.
+    const rot = document.querySelector<HTMLElement>('[data-rotator]');
+    if (rot) {
+      const slides = [...rot.querySelectorAll<HTMLElement>('[data-slide]')];
+      const dots = [...rot.querySelectorAll<HTMLButtonElement>('[data-go]')];
+      let at = 0, timer = 0, held = false;
+      const show = (n: number) => {
+        at = (n + slides.length) % slides.length;
+        slides.forEach((s, i) => { s.classList.toggle('is-active', i === at); s.inert = i !== at; });
+        dots.forEach((d, i) => d.toggleAttribute('aria-current', i === at));
+      };
+      const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const tick = () => { if (!held && !document.hidden) show(at + 1); };
+      if (!still) timer = window.setInterval(tick, 5500);
+      dots.forEach((d) => d.addEventListener('click', () => { show(Number(d.dataset.go)); if (timer) { clearInterval(timer); timer = window.setInterval(tick, 5500); } }));
+      rot.addEventListener('pointerenter', () => (held = true));
+      rot.addEventListener('pointerleave', () => (held = false));
+      rot.addEventListener('focusin', () => (held = true));
+      rot.addEventListener('focusout', () => (held = false));
+    }
+  </script>
+</Base>

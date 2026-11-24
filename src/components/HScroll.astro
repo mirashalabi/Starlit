@@ -1,0 +1,48 @@
+---
+// Photography sessions as a horizontal gallery. Desktop with motion: the section pins and the track
+// moves sideways as you scroll (src/scripts/scroll-fx.ts). Phones, reduced motion and no JavaScript:
+// a native horizontal swipe with scroll-snap. Every photo keeps its own aspect ratio (never cropped).
+import Photo from './Photo.astro';
+import Sky from './Sky.astro';
+import Icon from './Icon.astro';
+import { altFor } from '~/config/alts';
+import { photography, photographyUrl, photoKey, money } from '~/lib/data';
+import { photo } from '~/lib/photos';
+const items = photography.map((p) => {
+  const meta = photo(photoKey('photography', p.photos[0]));
+  return { p, ratio: meta.width / meta.height };
+});
+---
+<section class="hs dark has-sky" aria-labelledby="hs-h" data-hscroll>
+  <Sky delay={8} />
+  <div class="hs__sticky">
+    <div class="wrap hs__head">
+      <h2 id="hs-h" class="display-l"><em>Photography</em></h2>
+      <div>
+        <p class="lead muted">Warm, candid imagery that captures your story beautifully.</p>
+        <a class="link-arrow" href="/photography/">All photography <Icon name="arrow" /></a>
+      </div>
+    </div>
+    <div class="hs__viewport" tabindex="0" aria-label="Photography sessions, scroll sideways">
+      <ul class="hs__track" data-hscroll-track>
+        {items.map(({ p, ratio }) => (
+          <li class="hs__item" style={`--r:${ratio.toFixed(4)}`}>
+            <a href={photographyUrl(p)} class="hs__card">
+              <span class="hs__img"><Photo name={photoKey('photography', p.photos[0])} alt={altFor(p.photos[0], p.name)} sizes="(min-width: 900px) 60vh, 80vw" maxWidth={1600} /></span>
+              <span class="hs__meta">
+                <span class="hs__name">{p.name}</span>
+                <span class="hs__tag">{p.tagline}{p.from != null && ` · from ${money(p.from)}`}</span>
+              </span>
+            </a>
+          </li>
+        ))}
+        <li class="hs__item hs__item--end">
+          <a href="/contact/?type=Photography" class="hs__end">
+            <span class="display-m">Book a <em>session</em></span>
+            <span class="link-arrow">Get a personalised quote <Icon name="arrow" /></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

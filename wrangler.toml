@@ -1,0 +1,4 @@
+# Cloudflare Pages project: starlit-events (direct upload from this repo).
+name = "starlit-events"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-11-01"

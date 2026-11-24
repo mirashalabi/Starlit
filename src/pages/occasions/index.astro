@@ -1,0 +1,38 @@
+---
+import Base from '~/layouts/Base.astro';
+import Photo from '~/components/Photo.astro';
+import Icon from '~/components/Icon.astro';
+import Crumbs from '~/components/Crumbs.astro';
+import { occasions } from '~/config/occasions';
+const crumbs = [{ name: 'Events', path: '/events/' }, { name: 'Occasions', path: '/occasions/' }];
+---
+<Base
+  title="Occasions We Style in Ottawa | Starlit Events"
+  description="Holidays, graduations, cultural celebrations and milestones in Ottawa: planning, décor, rentals and photography by Starlit. Get a free personalised quote."
+  ogImage="/og/events.jpg"
+  crumbs={crumbs}
+  pageType="CollectionPage"
+  solidHeader
+>
+  <section class="page-head on-light">
+    <div class="wrap">
+      <Crumbs items={crumbs} />
+      <h1 class="display-l">Occasions in <em>Ottawa</em></h1>
+      <p class="lead muted">Through the year, Starlit plans, styles and photographs celebrations of every kind across Ottawa, Montreal and Toronto.</p>
+    </div>
+  </section>
+  <section class="section on-light" aria-label="All occasions">
+    <div class="wrap">
+      <div class="event-cards cards-3">
+        {occasions.map((o) => (
+          <a class="event-card" href={`/occasions/${o.slug}/`} style="min-height:clamp(320px,28vw,440px)">
+            <span class="event-card__img"><Photo name={o.photo} alt="" sizes="(min-width: 760px) 33vw, 100vw" maxWidth={1280} /></span>
+            <h2 class="display-s">{o.name}</h2>
+            <p>{o.card}</p>
+            <span class="link-arrow">View <Icon name="arrow" /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

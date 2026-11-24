@@ -1,0 +1,15 @@
+---
+import Icon from './Icon.astro';
+interface Props { items: string[]; night?: boolean }
+const { items, night = false } = Astro.props;
+const group = [...items, ...items];
+---
+<div class:list={['marquee', { 'marquee--night': night }]} aria-hidden="true">
+  <div class="marquee__track">
+    {[0, 1].map(() => (
+      <div class="marquee__group">
+        {group.map((t) => <Fragment><span class="marquee__item">{t}</span><Icon name="star" class="marquee__star" /></Fragment>)}
+      </div>
+    ))}
+  </div>
+</div>

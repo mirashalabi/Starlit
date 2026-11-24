@@ -1,0 +1,12 @@
+---
+// A quiet "starlit" sky behind a dark section: two layers of gold and white stars that twinkle out of
+// phase and drift very slowly, plus an occasional shooting star. Decorative only (aria-hidden), CSS only
+// (no JavaScript, no layout), and still under reduced motion. The parent needs the class "has-sky".
+interface Props { delay?: number; dense?: boolean }
+const { delay = 0, dense = false } = Astro.props;
+---
+<span class:list={['sky', { 'sky--dense': dense }]} aria-hidden="true" style={`--sd:${delay}s`}>
+  <span class="sky__a"></span>
+  <span class="sky__b"></span>
+  <span class="sky__shoot"></span>
+</span>

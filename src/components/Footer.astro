@@ -1,0 +1,39 @@
+---
+import { site, nav } from '~/config/site';
+import Social from './Social.astro';
+import { locations, locationUrl } from '~/config/locations';
+import { categories, categoryUrl, photography, photographyUrl, events, eventUrl } from '~/lib/data';
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="wrap">
+    <p class="footer__big"><a href="/contact/">Let’s make it <em>sparkle.</em></a></p>
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <img src="/img/logo-white.png" width="480" height="258" alt={`${site.name} logo`} loading="lazy" />
+        <p class="footer__cities">{locations.map((l, i) => <Fragment>{i > 0 && ' • '}<a href={locationUrl(l)}>{l.city}</a></Fragment>)}</p>
+        <ul>
+          <li><a href={site.phoneHref}>{site.phone}</a></li>
+          <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+        </ul>
+        <Social class="footer__social" />
+      </div>
+      <nav aria-label="Events">
+        <h2 class="footer__h">Events</h2>
+        <ul>{events.map((e) => <li><a href={eventUrl(e)}>{e.name}</a></li>)}</ul>
+      </nav>
+      <nav aria-label="Photography">
+        <h2 class="footer__h">Photography</h2>
+        <ul>{photography.map((p) => <li><a href={photographyUrl(p)}>{p.name}</a></li>)}</ul>
+      </nav>
+      <nav aria-label="Rentals">
+        <h2 class="footer__h">Rentals</h2>
+        <ul>{categories.map((c) => <li><a href={categoryUrl(c.name)}>{c.name}</a></li>)}</ul>
+      </nav>
+    </div>
+    <div class="footer__legal">
+      <p>&copy; {year} {site.name} · {nav.filter((n) => n.href !== '/').map((n, i) => <Fragment>{i > 0 && ' · '}<a href={n.href}>{n.label}</a></Fragment>)} · <a href="/about/">About</a> · <a href="/service-areas/">Service Areas</a> · <a href="/privacy/">Privacy</a> · <a href="/sitemap/">Sitemap</a></p>
+      <p class="credit">Smart Website Built by <a href={site.credit.href}>{site.credit.label}</a></p>
+    </div>
+  </div>
+</footer>

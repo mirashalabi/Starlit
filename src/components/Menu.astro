@@ -1,0 +1,26 @@
+---
+// A price list styled like a printed menu: name on the left, price on the right, a fine dotted
+// line between, and a short note underneath. Replaces the data tables (Kal, Nov 23: "make things
+// pretty and easy"). A row with href is one big link; rows without href are plain text.
+import Icon from './Icon.astro';
+export type MenuItem = { name: string; price: string; note?: string; href?: string };
+interface Props { items: MenuItem[]; label?: string; compact?: boolean }
+const { items, label, compact = false } = Astro.props;
+---
+{compact && label && <p class="menu__label">{label}</p>}
+<ul class:list={['menu', { 'menu--compact': compact }]} aria-label={label}>
+  {items.map((m) => {
+    const Tag = m.href ? 'a' : 'div';
+    return (
+      <li>
+        <Tag class:list={['menu__row', { 'menu__row--link': m.href }]} href={m.href}>
+          <span class="menu__name">{m.name}</span>
+          <span class="menu__dots" aria-hidden="true"></span>
+          <span class="menu__price">{m.price}</span>
+          {m.note && <span class="menu__note">{m.note}</span>}
+          {m.href && <span class="menu__go" aria-hidden="true"><Icon name="arrow" /></span>}
+        </Tag>
+      </li>
+    );
+  })}
+</ul>

@@ -1,0 +1,26 @@
+{
+  "name": "starlit-events",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Starlit Events & Photography (starlit-events.com) rebuild: Astro static on Cloudflare Pages. Smart Website Built by Render Analytics.",
+  "scripts": {
+    "data": "node scripts/pull-sheet.mjs",
+    "photos": "node scripts/photos.mjs",
+    "dev": "astro dev --host",
+    "build": "astro build",
+    "preview": "astro preview --host",
+    "og:occasions": "node scripts/og-occasions.mjs",
+    "deploy:production": "PUBLIC_SITE_URL=https://starlit-events.pages.dev astro build && wrangler pages deploy dist --project-name starlit-events --branch main",
+    "deploy:preview": "astro build && wrangler pages deploy dist --project-name starlit-events --branch"
+  },
+  "dependencies": {
+    "@fontsource-variable/playfair-display": "^5.2.0",
+    "@fontsource/poppins": "^5.2.0",
+    "astro": "^5.18.2",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "@capsizecss/metrics": "^3.7.0"
+  }
+}

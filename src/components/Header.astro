@@ -1,0 +1,26 @@
+---
+import { site, nav } from '~/config/site';
+import Icon from './Icon.astro';
+import Social from './Social.astro';
+interface Props { path: string; solid?: boolean }
+const { path, solid = false } = Astro.props;
+const current = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+<header class:list={['site-header', { 'site-header--solid': solid }]} data-header>
+  <div class="wrap site-header__inner">
+    <a class="brand" href="/" aria-label={`${site.name}, home`}>
+      <img class="logo-white" src="/img/logo-white.png" width="480" height="258" alt={site.name} />
+      <img class="logo-gold" src="/img/logo-gold.png" width="480" height="258" alt="" aria-hidden="true" />
+    </a>
+    <a class="header-call" href={site.phoneHref} aria-label={`Call Starlit at ${site.phone}`}><Icon name="phone" /></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu"><span></span></button>
+    <nav class="nav" id="primary-nav" aria-label="Primary">
+      <ul class="nav__list">
+        {nav.map((n) => <li><a class="nav__link" href={n.href} aria-current={current(n.href) ? 'page' : undefined}>{n.label}</a></li>)}
+      </ul>
+      <a class="header-phone" href={site.phoneHref} aria-label={`Call Starlit at ${site.phone}`}><Icon name="phone" /><span class="header-phone__label">Call</span> {site.phone}</a>
+      <a class="btn btn--gold btn--sm" href="/contact/">Get a Quote <span class="inq-count" data-inq-count hidden></span></a>
+      <Social class="nav__social" />
+    </nav>
+  </div>
+</header>

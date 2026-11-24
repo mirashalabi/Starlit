@@ -1,0 +1,33 @@
+---
+import Base from '~/layouts/Base.astro';
+import Photo from '~/components/Photo.astro';
+import Crumbs from '~/components/Crumbs.astro';
+import RentalBrowser from '~/components/RentalBrowser.astro';
+import { rentals, categories, categoryUrl } from '~/lib/data';
+import Faq from '~/components/Faq.astro';
+import { faqGroup } from '~/config/faq';
+---
+<Base
+  heroSizes="(max-width: 700px) 70vw, 100vw"
+  heroPhoto="site/rentals-title-bar"
+  title="Event Rentals in Ottawa, Montreal & Toronto | Starlit"
+  description={`Rent ${rentals.length} items from Starlit: gold arches, backdrops, neon signs, vases, serving trays, party wear and board games, priced by the day.`}
+  ogImage="/og/rentals.jpg"
+  crumbs={[{ name: 'Rentals', path: '/rentals/' }]}
+  pageType="CollectionPage"
+  nodes={(abs) => [{ '@type': 'ItemList', '@id': abs('/rentals/#categories'), name: 'Rental categories', itemListElement: categories.map((c, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(categoryUrl(c.name)), name: c.name })) }]}
+>
+  <section class="page-hero page-hero--short" data-hero>
+    <div class="hero__media" data-parallax><Photo name="site/rentals-title-bar" alt="Snow-covered trees in a winter orchard" eager sizes="(max-width: 700px) 70vw, 100vw" /></div>
+    <div class="wrap page-hero__inner" data-parallax-content>
+      <Crumbs items={[{ name: 'Rentals', path: '/rentals/' }]} />
+      <h1 class="display-xl"><em>Rentals</em></h1>
+      <p>Backdrops, décor, tableware and more to transform any space.</p>
+      <p style="margin-top:10px">Rentals across <a href="/service-areas/ottawa/">Ottawa</a>, <a href="/service-areas/montreal/">Montreal</a> and <a href="/service-areas/toronto/">Toronto</a>.</p>
+    </div>
+  </section>
+  <section class="section on-light" style="padding-top:clamp(48px,6vw,88px)">
+    <div class="wrap"><RentalBrowser items={rentals} /></div>
+  </section>
+  <Faq groups={[faqGroup('rentals')]} more />
+</Base>

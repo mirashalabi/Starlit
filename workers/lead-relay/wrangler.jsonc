@@ -1,0 +1,18 @@
+{
+  // Lead relay for starlit-events.com (seo-forge references/lead-forms-and-spam.md): checks the Cloudflare
+  // Turnstile token, then passes the lead to the Apps Script (backend/Code.gs).
+  // Account: kal@renderanalytics.net (dc8bcb7c350debb7d40bb15b6504ad01). URL: https://starlit-lead-relay.renderanalytics.workers.dev
+  // Deploy: npx wrangler deploy
+  // Secrets (never in the repo, never printed): TURNSTILE_SECRET, APPS_SCRIPT_URL  (npx wrangler secret put NAME)
+  "name": "starlit-lead-relay",
+  "main": "src/index.js",
+  "compatibility_date": "2026-11-01",
+  "account_id": "dc8bcb7c350debb7d40bb15b6504ad01",
+  "workers_dev": true,
+  "vars": {
+    "ALLOWED_ORIGINS": "https://starlit-events.com,https://www.starlit-events.com,https://starlit-events.pages.dev,http://localhost:4321,http://127.0.0.1:4329,http://localhost:4329",
+    "ALLOWED_HOSTNAMES": "starlit-events.com,www.starlit-events.com,starlit-events.pages.dev",
+    // Cloudflare Pages preview deployments (<hash or branch>.starlit-events.pages.dev).
+    "PREVIEW_HOST_RE": "^[a-z0-9-]+\\.starlit-events\\.pages\\.dev$"
+  }
+}

@@ -1,0 +1,114 @@
+---
+// Christmas and Easter landing pages (src/config/occasions.ts); both also rotate in the homepage slideshow.
+
+
+import { locations as LOC, cityNode } from '~/config/locations';
+import Base from '~/layouts/Base.astro';
+import Photo from '~/components/Photo.astro';
+import Icon from '~/components/Icon.astro';
+import Crumbs from '~/components/Crumbs.astro';
+import Faq from '~/components/Faq.astro';
+import RentalCard from '~/components/RentalCard.astro';
+import { occasions, type Occasion } from '~/config/occasions';
+import { rentals, events, eventUrl, eventCover } from '~/lib/data';
+
+export function getStaticPaths() {
+  return occasions.map((o) => ({ params: { slug: o.slug }, props: { o } }));
+}
+const { o } = Astro.props as { o: Occasion };
+const url = `/occasions/${o.slug}/`;
+const items = o.rentals.map((s) => rentals.find((r) => r.slug === s)).filter((r): r is NonNullable<typeof r> => !!r);
+if (items.length !== o.rentals.length) throw new Error(`occasion ${o.slug}: unknown rental slug in ${o.rentals.join(', ')}`);
+const quote = `/contact/?type=${o.service}&about=${encodeURIComponent(o.name)}`;
+// Onward links: the other occasion pages, then Starlit's own event pages.
+const more = [
+  ...occasions.filter((x) => x.slug !== o.slug).map((x) => ({ href: `/occasions/${x.slug}/`, photo: x.photo, name: x.name })),
+  ...events.map((e) => ({ href: eventUrl(e), photo: eventCover(e), name: e.name })),
+].slice(0, 3);
+const crumbs = [{ name: 'Events', path: '/events/' }, { name: 'Occasions', path: '/occasions/' }, { name: o.name, path: url }];
+---
+<Base
+  heroSizes="(max-width: 700px) 70vw, 100vw"
+  heroPhoto={o.photo}
+  title={o.title}
+  description={o.description}
+  ogImage={`/og/occasion-${o.slug}.jpg`}
+  ogImageAlt={o.photoAlt}
+  crumbs={crumbs}
+  mainEntity="#service"
+  nodes={(abs, ids) => [
+    { '@type': 'Service', '@id': abs(`${url}#service`), name: o.h1, serviceType: 'Event planning', description: o.description, url: abs(url), provider: { '@id': ids.biz }, mainEntityOfPage: { '@id': ids.page }, image: abs(`/og/occasion-${o.slug}.jpg`), areaServed: LOC.map(cityNode) },
+    { '@type': 'FAQPage', '@id': abs(`${url}#faq`), mainEntity: o.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  ]}
+>
+  <section class="page-hero" data-hero>
+    <div class="hero__media" data-parallax><Photo name={o.photo} alt={o.photoAlt} eager sizes="(max-width: 700px) 70vw, 100vw" /></div>
+    <div class="wrap page-hero__inner" data-parallax-content>
+      <Crumbs items={crumbs} />
+      <p class="eyebrow eyebrow--light">Occasions in Ottawa</p>
+      <h1 class="display-l">{o.h1}</h1>
+      <p>{o.card}</p>
+    </div>
+  </section>
+
+  <section class="section on-light" aria-labelledby="intro-h">
+    <div class="wrap">
+      <div class="section-head">
+        <div><h2 id="intro-h" class="display-m">{o.name} <em>with Starlit</em></h2></div>
+        <div>
+          {o.intro.map((p) => <p class="lead muted">{p}</p>)}
+          <div class="split__actions">
+            <a class="btn btn--ink" href={quote}>Get a free quote <Icon name="arrow" /></a>
+          </div>
+        </div>
+      </div>
+      <div class="occ-services">
+        {o.services.map((s) => (
+          <div class="occ-service">
+            <h3 class="display-s">{s.title}</h3>
+            <p>{s.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ivory on-light" aria-labelledby="ideas-h">
+    <div class="wrap">
+      <div class="section-head"><div><h2 id="ideas-h" class="display-m">Ideas for your <em>{o.name}</em></h2></div></div>
+      <ul class="occ-ideas">{o.ideas.map((i) => <li>{i}</li>)}</ul>
+    </div>
+  </section>
+
+  {items.length > 0 && (
+    <section class="section on-light" aria-labelledby="rent-h">
+      <div class="wrap">
+        <div class="section-head">
+          <div><h2 id="rent-h" class="display-m">Rentals that <em>fit</em></h2></div>
+          <div><a class="link-arrow" href="/rentals/">Browse all rentals <Icon name="arrow" /></a></div>
+        </div>
+        <ul class="rental-grid">{items.map((r) => <li><RentalCard item={r} /></li>)}</ul>
+      </div>
+    </section>
+  )}
+
+  <Faq groups={[{ id: 'occasion-faq', title: o.name, items: o.faq }]} heading={`${o.name} questions`} headingId="occ-faq-h" />
+
+  <section class="section on-light" aria-labelledby="more-h">
+    <div class="wrap">
+      <div class="section-head">
+        <div><h2 id="more-h" class="display-m">More <em>events</em></h2></div>
+        <div><a class="link-arrow" href="/events/">All events <Icon name="arrow" /></a></div>
+      </div>
+      <div class="event-cards cards-3">
+        {more.map((m) => (
+          <a class="event-card" href={m.href} style="min-height:clamp(320px,28vw,440px)">
+            <span class="event-card__img"><Photo name={m.photo} alt="" sizes="(min-width: 760px) 33vw, 100vw" maxWidth={1280} /></span>
+            <h3 class="display-s">{m.name}</h3>
+            <span class="link-arrow">View <Icon name="arrow" /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,24 @@
+---
+// Starlit's own photo, AVIF/WebP/JPEG, never wider than the upload.
+import { Picture } from 'astro:assets';
+import { photo, focus, photoWidths, HERO_QUALITY } from '~/lib/photos';
+
+interface Props { name: string; alt: string; sizes?: string; eager?: boolean; class?: string; maxWidth?: number }
+const { name, alt, sizes = '(min-width: 1200px) 640px, 100vw', eager = false, class: cls, maxWidth = 2400 } = Astro.props;
+const src = photo(name);
+const widths = photoWidths(src, maxWidth);
+---
+<Picture
+  src={src}
+  alt={alt}
+  widths={widths}
+  sizes={sizes}
+  formats={['webp']}
+  fallbackFormat="jpg"
+  quality={eager ? HERO_QUALITY : 64}
+  loading={eager ? 'eager' : 'lazy'}
+  decoding={eager ? 'sync' : 'async'}
+  fetchpriority={eager ? 'high' : undefined}
+  class={cls}
+  style={focus[name] ? `--focus:${focus[name]}` : undefined}
+/>

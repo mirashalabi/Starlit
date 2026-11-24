@@ -1,0 +1,23 @@
+{
+  // Instagram feed for the "Follow Starlit" strip on starlit-events.com.
+  // Every 6 hours it reads @starlit.event's latest posts with the Meta Graph API, keeps them in KV, and serves
+  // them (and the images, proxied) to the site. If Meta fails it keeps serving the last good set.
+  // Account: kal@renderanalytics.net (dc8bcb7c350debb7d40bb15b6504ad01). URL: https://starlit-instagram.renderanalytics.workers.dev
+  // Deploy: npx wrangler deploy (from this folder)
+  // Secret (never in the repo, never printed): IG_TOKEN, the Meta system user token
+  //   replace it with: npx wrangler secret put IG_TOKEN   then open /refresh?key=... (see docs/INSTAGRAM.md)
+  "name": "starlit-instagram",
+  "main": "src/index.js",
+  "compatibility_date": "2026-11-01",
+  "account_id": "dc8bcb7c350debb7d40bb15b6504ad01",
+  "workers_dev": true,
+  "triggers": { "crons": ["17 */6 * * *"] },
+  "kv_namespaces": [{ "binding": "FEED", "id": "184e79ce63e64b0eb8edb24cdefa072e" }],
+  "vars": {
+    // Instagram professional account id of @starlit.event (Business settings > Accounts > Instagram accounts).
+    "IG_USER_ID": "17841466773296058",
+    "GRAPH": "https://graph.facebook.com/v24.0",
+    "ALLOWED_ORIGINS": "https://starlit-events.com,https://www.starlit-events.com,https://starlit-events.pages.dev,http://localhost:4321,http://localhost:4337",
+    "PREVIEW_HOST_RE": "^[a-z0-9-]+\\.starlit-events\\.pages\\.dev$"
+  }
+}

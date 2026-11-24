@@ -1,0 +1,36 @@
+---
+import Base from '~/layouts/Base.astro';
+import Crumbs from '~/components/Crumbs.astro';
+import RentalBrowser from '~/components/RentalBrowser.astro';
+import { categories, categoryUrl, inCategory, rentalUrl, fit, type Category } from '~/lib/data';
+
+export function getStaticPaths() {
+  return categories.map((c) => ({ params: { category: c.slug }, props: { c } }));
+}
+const { c } = Astro.props as { c: Category };
+const items = inCategory(c.name);
+const crumbs = [{ name: 'Rentals', path: '/rentals/' }, { name: c.name, path: categoryUrl(c.name) }];
+const sample = items.slice(0, 4).map((r) => r.name).join(', ');
+const prices = items.map((r) => r.price).filter((n): n is number => n != null);
+const from = prices.length ? Math.min(...prices) : null;
+---
+<Base
+  title={fit([`${c.name} Rentals in Ottawa, Montreal & Toronto | Starlit`, `${c.name} Rentals, Ottawa, Montreal & Toronto`, `${c.name} Rentals | Starlit Events`], 65)}
+  description={fit([3, 2, 1].map((k) => `Rent from ${items.length} items in ${c.name} from Starlit${from != null ? `, from $${from < 1 ? from.toFixed(2) : from} a day` : ''}: ${items.slice(0, k).map((r) => r.name).join(', ')} and more. Ottawa, Montreal & Toronto.`).concat([`Rent from ${items.length} items in ${c.name} from Starlit: ${items[0].name} and more.`]), 160)}
+  ogImage={`/og/rentals-${c.slug}.jpg`}
+  crumbs={crumbs}
+  pageType="CollectionPage"
+  solidHeader
+  nodes={(abs) => [{ '@type': 'ItemList', '@id': abs(`${categoryUrl(c.name)}#list`), name: `${c.name} rentals`, numberOfItems: items.length, itemListElement: items.map((r, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(rentalUrl(r)), name: r.name })) }]}
+>
+  <section class="page-head on-light">
+    <div class="wrap">
+      <Crumbs items={crumbs} />
+      <h1 class="display-l">{c.name}</h1>
+      <p class="lead muted" style="margin:0">{items.length} items, priced by the day. Add items to your inquiry using the “Add to Inquiry” button. You can review and submit your inquiry on the <a href="/contact/">Contact Us</a> page.</p>
+    </div>
+  </section>
+  <section class="section on-light" style="padding-top:clamp(40px,5vw,72px)">
+    <div class="wrap"><RentalBrowser items={items} current={c.name} eagerCards={3} /></div>
+  </section>
+</Base>

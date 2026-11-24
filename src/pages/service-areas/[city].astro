@@ -1,0 +1,120 @@
+---
+// One page per service city, composed from facts true of that city (src/config/locations.ts):
+// the city's own client reviews, its province, the owner's 50 km travel policy, and live service data.
+import Base from '~/layouts/Base.astro';
+import Photo from '~/components/Photo.astro';
+import Icon from '~/components/Icon.astro';
+import Crumbs from '~/components/Crumbs.astro';
+import Menu from '~/components/Menu.astro';
+import { site, testimonials } from '~/config/site';
+import { locations, locationUrl, cityNode, type Location } from '~/config/locations';
+import { events, eventUrl, photography, photographyUrl, categories, categoryUrl, rentals, money, fit, eventCover } from '~/lib/data';
+
+export function getStaticPaths() {
+  return locations.map((l) => ({ params: { city: l.slug }, props: { l } }));
+}
+const { l } = Astro.props as { l: Location };
+const url = locationUrl(l);
+const crumbs = [{ name: 'Service Areas', path: '/service-areas/' }, { name: l.city, path: url }];
+const reviews = testimonials.filter((t) => t.place.startsWith(l.city));
+const others = locations.filter((x) => x.slug !== l.slug);
+const photoFrom = Math.min(...photography.map((p) => p.from ?? Infinity));
+// City-specific prices straight from the owner's sheet (variations named after the city).
+const cityPrices = photography.flatMap((p) => p.variations.filter((v) => v.label === l.city && v.price != null).map((v) => ({ p, price: v.price as number })));
+const otherPhoto = photography.filter((p) => !cityPrices.some((c) => c.p.slug === p.slug));
+const lead = `Starlit plans events, rents décor and photographs celebrations in ${l.city}, ${l.province}. ${l.city} prices: ${cityPrices.map((c) => `${c.p.name} ${money(c.price)}${c.p.hours ? ` for ${c.p.hours} hr` : ''}`).join(', ')}. All ${rentals.length} rentals are priced by the day.`;
+const quote = `/contact/?about=${encodeURIComponent(`An event in ${l.city}`)}`;
+---
+<Base
+  heroSizes="(max-width: 700px) 70vw, 100vw"
+  heroPhoto={l.photo}
+  title={fit([`Event Planning, Rentals & Photography in ${l.city} | Starlit`, `Events, Rentals & Photography in ${l.city} | Starlit`], 65)}
+  description={fit([`Starlit plans events, rents décor and photographs celebrations in ${l.city}, ${l.provinceCode}. Travel within 50 km of ${l.city} is included. Book a free consultation.`, `Event planning, décor rentals and photography in ${l.city}, ${l.provinceCode}, by Starlit. Travel within 50 km included.`], 160)}
+  ogImage={`/og/areas-${l.slug}.jpg`}
+  crumbs={crumbs}
+  mainEntity="#service"
+  nodes={(abs, ids) => [{
+    '@type': 'Service',
+    '@id': abs(`${url}#service`),
+    name: `Event planning, rentals and photography in ${l.city}`,
+    serviceType: ['Event planning', 'Event decor rentals', 'Event photography'],
+    url: abs(url),
+    provider: { '@id': ids.biz },
+    mainEntityOfPage: { '@id': ids.page },
+    areaServed: cityNode(l),
+    ...(cityPrices.length ? { offers: cityPrices.map((c) => ({ '@type': 'Offer', name: `${c.p.name}, ${l.city}`, price: c.price, priceCurrency: 'CAD', url: abs(photographyUrl(c.p)), areaServed: cityNode(l), ...(c.p.hours ? { priceSpecification: { '@type': 'UnitPriceSpecification', price: c.price, priceCurrency: 'CAD', referenceQuantity: { '@type': 'QuantitativeValue', value: c.p.hours, unitCode: 'HUR' } } } : {}) })) } : {}),
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: `Starlit in ${l.city}`,
+      itemListElement: [
+        ...events.map((e) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: e.name, url: abs(eventUrl(e)), provider: { '@id': ids.biz } } })),
+        ...photography.map((p) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: p.name, url: abs(photographyUrl(p)), provider: { '@id': ids.biz } } })),
+      ],
+    },
+  }]}
+>
+  <section class="page-hero" data-hero>
+    <div class="hero__media" data-parallax><Photo name={l.photo} alt={l.photoAlt} eager sizes="(max-width: 700px) 70vw, 100vw" /></div>
+    <div class="wrap page-hero__inner" data-parallax-content>
+      <Crumbs items={crumbs} />
+      <p class="eyebrow eyebrow--light">Service area · {l.city}, {l.province}</p>
+      <h1 class="display-l">Event Planning, Rentals &amp; Photography in <em>{l.city}</em></h1>
+      <p>Travel within 50 km of {l.city} is included. <a href="/faq/#general">Booking questions</a></p>
+      <div class="hero__ctas" style="margin-top:28px">
+        <a class="btn btn--gold" href={quote}>Get a quote for {l.city} <Icon name="arrow" /></a>
+        <a class="btn btn--ghost" href={site.phoneHref}>Call {site.phone}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-light" aria-labelledby="svc-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="svc-h" class="display-l">Starlit in <em>{l.city}</em></h2>
+        <div>
+          <p class="lead muted">{lead}</p>
+          {l.city === site.base.locality && <p class="muted" style="margin:14px 0 0">Starlit is based in {site.base.locality}, serving Ottawa, Montreal and Toronto.</p>}
+        </div>
+      </div>
+      <Menu label={`Services and prices in ${l.city}`} items={[
+        ...cityPrices.map((c) => ({ name: c.p.name, price: `${money(c.price)}${c.p.hours ? ` / ${c.p.hours} hr` : ''}`, note: c.p.tagline, href: photographyUrl(c.p) })),
+        ...otherPhoto.map((p) => ({ name: p.name, price: p.from != null ? `From ${money(p.from)}` : 'Ask us', note: p.tagline, href: photographyUrl(p) })),
+        { name: 'Event planning', price: 'Free quote', note: events.map((e) => e.name).join(' · '), href: '/events/' },
+        { name: 'Rentals', price: 'By the day', note: categories.map((c) => c.name).join(' · '), href: '/rentals/' },
+      ]} />
+      {l.local.length > 0 && <ul class="contact-lines" style="margin-top:32px">{l.local.map((f) => <li>{f}</li>)}</ul>}
+    </div>
+  </section>
+
+  {reviews.length > 0 && (
+    <section class="section dark" aria-labelledby="rev-h">
+      <div class="wrap">
+        <h2 id="rev-h" class="display-m" style="margin-bottom:clamp(32px,4vw,56px)">What {l.city} clients <em>say</em></h2>
+        <div class="city-reviews">
+          {reviews.map((t) => (
+            <figure class="quote is-active" style="position:static">
+              <blockquote style="font-size:clamp(26px,2.8vw,42px)">{t.quote}</blockquote>
+              <figcaption>{t.name} <span>· {t.place}</span></figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+
+  <section class="section on-light" aria-labelledby="areas-h" style="padding-top:clamp(56px,7vw,96px)">
+    <div class="wrap">
+      <h2 id="areas-h" class="display-s" style="margin-bottom:24px">Other service <em>areas</em></h2>
+      <div class="area-cards">
+        {others.map((o) => (
+          <a class="event-card" href={locationUrl(o)} style="min-height:clamp(260px,22vw,340px)">
+            <span class="event-card__img"><Photo name={o.photo} alt="" sizes="(min-width: 760px) 50vw, 100vw" maxWidth={1280} /></span>
+            <h3 class="display-s">{o.city}, {o.provinceCode}</h3>
+            <span class="link-arrow">Starlit in {o.city} <Icon name="arrow" /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

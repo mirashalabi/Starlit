@@ -1,0 +1,120 @@
+[
+  {
+    "name": "Event Photography",
+    "slug": "event-photography",
+    "description": "Capture every special moment at your event with our professional event photography services at Starlit. Our experienced photographers will ensure that every moment, from the candid to the staged, is beautifully captured to create lasting memories of your special occasion. Let us help you make your event truly unforgettable.",
+    "tagline": "Event digital & film photography",
+    "hours": 4,
+    "price": 800,
+    "variations": [
+      {
+        "label": "Digital Photography",
+        "price": 800
+      },
+      {
+        "label": "Film Photography",
+        "price": 400
+      },
+      {
+        "label": "Both Digital and Film",
+        "price": 600
+      }
+    ],
+    "photos": [
+      "Event_Photography"
+    ],
+    "questions": [],
+    "from": 400
+  },
+  {
+    "name": "Professional Headshots",
+    "slug": "professional-headshots",
+    "description": "Capture professional headshots with Starlit for the perfect image for your next event, portfolio, or professional profile. Our expert photographers know how to highlight your best features and make you feel confident in front of the camera, ensuring you get the perfect shots every time.",
+    "tagline": "Outline your professionalism",
+    "hours": 1,
+    "price": 75,
+    "variations": [],
+    "photos": [
+      "Professional_Headshots"
+    ],
+    "questions": [],
+    "from": 75
+  },
+  {
+    "name": "Product Photography",
+    "slug": "product-photography",
+    "description": "Let Starlit capture your products in the best light with our professional product photography service. Our skilled photographers will showcase your products in the most appealing way, ensuring that they stand out and make a lasting impression on your customers.",
+    "tagline": "Professional product showcase",
+    "hours": 1,
+    "price": 100,
+    "variations": [
+      {
+        "label": "Starlit Location",
+        "price": 100
+      },
+      {
+        "label": "Customer's Location",
+        "price": 150
+      }
+    ],
+    "photos": [
+      "Product_Photography"
+    ],
+    "questions": [],
+    "from": 100
+  },
+  {
+    "name": "Milestone Photos",
+    "slug": "milestone-photos",
+    "description": "Capture and cherish your special moments with our Milestone Photos service at Starlit. Our professional photographers will ensure that every important moment is beautifully captured, whether it's a birthday, engagement, graduation, or any other milestone event. Let us help you preserve your memories for a lifetime.",
+    "tagline": "Celebrate your achievements",
+    "hours": 1,
+    "price": 100,
+    "variations": [
+      {
+        "label": "Ottawa",
+        "price": 100
+      },
+      {
+        "label": "Montreal",
+        "price": 150
+      },
+      {
+        "label": "Toronto",
+        "price": 200
+      }
+    ],
+    "photos": [
+      "Milestone_Photos"
+    ],
+    "questions": [],
+    "from": 100
+  },
+  {
+    "name": "Casual Photoshoot",
+    "slug": "casual-photoshoot",
+    "description": "Capture the moments with a casual photoshoot from Starlit. Our team of professional photographers will help you create beautiful, natural-looking photos that reflect your personality and style. Whether it's a family gathering, or just a fun day out, our casual photoshoot service is perfect for capturing those unforgettable moments.",
+    "tagline": "Professionally taken casual photos",
+    "hours": 1,
+    "price": 100,
+    "variations": [
+      {
+        "label": "Ottawa",
+        "price": 100
+      },
+      {
+        "label": "Montreal",
+        "price": 150
+      },
+      {
+        "label": "Toronto",
+        "price": 200
+      }
+    ],
+    "photos": [
+      "Casual_Photoshoot"
+    ],
+    "questions": [],
+    "from": 100
+  }
+]

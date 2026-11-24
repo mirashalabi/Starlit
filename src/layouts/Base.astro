@@ -1,0 +1,109 @@
+---
+import '~/styles/theme.css';
+import '~/styles/motion.css';
+import { site } from '~/config/site';
+import { siteUrl, isStaging, isAlwaysNoindex } from '~/config/staging';
+import { graph, type Crumb } from '~/lib/schema';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import CtaBand from '~/components/CtaBand.astro';
+import { HEADERS_VERSION } from '~/config/headers-version.mjs';
+import { existsSync } from 'node:fs';
+import Fonts from '~/components/Fonts.astro';
+import { getImage } from 'astro:assets';
+import { photo as photoMeta, photoWidths, HERO_QUALITY } from '~/lib/photos';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  ogImageAlt?: string;
+  noindex?: boolean;
+  crumbs?: Crumb[];
+  pageType?: 'WebPage' | 'ContactPage' | 'CollectionPage' | 'ItemPage' | 'AboutPage';
+  nodes?: Parameters<typeof graph>[0]['nodes'];
+  mainEntity?: string;
+  /** Pages whose first block is not a dark photo hero get the solid header from the start. */
+  solidHeader?: boolean;
+  cta?: boolean;
+  /** LCP image to preload (the hero). */
+  preload?: { srcset: string; sizes: string; type: string };
+  /** Photo key of the eager hero image; preloaded ahead of the fonts with the same srcset the page uses. */
+  heroPhoto?: string;
+  heroSizes?: string;
+  heroMax?: number;
+}
+const { title, description, ogImage = '/og/home.jpg', ogImageAlt, noindex = false, crumbs, pageType, nodes, mainEntity, solidHeader = false, cta = true, preload: preloadProp, heroPhoto, heroSizes = '100vw', heroMax = 2400 } = Astro.props;
+let preload = preloadProp;
+if (heroPhoto) {
+  const src = photoMeta(heroPhoto);
+  const img = await getImage({ src, widths: photoWidths(src, heroMax), format: 'webp', quality: HERO_QUALITY });
+  preload = { srcset: img.srcSet.attribute, sizes: heroSizes, type: 'image/webp' };
+}
+
+const path = Astro.url.pathname.replace(/index\.html$/, '').replace(/\.html$/, '/') || '/';
+const pageNoindex = noindex || isAlwaysNoindex(path);
+const robots = isStaging || pageNoindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+const origin = isStaging ? Astro.url.origin : siteUrl;
+const canonical = new URL(path, origin).href;
+if (!existsSync(new URL(`../../public${ogImage}`, import.meta.url))) throw new Error(`og:image ${ogImage} missing (page ${path})`);
+const ogUrl = new URL(ogImage, origin).href;
+const ld = graph({ origin, path, title, description, crumbs, pageType, nodes, mainEntity, image: ogImage });
+---
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <script is:inline>document.documentElement.classList.add('js')</script>
+  <!-- Google Tag Manager GTM-PQQBCX5D (Kal, Nov 23 2026). Container hosts are allowed in public/_headers CSP. -->
+  <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PQQBCX5D');</script>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="robots" content={robots} />
+  <meta name="headers-version" content={HEADERS_VERSION} />
+  {!pageNoindex && <link rel="canonical" href={canonical} />}
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={site.name} />
+  <meta property="og:locale" content="en_CA" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogUrl} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:alt" content={ogImageAlt ?? title} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogUrl} />
+  <meta name="theme-color" content="#15120e" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" href="/img/icon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  {preload && <link rel="preload" as="image" imagesrcset={preload.srcset} imagesizes={preload.sizes} type={preload.type} fetchpriority="high" />}
+  <Fonts />
+  <slot name="head" />
+  <script type="application/ld+json" set:html={ld} />
+</head>
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQQBCX5D" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+  <div id="top-sentinel" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <Header path={path} solid={solidHeader} />
+  <main id="main" tabindex="-1">
+    <slot />
+    {cta && <CtaBand />}
+  </main>
+  <Footer />
+  <div class="toast" role="status" aria-live="polite" data-toast></div>
+  <script>
+    import '~/scripts/motion';
+    import '~/scripts/ui';
+    import '~/scripts/scroll-fx';
+  </script>
+</body>
+</html>

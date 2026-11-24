@@ -1,3 +1,14 @@
-# Ignore macOS system files
+node_modules
+dist
+dist-prod
+.astro
+.wrangler
 .DS_Store
-**/.DS_Store
+.forge/tmp
+.forge/harvest
+.forge/shots
+.forge/ref
+.forge/audit
+.forge/build.log
+.forge/build-prod.log
+.dev.vars

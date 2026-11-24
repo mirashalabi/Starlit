@@ -1,0 +1,130 @@
+---
+import Menu from '~/components/Menu.astro';
+import Base from '~/layouts/Base.astro';
+import Photo from '~/components/Photo.astro';
+import Icon from '~/components/Icon.astro';
+import Crumbs from '~/components/Crumbs.astro';
+import Lightbox from '~/components/Lightbox.astro';
+import RentalCard from '~/components/RentalCard.astro';
+import { getImage } from 'astro:assets';
+import { photo } from '~/lib/photos';
+import { rentals, categoryUrl, rentalUrl, inCategory, dayPrice, photoKey, fit, type Rental } from '~/lib/data';
+import { slugify } from '~/lib/slug';
+
+export function getStaticPaths() {
+  return rentals.map((r) => ({ params: { category: slugify(r.category), item: r.slug }, props: { r } }));
+}
+const { r } = Astro.props as { r: Rental };
+const url = rentalUrl(r);
+const crumbs = [{ name: 'Rentals', path: '/rentals/' }, { name: r.category, path: categoryUrl(r.category) }, { name: r.name, path: url }];
+const thumb = await getImage({ src: photo(photoKey('rentals', r.photos[0])), width: 160, format: 'webp' });
+const fullImgs = await Promise.all(r.photos.map((p) => { const m = photo(photoKey('rentals', p)); return getImage({ src: m, width: Math.min(2000, m.width), format: 'webp' }); }));
+const itemImgs = await Promise.all(r.photos.map((p) => getImage({ src: photo(photoKey('rentals', p)), width: 1200, format: 'jpg' })));
+const optionPrices = r.options.filter((o) => o.price != null && o.price !== r.price);
+const related = inCategory(r.category).filter((x) => x.slug !== r.slug);
+const start = Math.max(0, related.findIndex((x) => x.sku != null && r.sku != null && Number(x.sku) > Number(r.sku)));
+const more = [...related.slice(start), ...related.slice(0, start)].slice(0, 4);
+const options = r.options.filter((o) => o.label);
+const desc = r.description.replace(/\s+/g, ' ').trim();
+const per = r.price != null ? dayPrice(r.price).replace(' / day', ' a day') : '';
+const metaDesc = fit([
+  `${desc}${per ? ` Rent it from Starlit for ${per}.` : ''} Ottawa, Montreal & Toronto.`,
+  `${desc}${per ? ` Rent it from Starlit for ${per}.` : ''}`,
+  desc,
+  `${r.name} rental from Starlit${per ? `, ${per}` : ''}. ${r.category}, Ottawa, Montreal & Toronto.`,
+], 160);
+const perShort = r.price != null ? dayPrice(r.price).replace(' / day', '/day') : '';
+---
+<Base
+  heroPhoto={photoKey('rentals', r.photos[0])}
+  heroSizes="(min-width: 860px) 55vw, 100vw"
+  heroMax={1600}
+  title={fit([`${r.name} Rental${perShort ? `, ${perShort}` : ''} | Starlit`, `${r.name} Rental | Starlit`, `${r.name} | Starlit`], 65)}
+  description={metaDesc}
+  ogImage={`/og/rental-${r.slug}.jpg`}
+  ogImageAlt={r.name}
+  crumbs={crumbs}
+  pageType="ItemPage"
+  mainEntity="#product"
+  solidHeader
+  nodes={(abs, ids) => [{
+    '@type': 'Product',
+    '@id': abs(`${url}#product`),
+    name: r.name,
+    description: desc,
+    sku: r.sku ?? undefined,
+    category: r.category,
+    image: itemImgs.map((i) => abs(i.src)),
+    mainEntityOfPage: { '@id': ids.page },
+    ...(r.price != null ? {
+      offers: [{
+        '@type': 'Offer',
+        ...(r.options[0]?.label ? { name: r.options[0].label } : {}),
+        url: abs(url),
+        priceCurrency: 'CAD',
+        price: r.price,
+        priceSpecification: { '@type': 'UnitPriceSpecification', price: r.price, priceCurrency: 'CAD', unitCode: 'DAY', unitText: 'day' },
+        businessFunction: 'http://purl.org/goodrelations/v1#LeaseOut',
+        seller: { '@id': ids.biz },
+      }].concat(optionPrices.map((o) => ({ '@type': 'Offer', name: o.label, url: abs(url), priceCurrency: 'CAD', price: o.price, priceSpecification: { '@type': 'UnitPriceSpecification', price: o.price, priceCurrency: 'CAD', unitCode: 'DAY', unitText: 'day' }, businessFunction: 'http://purl.org/goodrelations/v1#LeaseOut', seller: { '@id': ids.biz } }))),
+    } : {}),
+  }]}
+>
+  <section class="page-head on-light">
+    <div class="wrap">
+      <Crumbs items={crumbs} />
+      <div class="item">
+        <div class="item__media" data-item-media>
+          <div class="item__main" data-item-main data-gallery>
+            {r.photos.map((p, i) => (
+              <div data-item-slide hidden={i > 0}>
+                <button type="button" class="item__zoom" data-full={fullImgs[i].src} aria-label={`Enlarge photo ${i + 1} of ${r.photos.length}: ${r.name}`}>
+                  <Photo name={photoKey('rentals', p)} alt={i === 0 ? r.name : `${r.name}, photo ${i + 1}`} eager={i === 0} sizes="(min-width: 860px) 55vw, 100vw" maxWidth={1600} />
+                  <span class="item__zoom-hint" aria-hidden="true"><Icon name="expand" /> Enlarge</span>
+                </button>
+              </div>
+            ))}
+          </div>
+          {r.photos.length > 1 && (
+            <div class="item__thumbs">
+              {r.photos.map((p, i) => (
+                <button type="button" data-thumb aria-current={String(i === 0)} aria-label={`Show photo ${i + 1}`}>
+                  <Photo name={photoKey('rentals', p)} alt="" sizes="84px" maxWidth={320} />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+        <div class="item__info">
+          <p class="eyebrow"><a href={categoryUrl(r.category)} style="text-decoration:none">{r.category}</a></p>
+          <h1>{r.name}</h1>
+          {r.price != null && <p class="item__price">{dayPrice(r.price).replace(' / day', '')} <span>/ day</span></p>}
+          <p class="item__desc">{desc}</p>
+          {options.length > 0 && (
+            <Menu compact label={r.optionGroup && !/frame/i.test(r.optionGroup) ? r.optionGroup : 'Options'} items={options.map((o, i) => ({ name: o.label, price: o.price != null ? dayPrice(o.price) : i === 0 && r.price != null ? dayPrice(r.price) : 'Ask us' }))} />
+          )}
+          {r.questions.map((q) => <p class="item__q">{q}</p>)}
+          <div class="item__actions">
+            <button class="btn btn--ink" type="button" data-add data-name={r.name} data-category={r.category} data-price={r.price ?? ''} data-image={thumb.src} data-url={url} data-add-text="Add to Inquiry" aria-pressed="false">
+              <Icon name="plus" /><span data-add-label>Add to Inquiry</span>
+            </button>
+            <a class="btn btn--ghost" href="/contact/">Review inquiry</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {more.length > 0 && (
+    <section class="section on-light" aria-labelledby="more-h">
+      <div class="wrap">
+        <div class="section-head">
+          <div><h2 id="more-h" class="display-m">More <em>{r.category}</em></h2></div>
+          <a class="link-arrow" href={categoryUrl(r.category)}>All {r.category.toLowerCase()} <Icon name="arrow" /></a>
+        </div>
+        <ul class="rental-grid rental-grid--related">{more.map((x) => <li><RentalCard item={x} /></li>)}</ul>
+      </div>
+    </section>
+  )}
+  <Lightbox />
+</Base>

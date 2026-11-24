@@ -1,0 +1,79 @@
+---
+import Base from '~/layouts/Base.astro';
+import Photo from '~/components/Photo.astro';
+import Icon from '~/components/Icon.astro';
+import Crumbs from '~/components/Crumbs.astro';
+import { site } from '~/config/site';
+import Social from '~/components/Social.astro';
+import { locations, locationUrl } from '~/config/locations';
+import { lead, relayLive } from '~/config/lead';
+const crumbs = [{ name: 'Contact Us', path: '/contact/' }];
+---
+<Base
+  title="Contact Starlit | Book Your Free Consultation"
+  description={`Planning a memorable event? Call ${site.phone}, email ${site.email} or send an inquiry for events, rentals or photography.`}
+  ogImage="/og/contact.jpg"
+  crumbs={crumbs}
+  pageType="ContactPage"
+  cta={false}
+>
+  <section class="page-hero page-hero--short" data-hero>
+    <video class="bgvideo" data-bgvideo muted loop playsinline preload="none" poster="/video/contact-poster.webp" data-webm="/video/contact.webm" data-mp4="/video/contact.mp4" aria-hidden="true" width="1280" height="720"></video>
+    <div class="wrap page-hero__inner">
+      <Crumbs items={crumbs} />
+      <h1 class="display-xl">Get in <em>Touch</em></h1>
+      <p>Planning a memorable event?<br />Reach out to us for a unique experience.</p>
+    </div>
+  </section>
+
+  <section class="section on-light" style="padding-top:clamp(56px,7vw,104px)">
+    <div class="wrap contact-grid">
+      <div class="form-card" id="quote">
+        <div class="cart" data-cart>
+          <h2>Items in Your Inquiry</h2>
+          <ul></ul>
+          <p data-cart-empty>No items have been added to your inquiry yet. Browse our <a href="/rentals/">Rentals</a> if you would like to add items!</p>
+        </div>
+        <form action={relayLive ? lead.relay : lead.formspree} method="POST" novalidate data-lead-form data-relay={relayLive ? 'on' : undefined}>
+          <input type="hidden" name="source" value="Contact page" />
+          <input type="hidden" name="inquiry_items" value="No rental items added." />
+          <input type="hidden" name="form_ms" value="" />
+          <div class="hp" aria-hidden="true"><label>Company website <input type="text" name={lead.honeypot} tabindex="-1" autocomplete="off" /></label></div>
+          <div class="form-grid">
+            <div class="field"><label for="f-first">First Name *</label><input id="f-first" name="name" autocomplete="given-name" required /></div>
+            <div class="field"><label for="f-last">Last Name *</label><input id="f-last" name="lastname" autocomplete="family-name" required /></div>
+            <div class="field"><label for="f-email">Email Address *</label><input id="f-email" name="email" type="email" autocomplete="email" required /></div>
+            <div class="field"><label for="f-phone">Phone Number *</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required /></div>
+            <div class="field"><label for="f-type">Inquiry Type *</label>
+              <select id="f-type" name="service" required>
+                <option value="">Select one...</option>
+                <option>Event</option>
+                <option>Rental</option>
+                <option>Photography</option>
+                <option>General</option>
+              </select>
+            </div>
+            <div class="field"><label for="f-date">Event Date (optional)</label><input id="f-date" name="event_date" type="date" /></div>
+            <div class="field full"><label for="f-msg">Message *</label><textarea id="f-msg" name="message" required></textarea></div>
+          </div>
+          <div data-turnstile style="margin-top:18px"></div>
+          <p class="form-msg form-msg--error" data-form-error hidden role="alert">Please fill out all required fields.</p>
+          <div style="margin-top:24px"><button class="btn btn--ink" type="submit">Send <Icon name="arrow" /></button></div>
+        </form>
+      </div>
+      <aside class="contact-aside" aria-labelledby="hours-h">
+        <div class="split__media"><Photo name="site/title-bar" alt="A gold arch with eucalyptus and white drapery under a pergola with hanging bulbs" eager sizes="(min-width: 960px) 40vw, 100vw" maxWidth={1600} /></div>
+        <ul class="contact-lines">
+          <li><a href={site.phoneHref}><strong>{site.phone}</strong></a></li>
+          <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+        </ul>
+        <Social variant="big" class="contact-social" />
+        <h2 id="hours-h" class="display-s">Operating Hours</h2>
+        <dl class="hours">
+          {site.hours.map((h) => <div><dt>{h.label}</dt><dd>{h.text}</dd></div>)}
+        </dl>
+        <p class="muted" style="margin-top:20px">{locations.map((l, i) => <Fragment>{i > 0 && ' • '}<a href={locationUrl(l)}>{l.city}</a></Fragment>)}</p>
+      </aside>
+    </div>
+  </section>
+</Base>

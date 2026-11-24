@@ -1,0 +1,68 @@
+[
+  {
+    "name": "Romantic Proposal",
+    "slug": "romantic-proposal",
+    "description": "An intimate, bespoke proposal designed to create a breathtaking moment they’ll cherish forever.",
+    "photos": [
+      "Romantic_Proposal_1",
+      "Romantic_Proposal_2",
+      "Romantic_Proposal_3",
+      "Romantic_Proposal_4",
+      "Romantic_Proposal_5",
+      "Romantic_Proposal_6",
+      "Romantic_Proposal_7"
+    ],
+    "questions": []
+  },
+  {
+    "name": "80s Disco Party",
+    "slug": "80s-disco-party",
+    "description": "A high-energy retro experience filled with iconic hits, bold colours, and unforgettable dance-floor magic.",
+    "photos": [
+      "80s_Disco_Party_1",
+      "80s_Disco_Party_2",
+      "80s_Disco_Party_3",
+      "80s_Disco_Party_4",
+      "80s_Disco_Party_5",
+      "80s_Disco_Party_6",
+      "80s_Disco_Party_7",
+      "80s_Disco_Party_8",
+      "80s_Disco_Party_9",
+      "80s_Disco_Party_10"
+    ],
+    "questions": []
+  },
+  {
+    "name": "Dreamy Bachelorette Party",
+    "slug": "dreamy-bachelorette-party",
+    "description": "A luxe waterfront escape designed to spoil the bride-to-be with cosy moments, stunning décor, and all-weekend surprises.",
+    "photos": [
+      "Dreamy_Bachelorette_Party_1",
+      "Dreamy_Bachelorette_Party_2",
+      "Dreamy_Bachelorette_Party_3",
+      "Dreamy_Bachelorette_Party_4",
+      "Dreamy_Bachelorette_Party_5",
+      "Dreamy_Bachelorette_Party_6",
+      "Dreamy_Bachelorette_Party_7",
+      "Dreamy_Bachelorette_Party_8",
+      "Dreamy_Bachelorette_Party_9",
+      "Dreamy_Bachelorette_Party_10",
+      "Dreamy_Bachelorette_Party_11"
+    ],
+    "questions": []
+  },
+  {
+    "name": "Butterfly Birthday Party",
+    "slug": "butterfly-birthday-party",
+    "description": "A whimsical blue-butterfly celebration brought to life with dreamy decor and unforgettable birthday magic.",
+    "photos": [
+      "Butterfly_Birthday_Party_1",
+      "Butterfly_Birthday_Party_2",
+      "Butterfly_Birthday_Party_3",
+      "Butterfly_Birthday_Party_4",
+      "Butterfly_Birthday_Party_5",
+      "Butterfly_Birthday_Party_6"
+    ],
+    "questions": []
+  }
+]
