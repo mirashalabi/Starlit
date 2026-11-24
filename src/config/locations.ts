@@ -55,8 +55,8 @@ export const locations: Location[] = [
     provinceCode: 'ON',
     wikipedia: 'https://en.wikipedia.org/wiki/Toronto',
     wikidata: 'https://www.wikidata.org/wiki/Q172',
-    photo: 'events/dreamy-bachelorette-party-6',
-    photoAlt: 'A round arch with greenery, white drapery and gold MRS balloons for a bachelorette party, styled by Starlit',
+    photo: 'events/80s-disco-party-3',
+    photoAlt: 'A balloon arch with a silver starburst over a Back to the 80s backdrop with a disco ball and boombox, styled by Starlit',
     local: [],
   },
 ];
